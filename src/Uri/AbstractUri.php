@@ -15,7 +15,6 @@
 
 namespace Seeren\Http\Uri;
 
-use Psr\Http\Message\UriInterface;
 use InvalidArgumentException;
 
 /**
@@ -132,9 +131,7 @@ abstract class AbstractUri
     */
    private final function parsePath(string $path): string
    {
-       return preg_match("/^([\w-_\.\/])+$/", $path)
-            ? ltrim($path, "/")
-            : "";
+       return preg_match("/^([\w-_\.\/])+$/", $path) ? ltrim($path, "/") : "";
    }
 
    /**
@@ -164,7 +161,7 @@ abstract class AbstractUri
     * 
     * @return UriInterface self with
     */
-   final private function with(string $name, $value): UriInterface
+   private final function with(string $name, $value): UriInterface
    {
        $clone = clone $this;
        $clone->{$name} = $value;

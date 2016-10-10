@@ -15,7 +15,7 @@
 
 namespace Seeren\Http\Stream;
 
-use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\StreamInterface as PsrStreamInterface;
 
 /**
  * Interface for represent stream
@@ -24,7 +24,7 @@ use Psr\Http\Message\StreamInterface;
  * @package Http
  * @subpackage Stream
  */
-interface StreamInterface extends StreamInterface
+interface StreamInterface extends PsrStreamInterface
 {
 
    const

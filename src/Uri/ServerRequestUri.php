@@ -92,7 +92,6 @@ class ServerRequestUri extends AbstractUri implements ServerRequestUriInterface
    public final function __toString()
    {
        $uri = parent::__toString();
-       var_dump($uri);
        return "" !== $this->redirect
             ? ((explode($this->path, $uri))[0] . ltrim($this->redirect, "/"))
             : $uri;

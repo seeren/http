@@ -15,7 +15,7 @@
 
 namespace Seeren\Http\Uri;
 
-use Psr\Http\Message\UriInterface;
+use Psr\Http\Message\UriInterface as PsrUriInterface;
 
 /**
  * Interface for represent an uri
@@ -24,7 +24,7 @@ use Psr\Http\Message\UriInterface;
  * @package Http
  * @subpackage Uri
  */
-interface UriInterface extends UriInterface
+interface UriInterface extends PsrUriInterface
 {
 
    const

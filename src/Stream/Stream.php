@@ -16,6 +16,7 @@
 namespace Seeren\Http\Stream;
 
 use RuntimeException;
+use InvalidArgumentException;
 
 /**
  * Class for represent stream
@@ -35,19 +36,7 @@ class Stream implements StreamInterface
        /**
         * @var array stream metadata
         */
-       $meta,
-       /**
-        * @var int|null stream size
-        */
-       $size,
-       /**
-        * @var bool stream is readable
-        */
-       $readable,
-       /**
-        * @var bool stream is writable
-        */
-       $writable;
+       $meta;
 
    /**
     * Construct Stream
@@ -56,20 +45,24 @@ class Stream implements StreamInterface
     * @param string $mode ressource mode
     * @return null
     * 
-    * @throws RuntimeException
+    * @throws InvalidArgumentException
     */
-   public function __construct(string $target, string $mode)
+   public function __construct(string $target, string $mode, $context = null)
    {
-       if (!($this->stream = fopen($target, $mode))
-        || ! ($this->meta = stream_get_meta_data($this->stream))) {
-           throw new RuntimeException(
+       if (null !== $context
+        &&!($this->stream = fopen($target, $mode, false, $context))) {
+           throw new InvalidArgumentException(
+               "Can't create Stream: unavailable target for context"); 
+       } else if (!($this->stream = fopen($target, $mode))) {
+           throw new InvalidArgumentException(
                "Can't create Stream: unavailable target");         
        }
+       $this->meta = stream_get_meta_data($this->stream);
        $this->setReadableWritable($mode);
-       $this->size = ($stat = fstat($this->stream))
-                  && array_key_exists("size", $stat)
-                   ? $stat["size"]
-                   : null;
+       $this->meta["size"] = ($stat = fstat($this->stream))
+                          && array_key_exists("size", $stat)
+                           ? $stat["size"]
+                           : null;
    }
 
    /**
@@ -81,21 +74,21 @@ class Stream implements StreamInterface
    private final function setReadableWritable(string $mode)
    {
       if (self::MODE_R === $mode) {
-          $this->readable = true;
-          $this->writable = false;
+          $this->meta["readable"] = true;
+          $this->meta["writable"] = false;
       } else if (self::MODE_W === $mode
               || self::MODE_A === $mode
               || self::MODE_C === $mode
               || self::MODE_X === $mode) {
-          $this->readable = false;
-          $this->writable = true;
+          $this->meta["readable"] = false;
+          $this->meta["writable"] = true;
       } else if (self::MODE_R_MORE === $mode
               || self::MODE_W_MORE === $mode    
               || self::MODE_A_MORE === $mode
               || self::MODE_C_MORE === $mode
               || self::MODE_X_MORE === $mode) {
-          $this->readable = true;
-          $this->writable = true;
+          $this->meta["readable"] = true;
+          $this->meta["writable"] = true;
        }
    }
 
@@ -121,10 +114,11 @@ class Stream implements StreamInterface
    public final function close()
    {
        fclose($this->stream);
-       $this->meta = [];
-       $this->size = null;
-       $this->readable = false;
-       $this->writable = false;
+      $this->meta = [
+          "size" => null,
+          "readable" => false,
+          "writable" => false
+      ];
    }
 
    /**
@@ -150,8 +144,9 @@ class Stream implements StreamInterface
     */
    public final function getSize()
    {
-       return $this->size;
+       return $this->getMetadata("size");
    }
+
     /**
     * Get pointer position
     *
@@ -214,7 +209,7 @@ class Stream implements StreamInterface
     */
    public final function rewind()
    {
-       if (!$this->isReadable()) {
+       if (!$this->isReadable() || !$this->isSeekable()) {
            throw new RuntimeException("Can't rewind: stream is not readable");
        }
        rewind($this->stream);
@@ -228,7 +223,7 @@ class Stream implements StreamInterface
     */
    public final function isWritable(): bool
    {
-       return $this->writable;
+       return $this->getMetadata("writable");
    }
     
    /**
@@ -238,7 +233,7 @@ class Stream implements StreamInterface
     */
    public final function isReadable(): bool
    {
-       return $this->readable;
+       return $this->getMetadata("readable");
    }
 
    /**
@@ -256,7 +251,7 @@ class Stream implements StreamInterface
        }
        $this->meta["eof"] = true;
        $size = (int) fwrite($this->stream, (string) $string);
-       $this->size += $size;
+       $this->meta["size"] = $this->getMetadata("size") + $size;
        return $size;
    }
 
@@ -273,7 +268,7 @@ class Stream implements StreamInterface
        if (!$this->isReadable()) {
            throw new RuntimeException("Can't read: stream is not readable");
        }
-       $read = fread($this->stream, (int) $length);
+       $read = (string) fread($this->stream, (int) $length);
        $this->meta["eof"] = !$read ? true : false;
        return $read;
    }
@@ -290,9 +285,8 @@ class Stream implements StreamInterface
            throw new RuntimeException(
                "Can't getContents: stream is not readable");
        }
-       $this->rewind();
        $this->meta["eof"] = true;
-       return stream_get_contents($this->stream);
+       return (string) stream_get_contents($this->stream);
    }
 
    /**

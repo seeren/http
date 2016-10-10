@@ -46,7 +46,6 @@ abstract class StreamInterfaceTest extends \PHPUnit_Framework_TestCase
            $stream->isWritable() === false
         && $stream->isReadable() === false
         && $stream->isSeekable() === false
-        && $stream->getMetadata() === []
        );
    }
 

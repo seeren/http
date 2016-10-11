@@ -33,10 +33,10 @@ interface MessageInterface
        /**
         * @var string protocol version 0
         */
-       PROTOCOL_0 = "1.0",
+       VERSION_0 = "1.0",
        /**
         * @var string protocol version 1
         */
-       PROTOCOL_1 = "1.1";
+       VERSION_1 = "1.1";
 
 }

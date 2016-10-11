@@ -60,7 +60,7 @@ class Response extends AbstractMessage implements ResponseInterface
     *
     * @throws InvalidArgumentException
     */
-   public final function setStatus(int $code)
+   protected final function setStatus(int $code)
    {
        $const = "self::STATUS_" . $code;
        if (!defined($const)) {
@@ -69,43 +69,6 @@ class Response extends AbstractMessage implements ResponseInterface
        }
        $this->statusCode = $code;
        $this->reasonPhrase = constant($const);
-   }
-
-   /**
-    * Set header
-    *
-    * @param string $name header case-insensitive name
-    * @param string|array $value header value
-    * @return null
-    *
-    * @throws InvalidArgumentException
-    */
-   public final function setHeader(string $name, $value)
-   {
-       $parsedValue = $this->parseHeaderValue($value);
-       if ([] === $parsedValue) {
-           throw new InvalidArgumentException(
-               "Can't set header: invalid " . $name);
-       }
-       $this->header[$this->parseHeaderName($name)] = $parsedValue;
-   }
-
-   /**
-    * Remove header
-    *
-    * @param string $name header case-insensitive name
-    * @return null
-    *
-    * @throws InvalidArgumentException
-    */
-   public final function removeHeader(string $name): bool
-   {
-       $parsedName = $this->parseHeaderName($name);
-       if (array_key_exists($parsedName, $this->header)) {
-           unset($this->header[$parsedName]);
-           return true;
-       }
-       return false;
    }
 
    /**
@@ -133,7 +96,7 @@ class Response extends AbstractMessage implements ResponseInterface
    {
        try {
            $response = $this->with("statusCode", $code);
-           $response->setStatus($code);
+           $response->setStatus((int) $code);
        } catch (InvalidArgumentException $e) {
            throw new InvalidArgumentException(
                "Can't get instance for status: " . $e->getMessage());

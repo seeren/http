@@ -351,34 +351,6 @@ class ServerRequest extends AbstractRequest implements ServerRequestInterface
    }
 
    /**
-    * Set attribute
-    *
-    * @param string $name attribute name
-    * @param mixed $default default value
-    * @return mixed
-    */
-   public final function setAttribute(string $name, $value)
-   {
-       $this->attributes[strtolower($name)] = $value;
-   }
-
-   /**
-    * Remove attribute
-    *
-    * @param string $name header case-insensitive name
-    * @return bool removed or not
-    */
-   public final function removeAttribute(string $name): bool
-   {
-       $toLowerName = strtolower($name);
-       if (array_key_exists($toLowerName, $this->attributes)) {
-           unset($this->attributes[$toLowerName]);
-           return true;
-       }
-       return false;
-   }
-
-   /**
     * Get an instance for attribute
     *
     * @param string $name name

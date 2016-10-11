@@ -15,7 +15,7 @@
 
 namespace Seeren\Http\Request;
 
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ServerRequestInterface as PsrServerRequestInterface;
 
 /**
  * Interface for represent http server request
@@ -25,8 +25,8 @@ use Psr\Http\Message\ServerRequestInterface;
  * @subpackage Request
  */
 interface ServerRequestInterface extends
-    ServerRequestInterface,
-    RequestInterface
+    RequestInterface,
+    PsrServerRequestInterface
 {
 
    const
@@ -38,22 +38,5 @@ interface ServerRequestInterface extends
         * @var string server index
         */
        SERVER_METHOD = "REQUEST_METHOD";
-
-   /**
-    * Set attribute
-    *
-    * @param string $name attribute name
-    * @param mixed $default default value
-    * @return mixed
-    */
-   public function setAttribute(string $name, $value);
-
-   /**
-    * Remove attribute
-    *
-    * @param string $name header case-insensitive name
-    * @return bool removed or not
-    */
-   public function removeAttribute(string $name): bool;
 
 }

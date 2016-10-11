@@ -25,7 +25,7 @@ use Psr\Http\Message\StreamInterface;
  * @package Http
  * @subpackage Request
  */
-class Request extends AbstractRequest implements RequestInterface
+class Request extends AbstractRequest
 {
 
    /**

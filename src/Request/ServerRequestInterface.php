@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Request\ServerRequest interface
+ * This file contain Seeren\Http\Request\ServerRequestInterface interface
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /

@@ -67,6 +67,7 @@ abstract class ResponseInterfaceTest extends MessageInterfaceTest
            [521]
        ];
    }
+
    /**
     * Test ResponseInterface::getStatusCode
     */

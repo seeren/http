@@ -71,9 +71,9 @@ abstract class AbstractMessage
    protected final function parseProtocol($version): string
    {
        return static::PROTOCOL
-            . ($version == static::PROTOCOL_0
-            ? static::PROTOCOL_0
-            : static::PROTOCOL_1);
+            . ($version == static::VERSION_0
+            ? static::VERSION_0
+            : static::VERSION_1);
    }
 
    /**

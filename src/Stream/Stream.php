@@ -49,10 +49,11 @@ class Stream implements StreamInterface
     */
    public function __construct(string $target, string $mode, $context = null)
    {
-       if (null !== $context
-        &&!($this->stream = fopen($target, $mode, false, $context))) {
-           throw new InvalidArgumentException(
-               "Can't create Stream: unavailable target for context"); 
+       if (is_resource($context)) {
+           if (!($this->stream = fopen($target, $mode, false, $context))) {
+               throw new InvalidArgumentException(
+                   "Can't create Stream: unavailable target for context"); 
+           }
        } else if (!($this->stream = fopen($target, $mode))) {
            throw new InvalidArgumentException(
                "Can't create Stream: unavailable target");         

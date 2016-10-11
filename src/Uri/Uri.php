@@ -32,9 +32,9 @@ class Uri extends AbstractUri implements UriInterface
      * @param string $host uri host
      * @param string $path uri path
      * @param string $query uri query
-     * @param string $fragment uri fragment
-     * @param int $port uri port
      * @param string $user uri user
+     * @param int $port uri port
+     * @param string $fragment uri fragment
      * @return null
      */
     public function __construct(
@@ -42,9 +42,9 @@ class Uri extends AbstractUri implements UriInterface
         string $host,
         string $path = "",
         string $query = "",
-        string $fragment = "",
+        string  $user = "",
         int $port = 0,
-        string  $user = "")
+        string $fragment = "")
     {
          parent::__construct(
              $scheme,

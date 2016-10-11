@@ -15,7 +15,7 @@
 
 namespace Seeren\Http\Upload;
 
-use Psr\Http\Message\UploadedFileInterface;
+use Psr\Http\Message\UploadedFileInterface as PsrUploadedFileInterface;
 
 /**
  * Interface for represente an uploaded file
@@ -24,7 +24,7 @@ use Psr\Http\Message\UploadedFileInterface;
  * @package Http
  * @subpackage Upload
  */
-interface UploadedFileInterface extends UploadedFileInterface
+interface UploadedFileInterface extends PsrUploadedFileInterface
 {
 
    const

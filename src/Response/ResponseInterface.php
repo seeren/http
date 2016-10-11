@@ -15,7 +15,7 @@
 
 namespace Seeren\Http\Response;
 
-use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
 use Seeren\Http\Message\MessageInterface;
 
 /**
@@ -25,7 +25,7 @@ use Seeren\Http\Message\MessageInterface;
  * @package Http
  * @subpackage Response
  */
-interface ResponseInterface extends ResponseInterface, MessageInterface
+interface ResponseInterface extends MessageInterface, PsrResponseInterface
 {
 
    const
@@ -205,34 +205,5 @@ interface ResponseInterface extends ResponseInterface, MessageInterface
         * @var string reason phrase
         */
        STATUS_520 = "Web server is returning an unknown error";
-
-   /**
-    * Set status
-    *
-    * @param int $code status code
-    * @return null
-    *
-    * @throws InvalidArgumentException
-    */
-   public function setStatus(int $code);
-
-   /**
-    * Set header
-    *
-    * @param string $name header case-insensitive name
-    * @param string|array $value header value
-    * @return null
-    *
-    * @throws InvalidArgumentException
-    */
-   public function setHeader(string $name, $value);
-
-   /**
-    * Remove header
-    *
-    * @param string $name header case-insensitive name
-    * @return bool removed or not
-    */
-   public function removeHeader(string $name): bool;
 
 }

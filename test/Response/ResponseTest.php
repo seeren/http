@@ -42,27 +42,4 @@ class ResponseTest extends ResponseInterfaceTest
            [$this->getMock(ServerResponseStream::class)]);
    }
 
-   /**
-    * Test Response::setHeader
-    */
-   public final function testSetHeader()
-   {
-       $mock = $this->getMessage();
-       $nHeader = count($mock->getHeaders());
-       $mock->setHeader("Location", "/");
-       $this->assertTrue(++$nHeader === count($mock->getHeaders()));
-   }
-
-   /**
-    * Test Response::removeHeader
-    */
-   public final function testRemoveHeader()
-   {
-       $mock = $this->getMessage();
-       $mock->setHeader("Location", "/");
-       $nHeader = count($mock->getHeaders());
-       $mock->removeHeader("Location");
-       $this->assertTrue(--$nHeader === count($mock->getHeaders()));
-   }
-
 }

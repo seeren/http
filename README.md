@@ -4,7 +4,7 @@ Psr-7 implementation.
 
 #### Code Example
 
-Manage Http Message, Request, ServerRequest, UploadedFile, Response, Uri and Stream.
+Manage Http Message, Request, UploadedFile, Response, Uri and Stream.
 
 ### Seeren\Http\Uri\Uri
 
@@ -140,6 +140,17 @@ ServerRequest handle all inputs, protocol, method, headers and body.
     new ServerRequestStream,
     new ServerRequestUri)
 )->getUploadedFiles()["foo"]->moveTo("foo.txt");
+```
+
+### Seeren\Http\Request\ClientRequest
+
+Consum web service with client request, a Response is provided after request is send.
+
+```php
+$response = (new ClientRequest(
+    "GET",
+    new Uri("http", "host"),
+    new ClientRequestStream))->send()->getResponse();
 ```
 
 #### Running the tests

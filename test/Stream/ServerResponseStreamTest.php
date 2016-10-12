@@ -16,8 +16,8 @@
 namespace Seeren\Http\Test\Stream;
 
 use Psr\Http\Message\StreamInterface;
-use ReflectionClass;
 use Seeren\Http\Stream\ServerResponseStream;
+use ReflectionClass;
 
 /**
  * Class for test ServerResponseStream

@@ -166,7 +166,7 @@ $ phpunit test/Uri/ServerRequestUriTest.php
 $ phpunit test/Stream/StreamTest.php
 $ phpunit test/Stream/ServerRequestStreamTest.php
 $ phpunit test/Stream/ServerResponseStreamTest.php
-$ phpunit /test/Upload/UploadedFileTest.php
+$ phpunit test/Upload/UploadedFileTest.php
 ```
 
 #### License

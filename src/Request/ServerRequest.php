@@ -262,9 +262,9 @@ class ServerRequest extends AbstractRequest implements ServerRequestInterface
     * @param array $query query params
     * @return MessageInterface for query params
     */
-   public final function withQueryParams(array $query): array
+   public final function withQueryParams(array $query): ServerRequestInterface
    {
-       return $this->with("query", $query);
+       return $this->with("queryParam", $query);
    }
 
    /**

@@ -4,11 +4,11 @@ Psr-7 implementation.
 
 #### Code Example
 
-Manage Http Message, Request, UploadedFile, Response, Uri and Stream.
+Manage http message, request, uploaded files, response, uri and stream.
 
 ### Seeren\Http\Uri\Uri
 
-Uri provide basic uri using constructor or the with method.
+Uri need at least a protocol and a host.
 
 ```php
 /**
@@ -25,9 +25,9 @@ echo $uri->withUser("user", "pswd")
 
 ### Seeren\Http\Uri\ServerRequestUri
 
-ServerRequestUri use server input for self construct then detect presence of
+ServerRequestUri use server input for self construction then detect presence of
 RewriteEngine for correct string representation. An instance is handled by a 
-ServerRequest and should be used by a router.
+ServerRequest.
 
 ```php
 $uri = new ServerRequestUri;
@@ -168,7 +168,3 @@ $ phpunit test/Stream/ServerRequestStreamTest.php
 $ phpunit test/Stream/ServerResponseStreamTest.php
 $ phpunit test/Upload/UploadedFileTest.php
 ```
-
-#### License
-
-[MIT](https://github.com/Seeren/Seeren/blob/master/LICENSE)

@@ -43,6 +43,62 @@ interface RequestInterface extends MessageInterface
        /**
         * @var string method name
         */
-       DELETE = "DELETE";
+       DELETE = "DELETE",
+       /**
+        * @var string header value
+        */
+       HEADER_EXPECT = "Expect",
+       /**
+        * @var string header value
+        */
+       HEADER_FROM = "From",
+       /**
+        * @var string header value
+        */
+       HEADER_HOST = "Host",
+       /**
+        * @var string header value
+        */
+       HEADER_IF_MATCH = "If-Match",
+       /**
+        * @var string header value
+        */
+       HEADER_IF_MODIFIED_SINCE = "If-Modified-Since",
+       /**
+        * @var string header value
+        */
+       HEADER_IF_NOT_MATCH = "If-None-Match",
+       /**
+        * @var string header value
+        */
+       HEADER_IF_RANGE = "If-Range",
+       /**
+        * @var string header value
+        */
+       HEADER_IF_UNMODIFIED_SINCE = "If-Unmodified-Since",
+       /**
+        * @var string header value
+        */
+       HEADER_MAX_FORWARDS = "Max-Forwards",
+       /**
+        * @var string header value
+        */
+       HEADER_ORIGIN = "Origin",
+       /**
+        * @var string header value
+        */
+       HEADER_PROXY_AUTHORIZATION = "Proxy-Authorization",
+       /**
+        * @var string header value
+        */
+       HEADER_RANGE = "Range",
+       /**
+        * @var string header value
+        */
+       HEADER_REFER = "Refer",
+       /**
+        * @var string header value
+        */
+       HEADER_USER_AGENT = "User-Agent";
 
 }

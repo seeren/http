@@ -29,6 +29,74 @@ interface ResponseInterface extends MessageInterface
 
    const
        /**
+        * @var string header value
+        */
+       HEADER_ACCESS_CONTROL_ALLOW_ORIGIN = "Access-Control-Allow-Origin",
+       /**
+        * @var string header value
+        */
+       HEADER_ACCEPT_RANGES = "Accept-Ranges",
+       /**
+        * @var string header value
+        */
+       HEADER_AGE = "Age",
+       /**
+        * @var string header value
+        */
+       HEADER_ALLOW = "Allow",
+       /**
+        * @var string header value
+        */
+       HEADER_CONNECTION = "Connection",
+       /**
+        * @var string header value
+        */
+       HEADER_CONTENT_DISPOSITION = "Content-Disposition",
+       /**
+        * @var string header value
+        */
+       HEADER_CONTENT_ENCODING = "Content-Encoding",
+       /**
+        * @var string header value
+        */
+       HEADER_CONTENT_LANGUAGE = "Content-Language",
+       /**
+        * @var string header value
+        */
+       HEADER_ETAG = "ETag",
+       /**
+        * @var string header value
+        */
+       HEADER_EXPIRES= "Expires",
+       /**
+        * @var string header value
+        */
+       HEADER_LAST_MODIFIED = "Last-Modified",
+       /**
+        * @var string header value
+        */
+       HEADER_LOCATION = "Location",
+       /**
+        * @var string header value
+        */
+       HEADER_PRAGMA = "Pragma",
+       /**
+        * @var string header value
+        */
+       HEADER_REFRESH = "Refresh",
+       /**
+        * @var string header value
+        */
+       HEADER_RETRY_AFTER = "Retry-After",
+       /**
+        * @var string header value
+        */
+       HEADER_TRANSFERT_ENCODING = "Transfer-Encoding",
+       /**
+        * @var string header value
+        */
+       HEADER_WWW_AUTHENTICATE = "WWW-Authenticate",
+       /**
         * @var string reason phrase
         */
        STATUS_100 = "Continue",

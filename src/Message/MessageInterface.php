@@ -37,6 +37,30 @@ interface MessageInterface
        /**
         * @var string protocol version 1
         */
-       VERSION_1 = "1.1";
+       VERSION_1 = "1.1",
+       /**
+        * @var string header value
+        */
+       HEADER_CACHE_CONTROL = "Cache-Control",
+       /**
+        * @var string header value
+        */
+       HEADER_COOKIE = "Cookie",
+       /**
+        * @var string header value
+        */
+       HEADER_CONTENT_LENGTH = "Content-Length",
+       /**
+        * @var string header value
+        */
+       HEADER_CONTENT_SECURITY_POLICY = "Content-Security-Policy",
+       /**
+        * @var string header value
+        */
+       HEADER_CONTENT_TYPE = "Content-Type",
+       /**
+        * @var string header value
+        */
+       HEADER_DATE = "Date";
 
 }

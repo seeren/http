@@ -10,11 +10,12 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.2
+ * @version 1.1.2
  */
 
 namespace Seeren\Http\Request;
 
+use Psr\Http\Message\RequestInterface as PsrRequestInterface;
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\StreamInterface;
 
@@ -25,7 +26,9 @@ use Psr\Http\Message\StreamInterface;
  * @package Http
  * @subpackage Request
  */
-class Request extends AbstractRequest
+class Request extends AbstractRequest implements
+    PsrRequestInterface,
+    RequestInterface
 {
 
    /**

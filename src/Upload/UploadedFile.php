@@ -10,11 +10,12 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.2
+ * @version 1.1.2
  */
 
 namespace Seeren\Http\Upload;
 
+use Psr\Http\Message\UploadedFileInterface as PsrUploadedFileInterface;
 use Psr\Http\Message\StreamInterface;
 use Seeren\Http\Stream\Stream;
 use InvalidArgumentException;
@@ -27,7 +28,7 @@ use RuntimeException;
  * @package Http
  * @subpackage Upload
  */
-class UploadedFile implements UploadedFileInterface
+class UploadedFile implements PsrUploadedFileInterface, UploadedFileInterface
 {
 
    protected

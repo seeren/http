@@ -10,12 +10,10 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.2
+ * @version 1.1.2
  */
 
 namespace Seeren\Http\Upload;
-
-use Psr\Http\Message\UploadedFileInterface as PsrUploadedFileInterface;
 
 /**
  * Interface for represente an uploaded file
@@ -24,7 +22,7 @@ use Psr\Http\Message\UploadedFileInterface as PsrUploadedFileInterface;
  * @package Http
  * @subpackage Upload
  */
-interface UploadedFileInterface extends PsrUploadedFileInterface
+interface UploadedFileInterface
 {
 
    const

@@ -10,12 +10,11 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.2
+ * @version 1.2.2
  */
 
 namespace Seeren\Http\Response;
 
-use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
 use Seeren\Http\Message\MessageInterface;
 
 /**
@@ -25,7 +24,7 @@ use Seeren\Http\Message\MessageInterface;
  * @package Http
  * @subpackage Response
  */
-interface ResponseInterface extends MessageInterface, PsrResponseInterface
+interface ResponseInterface extends MessageInterface
 {
 
    const

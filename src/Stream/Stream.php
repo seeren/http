@@ -10,13 +10,14 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.2
+ * @version 1.1.2
  */
 
 namespace Seeren\Http\Stream;
 
-use RuntimeException;
+use Psr\Http\Message\StreamInterface as PsrStreamInterface;
 use InvalidArgumentException;
+use RuntimeException;
 
 /**
  * Class for represent stream
@@ -25,7 +26,7 @@ use InvalidArgumentException;
  * @package Http
  * @subpackage Stream
  */
-class Stream implements StreamInterface
+class Stream implements PsrStreamInterface, StreamInterface
 {
 
    protected

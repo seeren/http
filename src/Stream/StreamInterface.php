@@ -10,12 +10,10 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.2
+ * @version 1.0.3
  */
 
 namespace Seeren\Http\Stream;
-
-use Psr\Http\Message\StreamInterface as PsrStreamInterface;
 
 /**
  * Interface for represent stream
@@ -24,7 +22,7 @@ use Psr\Http\Message\StreamInterface as PsrStreamInterface;
  * @package Http
  * @subpackage Stream
  */
-interface StreamInterface extends PsrStreamInterface
+interface StreamInterface
 {
 
    const

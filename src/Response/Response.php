@@ -10,11 +10,12 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.2
+ * @version 1.2.2
  */
 
 namespace Seeren\Http\Response;
 
+use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use Seeren\Http\Message\AbstractMessage;
 use InvalidArgumentException;
@@ -26,7 +27,9 @@ use InvalidArgumentException;
  * @package Http
  * @subpackage Response
  */
-class Response extends AbstractMessage implements ResponseInterface
+class Response extends AbstractMessage implements
+    PsrResponseInterface,
+    ResponseInterface
 {
 
    protected

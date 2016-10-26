@@ -10,12 +10,10 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.2
+ * @version 1.1.2
  */
 
 namespace Seeren\Http\Request;
-
-use Psr\Http\Message\ServerRequestInterface as PsrServerRequestInterface;
 
 /**
  * Interface for represent http server request
@@ -24,9 +22,7 @@ use Psr\Http\Message\ServerRequestInterface as PsrServerRequestInterface;
  * @package Http
  * @subpackage Request
  */
-interface ServerRequestInterface extends
-    RequestInterface,
-    PsrServerRequestInterface
+interface ServerRequestInterface extends RequestInterface
 {
 
    const

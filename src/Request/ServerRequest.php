@@ -10,11 +10,12 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.2
+ * @version 1.1.2
  */
 
 namespace Seeren\Http\Request;
 
+use Psr\Http\Message\ServerRequestInterface as PsrServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UploadedFileInterface;
@@ -30,7 +31,9 @@ use InvalidArgumentException;
  * @package Http
  * @subpackage Request
  */
-class ServerRequest extends AbstractRequest implements ServerRequestInterface
+class ServerRequest extends AbstractRequest implements
+    PsrServerRequestInterface,
+    ServerRequestInterface
 {
 
    protected

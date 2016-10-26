@@ -10,10 +10,12 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.2
+ * @version 1.1.2
  */
 
 namespace Seeren\Http\Uri;
+
+use Psr\Http\Message\UriInterface as PsrUriInterface;
 
 /**
  * Class for represent server request uri
@@ -22,7 +24,9 @@ namespace Seeren\Http\Uri;
  * @package Http
  * @subpackage Uri
  */
-class ServerRequestUri extends AbstractUri implements ServerRequestUriInterface
+class ServerRequestUri extends AbstractUri implements
+    PsrUriInterface,
+    ServerRequestUriInterface
 {
 
    private

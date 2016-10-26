@@ -10,12 +10,10 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.2
+ * @version 1.1.2
  */
 
 namespace Seeren\Http\Uri;
-
-use Psr\Http\Message\UriInterface as PsrUriInterface;
 
 /**
  * Interface for represent an uri
@@ -24,7 +22,7 @@ use Psr\Http\Message\UriInterface as PsrUriInterface;
  * @package Http
  * @subpackage Uri
  */
-interface UriInterface extends PsrUriInterface
+interface UriInterface
 {
 
    const

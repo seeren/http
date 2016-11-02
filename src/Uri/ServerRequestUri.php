@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.1.2
+ * @version 1.1.3
  */
 
 namespace Seeren\Http\Uri;
@@ -71,6 +71,11 @@ class ServerRequestUri extends AbstractUri implements
                        urldecode($value), $value, $redirect);
                }
            }
+       }
+       $redirectQueryStringAppend = explode("?", $redirect);
+       if (1 < count($redirectQueryStringAppend)) {
+           array_pop($redirectQueryStringAppend);
+           $redirect = implode("", $redirectQueryStringAppend);
        }
        return $redirect;
    }

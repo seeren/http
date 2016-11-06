@@ -47,6 +47,10 @@ interface RequestInterface extends MessageInterface
        /**
         * @var string header value
         */
+       HEADER_ACCEPT = "Accept",
+       /**
+        * @var string header value
+        */
        HEADER_EXPECT = "Expect",
        /**
         * @var string header value

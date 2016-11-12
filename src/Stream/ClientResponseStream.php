@@ -16,8 +16,8 @@
 namespace Seeren\Http\Stream;
 
 use RuntimeException;
-use Seeren\Http\Request\ClientRequest;
 use Psr\Http\Message\RequestInterface;
+use Seeren\Http\Request\ClientRequestInterface;
 
 /**
  * Class for represent client response stream
@@ -32,11 +32,12 @@ class ClientResponseStream extends Stream
    /**
     * Construct ClientRequestStream
     * 
+    * @param ClientRequestInterface $request client request
     * @return null
     * 
     * @throws RuntimeException on faillure
     */
-   public function __construct(ClientRequest $request)
+   public function __construct(ClientRequestInterface $request)
    {
        try {
            parent::__construct(

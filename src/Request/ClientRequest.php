@@ -46,6 +46,7 @@ class ClientRequest extends AbstractRequest implements
     * 
     * @param string $method method
     * @param UriInterface $uri request uri
+    * @param StreamInterface $stream message body
     * @param array $header message header
     * @return null
     */
@@ -87,7 +88,7 @@ class ClientRequest extends AbstractRequest implements
     *
     * @throws RuntimeException on faillure
     */
-   public final function send(): ClientRequestInterface
+   public function send(): ClientRequestInterface
    {
        try {
            $this->response = new ClientResponse(
@@ -106,7 +107,7 @@ class ClientRequest extends AbstractRequest implements
     * 
     * @throws RuntimeException for not sent request
     */
-   public final function getResponse(): ResponseInterface
+   public function getResponse(): ResponseInterface
    {
        if (!$this->response) {
            throw new RuntimeException(

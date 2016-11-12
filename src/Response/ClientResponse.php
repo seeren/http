@@ -10,12 +10,12 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.2
+ * @version 1.0.3
  */
 
 namespace Seeren\Http\Response;
 
-use Seeren\Http\Stream\ClientResponseStream;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * Class for represente http client response
@@ -30,10 +30,10 @@ class ClientResponse extends Response
    /**
     * Construct ClientResponse
     * 
-    * @param ClientResponseStream $stream response stream
+    * @param StreamInterface $stream response stream
     * @return null
     */
-   public function __construct(ClientResponseStream $stream)
+   public function __construct(StreamInterface $stream)
    {
        parent::__construct($stream);
        $header = $this->body->getMetadata("wrapper_data");

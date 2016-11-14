@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.1.2
+ * @version 1.1.3
  */
 
 namespace Seeren\Http\Request;
@@ -202,14 +202,19 @@ class ServerRequest extends AbstractRequest implements
        $parsedBody = [];
        if (is_string($body) && "" !== $body) {
            foreach (explode("&", $body) as $value) {
-               $value = explode("=", $value);
-               $parsedBody[urldecode($value[0])] = array_key_exists(1, $value)
-                                                 ? urldecode($value[1])
-                                                 : null;
+               parse_str($value, $parsed);
+               if (array_key_exists(key($parsed), $parsedBody)
+                && is_array($parsedBody[key($parsed)])) {
+                   $parsedBody[key($parsed)][] = is_array(current($parsed))
+                                               ? current(current($parsed))
+                                               : "";
+               } else {
+                   $parsedBody[key($parsed)] = current($parsed);
+               }
            }
        } else if (is_array($body) || is_object($body)) {
            foreach ($body as $key => $value) {
-               $parsedBody[$key] = (string) $value;
+               $parsedBody[$key] = $value;
            }
        } else if (!$body && [] !== $_POST) {
            $parsedBody = filter_input_array(INPUT_POST);

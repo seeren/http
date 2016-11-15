@@ -38,6 +38,12 @@ class ServerRequestStream extends Stream
    {
        try {
            parent::__construct("php://input", self::MODE_R);
+           $body = $this->__toString();
+           $this->stream = fopen("php://temp", self::MODE_R_MORE);
+           $this->meta["writable"] = true;
+           $this->write($body);
+           $this->rewind();
+           $this->meta["writable"] = false;
        } catch (RuntimeException $e) {
            throw new RuntimeException(
                "Can't create ServerRequestStream: " . $e->getMessage());

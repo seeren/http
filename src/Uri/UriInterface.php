@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.1.2
+ * @version 1.1.3
  */
 
 namespace Seeren\Http\Uri;
@@ -29,11 +29,11 @@ interface UriInterface
        /**
         * @var string non secure scheme
         */
-       SCHEME_HTTP = "http",
+       SCHEME_HTTP      = "http",
        /**
         * @var string secure scheme
         */
-       SCHEME_HTTPS = "https",
+       SCHEME_HTTPS     = "https",
        /**
         * @var string scheme separator
         */
@@ -41,22 +41,22 @@ interface UriInterface
        /**
         * @var string separator
         */
-       SEPARATOR = "/",
+       SEPARATOR        = "/",
        /**
         * @var string host separator
         */
-       HOST_SEPARATOR = ":",
+       HOST_SEPARATOR   = ":",
        /**
         * @var string user separator
         */
-       USER_SEPARATOR = "@",
+       USER_SEPARATOR   = "@",
        /**
         * @var string path separator
         */
-       PATH_SEPARATOR = "?",
+       PATH_SEPARATOR   = "?",
        /**
         * @var string query separator
         */
-       QUERY_SEPARATOR = "#";
+       QUERY_SEPARATOR  = "#";
 
 }

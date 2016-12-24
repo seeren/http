@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.1.2
+ * @version 1.1.3
  */
 
 namespace Seeren\Http\Request;
@@ -31,51 +31,51 @@ interface RequestInterface extends MessageInterface
        /**
         * @var string method name
         */
-       GET = "GET",
+       GET                        = "GET",
        /**
         * @var string method name
         */
-       POST = "POST",
+       POST                       = "POST",
        /**
         * @var string method name
         */
-       PUT = "PUT",
+       PUT                        = "PUT",
        /**
         * @var string method name
         */
-       DELETE = "DELETE",
+       DELETE                     = "DELETE",
        /**
         * @var string header value
         */
-       HEADER_ACCEPT = "Accept",
+       HEADER_ACCEPT              = "Accept",
        /**
         * @var string header value
         */
-       HEADER_EXPECT = "Expect",
+       HEADER_EXPECT              = "Expect",
        /**
         * @var string header value
         */
-       HEADER_FROM = "From",
+       HEADER_FROM                = "From",
        /**
         * @var string header value
         */
-       HEADER_HOST = "Host",
+       HEADER_HOST                = "Host",
        /**
         * @var string header value
         */
-       HEADER_IF_MATCH = "If-Match",
+       HEADER_IF_MATCH            = "If-Match",
        /**
         * @var string header value
         */
-       HEADER_IF_MODIFIED_SINCE = "If-Modified-Since",
+       HEADER_IF_MODIFIED_SINCE   = "If-Modified-Since",
        /**
         * @var string header value
         */
-       HEADER_IF_NOT_MATCH = "If-None-Match",
+       HEADER_IF_NOT_MATCH        = "If-None-Match",
        /**
         * @var string header value
         */
-       HEADER_IF_RANGE = "If-Range",
+       HEADER_IF_RANGE            = "If-Range",
        /**
         * @var string header value
         */
@@ -83,11 +83,11 @@ interface RequestInterface extends MessageInterface
        /**
         * @var string header value
         */
-       HEADER_MAX_FORWARDS = "Max-Forwards",
+       HEADER_MAX_FORWARDS        = "Max-Forwards",
        /**
         * @var string header value
         */
-       HEADER_ORIGIN = "Origin",
+       HEADER_ORIGIN              = "Origin",
        /**
         * @var string header value
         */
@@ -95,14 +95,14 @@ interface RequestInterface extends MessageInterface
        /**
         * @var string header value
         */
-       HEADER_RANGE = "Range",
+       HEADER_RANGE               = "Range",
        /**
         * @var string header value
         */
-       HEADER_REFER = "Refer",
+       HEADER_REFER               = "Refer",
        /**
         * @var string header value
         */
-       HEADER_USER_AGENT = "User-Agent";
+       HEADER_USER_AGENT          = "User-Agent";
 
 }

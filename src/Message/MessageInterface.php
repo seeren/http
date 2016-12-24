@@ -29,27 +29,27 @@ interface MessageInterface
        /**
         * @var string protocol
         */
-       PROTOCOL = "HTTP/",
+       PROTOCOL                       = "HTTP/",
        /**
         * @var string protocol version 0
         */
-       VERSION_0 = "1.0",
+       VERSION_0                      = "1.0",
        /**
         * @var string protocol version 1
         */
-       VERSION_1 = "1.1",
+       VERSION_1                      = "1.1",
        /**
         * @var string header value
         */
-       HEADER_CACHE_CONTROL = "Cache-Control",
+       HEADER_CACHE_CONTROL           = "Cache-Control",
        /**
         * @var string header value
         */
-       HEADER_COOKIE = "Cookie",
+       HEADER_COOKIE                  = "Cookie",
        /**
         * @var string header value
         */
-       HEADER_CONTENT_LENGTH = "Content-Length",
+       HEADER_CONTENT_LENGTH          = "Content-Length",
        /**
         * @var string header value
         */
@@ -57,10 +57,10 @@ interface MessageInterface
        /**
         * @var string header value
         */
-       HEADER_CONTENT_TYPE = "Content-Type",
+       HEADER_CONTENT_TYPE            = "Content-Type",
        /**
         * @var string header value
         */
-       HEADER_DATE = "Date";
+       HEADER_DATE                    = "Date";
 
 }

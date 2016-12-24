@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.1.2
+ * @version 1.1.3
  */
 
 namespace Seeren\Http\Stream;
@@ -44,6 +44,7 @@ class Stream implements PsrStreamInterface, StreamInterface
     * 
     * @param string $target ressource target
     * @param string $mode ressource mode
+    * @param ressource $context ressource context
     * @return null
     * 
     * @throws InvalidArgumentException
@@ -252,8 +253,9 @@ class Stream implements PsrStreamInterface, StreamInterface
            throw new RuntimeException("Can't write: stream is not writable");
        }
        $this->meta["eof"] = true;
-       $size = (int) fwrite($this->stream, (string) $string);
-       $this->meta["size"] = $this->getMetadata("size") + $size;
+	   if (($size = (int) fwrite($this->stream, (string) $string))) {
+		    $this->meta["size"] = $this->getMetadata("size") + $size;
+	   }
        return $size;
    }
 

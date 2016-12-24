@@ -29,15 +29,15 @@ interface UploadedFileInterface
        /**
         * @var string file index
         */
-       NAME = "name",
+       NAME  = "name",
        /**
         * @var string file index
         */
-       TYPE = "type",
+       TYPE  = "type",
        /**
         * @var string file index
         */
-       TMP = "tmp_name",
+       TMP   = "tmp_name",
        /**
         * @var string file index
         */
@@ -45,6 +45,6 @@ interface UploadedFileInterface
        /**
         * @var string file index
         */
-       SIZE = "size";
+       SIZE  = "size";
 
 }

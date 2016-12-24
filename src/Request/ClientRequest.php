@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.1.2
+ * @version 1.1.3
  */
 
 namespace Seeren\Http\Request;
@@ -82,11 +82,21 @@ class ClientRequest extends AbstractRequest implements
    }
 
    /**
+    * Get response
+    *
+    * @return ResponseInterface response
+    */
+   public final function getResponse(): ResponseInterface
+   {
+       return $this->response;
+   }
+
+   /**
     * Send request
     *
     * @return ClientRequestInterface static
     *
-    * @throws RuntimeException on faillure
+    * @throws RuntimeException on unavailable target for context
     */
    public function send(): ClientRequestInterface
    {
@@ -98,22 +108,6 @@ class ClientRequest extends AbstractRequest implements
                "Can't send client request: " . $e->getMessage());
        }
        return $this;
-   }
-
-   /**
-    * Get response
-    *
-    * @return ResponseInterface response
-    * 
-    * @throws RuntimeException for not sent request
-    */
-   public function getResponse(): ResponseInterface
-   {
-       if (!$this->response) {
-           throw new RuntimeException(
-               "Can't get response: request must be send");
-       }
-       return $this->response;
    }
 
 }

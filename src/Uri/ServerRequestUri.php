@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.1.3
+ * @version 1.1.4
  */
 
 namespace Seeren\Http\Uri;
@@ -68,11 +68,13 @@ class ServerRequestUri extends AbstractUri implements
            foreach (explode("&", $this->query) as $value) {
                foreach (explode("=", $value) as $value) {
                    $redirect = str_replace(
-                       urldecode($value), $value, $redirect);
+                       urldecode($value),
+                       $value,
+                       $redirect);
                }
            }
        }
-       $redirectQueryStringAppend = explode("?", $redirect);
+       $redirectQueryStringAppend = explode(self::PATH_SEPARATOR, $redirect);
        if (1 < count($redirectQueryStringAppend)) {
            array_pop($redirectQueryStringAppend);
            $redirect = implode("", $redirectQueryStringAppend);
@@ -102,7 +104,8 @@ class ServerRequestUri extends AbstractUri implements
    {
        $uri = parent::__toString();
        return "" !== $this->redirect
-            ? ((explode($this->path, $uri))[0] . ltrim($this->redirect, "/"))
+            ? ((explode($this->path, $uri))[0]
+            . ltrim($this->redirect, self::SEPARATOR))
             : $uri;
    }
 

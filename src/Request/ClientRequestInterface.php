@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.1.2
+ * @version 1.1.3
  */
 
 namespace Seeren\Http\Request;
@@ -27,22 +27,21 @@ use Psr\Http\Message\ResponseInterface;
 interface ClientRequestInterface extends RequestInterface
 {
 
+
+    /**
+     * Get response
+     *
+     * @return ResponseInterface response
+     */
+    public function getResponse(): ResponseInterface;
+
     /**
      * Send request
      * 
      * @return ClientRequestInterface static
      * 
-     * @throws RuntimeException on faillure
+     * @throws RuntimeException on unavailable target for context
      */
    public function send(): self;
-
-   /**
-    * Get response
-    * 
-    * @return ResponseInterface response
-    * 
-    * @throws RuntimeException for not sent request
-    */
-   public function getResponse(): ResponseInterface;
 
 }

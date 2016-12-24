@@ -131,7 +131,9 @@ abstract class AbstractUri
     */
    private final function parsePath(string $path): string
    {
-       return preg_match("/^([\w-_\.\/])+$/", $path) ? ltrim($path, "/") : "";
+       return preg_match("/^([\w-_\.\/])+$/", $path)
+            ? ltrim($path, static::SEPARATOR)
+            : "";
    }
 
    /**

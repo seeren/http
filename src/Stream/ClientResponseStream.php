@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.3
+ * @version 1.0.4
  */
 
 namespace Seeren\Http\Stream;
@@ -45,11 +45,17 @@ class ClientResponseStream extends Stream
                stream_context_create($this->parseContext($request)));
        } catch (RuntimeException $e) {
            throw new RuntimeException(
-               "Can't create ClientResponseStream: " . $e->getMessage());
+               "Can't create client response stream: " . $e->getMessage());
        }
    }
 
-   protected function parseContext(RequestInterface $request): array
+   /**
+    * Parse context
+    * 
+    * @param RequestInterface $request
+    * @return array parsed context
+    */
+   private final function parseContext(RequestInterface $request): array
    {
        try {
            $header = "";

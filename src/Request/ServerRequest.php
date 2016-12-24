@@ -78,7 +78,8 @@ class ServerRequest extends AbstractRequest implements
            $uri,
            (string) filter_input(INPUT_SERVER, self::SERVER_METHOD),
            (string) substr(
-                filter_input(INPUT_SERVER, self::SERVER_PROTOCOL), 5),
+                filter_input(INPUT_SERVER, self::SERVER_PROTOCOL),
+                5),
            $this->parseHeader());
        $this->server = filter_input_array(INPUT_SERVER);
        $this->cookie = $this->parseCookie();

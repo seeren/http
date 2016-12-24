@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.3
+ * @version 1.0.4
  */
 
 namespace Seeren\Http\Stream;
@@ -30,7 +30,7 @@ interface StreamInterface
        /**
         * @var string open mode
         */
-       MODE_R = "r",
+       MODE_R      = "r",
        /**
         * @var string open mode
         */
@@ -38,7 +38,7 @@ interface StreamInterface
        /**
         * @var string open mode
         */
-       MODE_W = "w",
+       MODE_W      = "w",
        /**
         * @var string open mode
         */
@@ -46,7 +46,7 @@ interface StreamInterface
        /**
         * @var string open mode
         */
-       MODE_A = "a",
+       MODE_A      = "a",
        /**
         * @var string open mode
         */
@@ -54,7 +54,7 @@ interface StreamInterface
        /**
         * @var string open mode
         */
-       MODE_X = "x",
+       MODE_X      = "x",
        /**
         * @var string open mode
         */
@@ -62,7 +62,7 @@ interface StreamInterface
        /**
         * @var string open mode
         */
-       MODE_C = "c",
+       MODE_C      = "c",
        /**
         * @var string open mode
         */

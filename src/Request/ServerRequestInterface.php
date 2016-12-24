@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.1.2
+ * @version 1.1.3
  */
 
 namespace Seeren\Http\Request;
@@ -33,6 +33,6 @@ interface ServerRequestInterface extends RequestInterface
        /**
         * @var string server index
         */
-       SERVER_METHOD = "REQUEST_METHOD";
+       SERVER_METHOD   = "REQUEST_METHOD";
 
 }

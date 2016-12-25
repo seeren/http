@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.2.4
+ * @version 1.2.5
  */
 
 namespace Seeren\Http\Response;
@@ -43,7 +43,7 @@ interface ResponseInterface extends MessageInterface
        /**
         * @var string header value
         */
-       HEADER_ACCESS_CONTROL_ALLOW_METHODS     = "Access-Control-Allow-Headers",
+       HEADER_ACCESS_CONTROL_ALLOW_METHODS     = "Access-Control-Allow-Methods",
        /**
         * @var string header value
         */

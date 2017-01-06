@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.1.3
+ * @version 1.1.4
  */
 
 namespace Seeren\Http\Request;
@@ -99,7 +99,7 @@ interface RequestInterface extends MessageInterface
        /**
         * @var string header value
         */
-       HEADER_REFER               = "Refer",
+       HEADER_REFERER             = "Referer",
        /**
         * @var string header value
         */

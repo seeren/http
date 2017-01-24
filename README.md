@@ -102,7 +102,7 @@ ServerResponse can be used for using a preconfigured response using non cachable
 (new Response(new ServerResponseStream))->getBody()->write("output");
 ```
 
-#### Seeren\Http\Upload\UploadFile
+### Seeren\Http\Upload\UploadFile
 
 UploadFile atempt to received a $_FILES like element.
 

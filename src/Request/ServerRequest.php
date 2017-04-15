@@ -204,14 +204,15 @@ class ServerRequest extends AbstractRequest implements
            foreach (explode("&", $body) as $value) {
                $parsed = [];
                parse_str($value, $parsed);
-               if (array_key_exists(key($parsed), $parsedBody)
-                && is_array($parsedBody[key($parsed)])) {
-                   $parsedBody[key($parsed)][] = is_array(current($parsed))
-                                               ? current(current($parsed))
-                                               : "";
-               } else {
-                   $parsedBody[key($parsed)] = current($parsed);
+               $parsedKey = key($parsed);
+               if (array_key_exists($parsedKey, $parsedBody)
+                && is_array($parsedBody[$parsedKey])) {
+                   $parsedBody[$parsedKey][] = is_array(current($parsed))
+                                             ? current(current($parsed))
+                                             : "";
+                   continue;
                }
+               $parsedBody[key($parsed)] = current($parsed);
            }
        } else if (is_array($body) || is_object($body)) {
            foreach ($body as $key => $value) {

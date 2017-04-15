@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.2
+ * @version 1.0.3
  */
 
 namespace Seeren\Http\Test\Stream;
@@ -95,13 +95,12 @@ abstract class StreamInterfaceTest extends \PHPUnit\Framework\TestCase
    public final function testEof()
    {
        $stream = $this->getStream();
+       $state = false;
        if ($stream->isReadable()) {
            $stream->__toString();
-           $this->assertTrue($stream->eof() === true);
-       } else {
-           $this->assertTrue($stream->eof() === false);
-           
+           $state = true;
        }
+       $this->assertTrue($stream->eof() === $state);
    }
 
    /**

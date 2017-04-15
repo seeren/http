@@ -184,9 +184,9 @@ class ServerRequest extends AbstractRequest implements
                        UploadedFile::SIZE  => $file[UploadedFile::SIZE][$fK]
                    ]);
                }
-           } else {
-               $uploadedFiles[$key] = new UploadedFile($file);
+               continue;
            }
+           $uploadedFiles[$key] = new UploadedFile($file);
        }
        return $uploadedFiles;
    }

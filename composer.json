@@ -1,6 +1,7 @@
 {
     "name": "seeren/http",
     "description": "Psr-7 implementation",
+    "keywords": ["psr-7" ,"http-server", "http-client"],
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -17,8 +18,11 @@
     },
     "autoload": {
       "psr-4": {
-		"Seeren\\Http\\": "src/",
-		"Seeren\\Http\\Test\\": "test/"
+	"Seeren\\Http\\": "src/",
+	"Seeren\\Http\\Test\\": "test/"
       }
-  }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "6.1"
+    }
 }

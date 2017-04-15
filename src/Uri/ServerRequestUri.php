@@ -74,10 +74,10 @@ class ServerRequestUri extends AbstractUri implements
                }
            }
        }
-       $redirectQueryStringAppend = explode(self::PATH_SEPARATOR, $redirect);
-       if (1 < count($redirectQueryStringAppend)) {
-           array_pop($redirectQueryStringAppend);
-           $redirect = implode("", $redirectQueryStringAppend);
+       $QueryStringAppend = explode(self::PATH_SEPARATOR, $redirect);
+       if (1 < count($QueryStringAppend)) {
+           array_pop($QueryStringAppend);
+           $redirect = implode("", $QueryStringAppend);
        }
        return $redirect;
    }

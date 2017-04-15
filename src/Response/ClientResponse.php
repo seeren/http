@@ -45,7 +45,7 @@ class ClientResponse extends Response
            array_shift($response);
            array_shift($response);
            $this->reasonPhrase = implode(" ", $response);
-           foreach ($header as $key => $value) {
+           foreach ($header as $value) {
                $header = explode(": ", $value);
                $this->header[
                    $this->parseHeaderName($header[0])

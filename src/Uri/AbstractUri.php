@@ -145,7 +145,7 @@ abstract class AbstractUri
    private final function parseQuery(string $query): string
    {
        $parsedQuery = "";
-       foreach (explode("&", $query) as $key => $value) {
+       foreach (explode("&", $query) as $value) {
            $value = explode("=", $value, 2);
            $parsedQuery .= "&" . urlencode(urldecode($value[0]));
            $parsedQuery .= array_key_exists(1, $value)
@@ -300,7 +300,7 @@ abstract class AbstractUri
            throw new InvalidArgumentException(
                "Can't get with host: invalid host name");
        }
-       return $this->with("host", $host);
+       return $this->with("host", $parsedHost);
    }
 
    /**

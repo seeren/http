@@ -99,7 +99,7 @@ class Response extends AbstractMessage implements
    {
        try {
            $response = $this->with("statusCode", $code);
-           $response->setStatus((int) $code);
+           $response->setStatus((int) $code, $reasonPhrase);
        } catch (InvalidArgumentException $e) {
            throw new InvalidArgumentException(
                "Can't get instance for status: " . $e->getMessage());

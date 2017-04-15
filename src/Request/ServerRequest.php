@@ -101,16 +101,16 @@ class ServerRequest extends AbstractRequest implements
            foreach (apache_request_headers() as $key => $value) {
                $headers[$key] = $this->parseServerHeaderValue($key, $value);
            }
-       } else {
-           foreach(filter_input_array(INPUT_SERVER) as $key => $value) {
-               if (strpos($key, "HTTP_") === 0) {
-                   $key = str_replace(" ", "-", ucwords(
-                              str_replace("_", " ", strtolower(substr($key, 5)))
-                           ));
-                   $headers[$key] = $this->parseServerHeaderValue($key, $value);
-               }
-           }
+           return $headers;
        }
+        foreach(filter_input_array(INPUT_SERVER) as $key => $value) {
+            if (strpos($key, "HTTP_") === 0) {
+                $key = str_replace(" ", "-", ucwords(
+                           str_replace("_", " ", strtolower(substr($key, 5)))
+                        ));
+                $headers[$key] = $this->parseServerHeaderValue($key, $value);
+            }
+        }
        return $headers;
    }
 
@@ -197,11 +197,12 @@ class ServerRequest extends AbstractRequest implements
     * @param array $body server body
     * @return array parsed body
     */
-   private final function parseParsedBody($body = null): array
+   private final function parseParsedBody($body): array
    {
        $parsedBody = [];
        if (is_string($body) && "" !== $body) {
            foreach (explode("&", $body) as $value) {
+               $parsed = [];
                parse_str($value, $parsed);
                if (array_key_exists(key($parsed), $parsedBody)
                 && is_array($parsedBody[key($parsed)])) {
@@ -216,8 +217,6 @@ class ServerRequest extends AbstractRequest implements
            foreach ($body as $key => $value) {
                $parsedBody[$key] = $value;
            }
-       } else if (!$body && [] !== $_POST) {
-           $parsedBody = filter_input_array(INPUT_POST);
        }
        return $parsedBody;
    }

@@ -73,10 +73,8 @@ abstract class StreamInterfaceTest extends \PHPUnit\Framework\TestCase
            $stream->write("test stream");
            ob_end_clean();
            $size += 11;
-       } else {
-           $size = null;
        }
-       $this->assertTrue($size === $stream->getSize());
+       $this->assertTrue(($size ? $size : null) === $stream->getSize());
    }
 
    /**

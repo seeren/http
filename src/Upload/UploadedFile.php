@@ -121,11 +121,10 @@ class UploadedFile implements PsrUploadedFileInterface, UploadedFileInterface
                                 $path,
                                 $this->body->__toString())) {
             throw new RuntimeException("Can't move to: " . $path);
-        } else {
-            $this->body->detach();
-            $this->body = null;
-            unlink($this->tmpName);
         }
+        $this->body->detach();
+        $this->body = null;
+        unlink($this->tmpName);
     }
 
    /**

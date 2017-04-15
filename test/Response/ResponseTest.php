@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.1
+ * @version 1.1.0
  */
 
 namespace Seeren\Http\Test\Response;
@@ -18,6 +18,7 @@ namespace Seeren\Http\Test\Response;
 use Psr\Http\Message\ResponseInterface;
 use Seeren\Http\Response\Response;
 use Seeren\Http\Stream\ServerResponseStream;
+use ReflectionClass;
 
 /**
  * Class for test Response
@@ -36,10 +37,11 @@ class ResponseTest extends ResponseInterfaceTest
     */
    protected function getResponse(): ResponseInterface
    {
-       return $this->getMock(
-           Response::class,
-           [],
-           [$this->getMock(ServerResponseStream::class)]);
+       return (new ReflectionClass(Response::class))
+              ->newInstanceArgs([
+                    (new ReflectionClass(ServerResponseStream::class))
+                    ->newInstanceArgs([])
+              ]);
    }
 
 }

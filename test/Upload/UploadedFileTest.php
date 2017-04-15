@@ -10,13 +10,14 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 namespace Seeren\Http\Test\Upload;
 
 use Psr\Http\Message\UploadedFileInterface;
 use Seeren\Http\Upload\UploadedFile;
+use ReflectionClass;
 
 /**
  * Class for test UploadedFile
@@ -38,13 +39,13 @@ final class UploadedFileTest extends UploadedFileInterfaceTest
    {
        $testFile = __DIR__ . DIRECTORY_SEPARATOR . "testFile.txt";
        file_put_contents($testFile, "upload test");
-       return $this->getMock(UploadedFile::class, [], [[
-           "name" => "testFile",
-           "size" => null,
-           "type" => null,
-           "tmp_name" => $testFile,
-           "error" => 0              
-    ]]);
+       return (new ReflectionClass(UploadedFile::class))
+              ->newInstanceArgs([[
+                  "name" => "testFile",
+                  "size" => null,
+                  "type" => null,
+                  "tmp_name" => $testFile,
+                  "error" => 0 ]]);
    }
 
 }

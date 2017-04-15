@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.1
+ * @version 1.1.0
  */
 
 namespace Seeren\Http\Test\Request;
@@ -19,6 +19,7 @@ use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\RequestInterface;
 use Seeren\Http\Test\Message\MessageInterfaceTest;
 use Seeren\Http\Uri\Uri;
+use ReflectionClass;
 
 /**
  * Class for test RequestInterface
@@ -101,12 +102,13 @@ abstract class RequestInterfaceTest extends MessageInterfaceTest
    public final function testWithUri()
    {
        $request = $this->getRequest()->withoutHeader("Host", "foo");
-       $uri = $this->getMock(Uri::class, [], ["http", "bar"]);       
+       $uri = (new ReflectionClass(Uri::class))
+              ->newInstanceArgs(["http", "bar"]);     
        $this->assertTrue(
-           $request->withUri($uri, true)
-                   ->getHeader("Host") === [$uri->getHost("Host")]
-        && $request->withUri($uri->withHost("baz"), true)
-                   ->getHeader("Host") !== [$uri->getHost("Host")]
+           $request->withUri($uri, true)->getHeader("Host")
+       === [$uri->getHost("Host")]
+        && $request->withUri($uri->withHost("baz"), true)->getHeader("Host")
+       !== [$uri->getHost("Host")]
        );
    }
 

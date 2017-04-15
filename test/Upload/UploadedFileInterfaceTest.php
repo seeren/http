@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 namespace Seeren\Http\Test\Upload;
@@ -25,7 +25,7 @@ use Psr\Http\Message\UploadedFileInterface;
  * @subpackage Upload\Test
  * @abstract
  */
-abstract class UploadedFileInterfaceTest extends \PHPUnit_Framework_TestCase
+abstract class UploadedFileInterfaceTest extends \PHPUnit\Framework\TestCase
 {
 
    /**

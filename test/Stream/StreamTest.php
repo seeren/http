@@ -10,13 +10,14 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 namespace Seeren\Http\Test\Stream;
 
 use Psr\Http\Message\StreamInterface;
 use Seeren\Http\Stream\Stream;
+use ReflectionClass;
 
 /**
  * Class for test Stream
@@ -36,11 +37,8 @@ final class StreamTest extends StreamInterfaceTest
     */
    protected final function getStream(): StreamInterface
    {
-       return $this->getMock(
-           Stream::class,
-           [],
-           ["php://temp/", Stream::MODE_R_MORE]
-       );
+       return (new ReflectionClass(Stream::class))
+              ->newInstanceArgs(["php://temp/", Stream::MODE_R_MORE]);
    }
 
 }

@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 namespace Seeren\Http\Test\Uri;
@@ -36,7 +36,7 @@ final class UriTest extends UriInterfaceTest
     */
    protected final function getUri(): UriInterface
    {
-       return $this->getMock(Uri::class, [], ["http", "host", "path"]);
+       return $this->createMock(Uri::class, [], ["http", "host", "path"]);
    }
 
 }

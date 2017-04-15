@@ -10,12 +10,14 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.1
+ * @version 1.1.0
  */
 
 namespace Seeren\Http\Test\Message;
 
 use Psr\Http\Message\MessageInterface;
+use ReflectionClass;
+use stdClass;
 
 /**
  * Class for test MessageInterface
@@ -25,7 +27,7 @@ use Psr\Http\Message\MessageInterface;
  * @subpackage Message\Test
  * @abstract
  */
-abstract class MessageInterfaceTest extends \PHPUnit_Framework_TestCase
+abstract class MessageInterfaceTest extends \PHPUnit\Framework\TestCase
 {
 
    /**
@@ -106,7 +108,8 @@ abstract class MessageInterfaceTest extends \PHPUnit_Framework_TestCase
            [null],
            [[]],
            [""],
-           [$this->getMock("\stdClass")]
+           [(new ReflectionClass(stdClass::class))
+            ->newInstanceArgs([])]
        ];
    }
 

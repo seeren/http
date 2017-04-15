@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 namespace Seeren\Http\Test\Stream;
@@ -25,7 +25,7 @@ use Psr\Http\Message\StreamInterface;
  * @subpackage Stream\Test
  * @abstract
  */
-abstract class StreamInterfaceTest extends \PHPUnit_Framework_TestCase
+abstract class StreamInterfaceTest extends \PHPUnit\Framework\TestCase
 {
 
    /**
@@ -69,7 +69,9 @@ abstract class StreamInterfaceTest extends \PHPUnit_Framework_TestCase
        $stream = $this->getStream();
        $size = (int) $stream->getSize();
        if ($stream->isWritable()) {
+           ob_start();
            $stream->write("test stream");
+           ob_end_clean();
            $size += 11;
        } else {
            $size = null;

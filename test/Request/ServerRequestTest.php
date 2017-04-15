@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 namespace Seeren\Http\Test\Request;
@@ -19,6 +19,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Seeren\Http\Request\ServerRequest;
 use Seeren\Http\Stream\ServerRequestStream;
 use Seeren\Http\Uri\ServerRequestUri;
+use ReflectionClass;
 
 /**
  * Class for test ServerRequest
@@ -30,6 +31,8 @@ use Seeren\Http\Uri\ServerRequestUri;
 class ServerRequestTest extends ServerRequestInterfaceTest
 {
 
+    private $serverRequest;
+    
     /**
      * Get ServerRequestInterface
      *
@@ -37,11 +40,17 @@ class ServerRequestTest extends ServerRequestInterfaceTest
      */
     protected function getServerRequest(): ServerRequestInterface
     {
-        return $this->getMock(
-            ServerRequest::class,
-            [],
-            [$this->getMock(ServerRequestStream::class),
-             $this->getMock(ServerRequestUri::class)]);
+        if (!$this->serverRequest) {
+            $this->serverRequest = (new ReflectionClass(ServerRequest::class))
+              ->newInstanceArgs([
+                    (new ReflectionClass(ServerRequestStream::class))
+                    ->newInstanceArgs([]),
+                    (new ReflectionClass(ServerRequestUri::class))
+                    ->newInstanceArgs([]),
+              ]
+            );
+        }
+        return $this->serverRequest;
     }
 
 }

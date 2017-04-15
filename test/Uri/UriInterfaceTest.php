@@ -25,7 +25,7 @@ use Psr\Http\Message\UriInterface;
  * @subpackage Uri\Test
  * @abstract
  */
-abstract class UriInterfaceTest extends \PHPUnit_Framework_TestCase
+abstract class UriInterfaceTest extends \PHPUnit\Framework\TestCase
 {
 
    /**

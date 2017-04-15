@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 namespace Seeren\Http\Test\Request;
@@ -18,6 +18,7 @@ namespace Seeren\Http\Test\Request;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Seeren\Http\Upload\UploadedFile;
+use ReflectionClass;
 
 /**
  * Class for test ServerRequestInterface
@@ -60,9 +61,13 @@ abstract class ServerRequestInterfaceTest extends RequestInterfaceTest
     
     public final function provideInvalidUploadedFile()
     {
-        return [
-            [[$this->getMock(UploadedFile::class, [], [[]]), "invalid"]],
-        ];
+        return [[
+            [
+                (new ReflectionClass(UploadedFile::class))
+                ->newInstanceArgs([[]]),
+                false
+            ]
+        ]];
     }
 
     /**

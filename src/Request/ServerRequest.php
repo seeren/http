@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.1.3
+ * @version 1.2.0
  */
 
 namespace Seeren\Http\Request;
@@ -86,8 +86,7 @@ class ServerRequest extends AbstractRequest implements
        $this->queryParam = $this->parseQueryParam();
        $this->uploadedFiles = $this->parseUploadedFiles();
        $this->parsedBody = $this->parseParsedBody($this->body->__toString());
-       $this->attributes =
-       $_REQUEST = $_SERVER = $_COOKIE = $_GET = $_FILES = $_POST = [];
+       $this->attributes = [];
    }
 
    /**

@@ -98,14 +98,14 @@ class ServerRequestUri extends AbstractUri implements
    /**
     * Get UriInterface to string
     *
-    * @return string uri ti string
+    * @return string uri to string
     */
    public final function __toString()
    {
        $uri = parent::__toString();
+       $basePath = explode($this->path, $uri);
        return "" !== $this->redirect
-            ? ((explode($this->path, $uri))[0]
-            . ltrim($this->redirect, self::SEPARATOR))
+            ? $basePath . ltrim($this->redirect, self::SEPARATOR)
             : $uri;
    }
 

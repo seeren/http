@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.0.2
+ * @version 1.0.3
  */
 
 namespace Seeren\Http\Request;
@@ -155,8 +155,7 @@ abstract class AbstractRequest extends AbstractMessage
        if (true === $preserveHost
         && !array_key_exists("Host", $this->header)
         && $uri->getHost()) {
-           return ($this->with("uri", $uri))
-                        ->withHeader("Host", $uri->getHost());
+           return $this->with("uri", $uri)->withHeader("Host", $uri->getHost());
        }
        return $this->with("uri", $uri);
    }

@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
- * @version 1.1.4
+ * @version 1.1.5
  */
 
 namespace Seeren\Http\Uri;
@@ -60,11 +60,10 @@ class ServerRequestUri extends AbstractUri implements
     */
    private final function parseRedirect(): string
    {
-       $redirect = "";
-       if (filter_input(INPUT_SERVER, self::SERVER_REDIRECT_URL)) {
-           $redirect = (string) filter_input(
-               INPUT_SERVER,
-               self::SERVER_REQUEST_URI);
+       if (($redirect = ltrim((string)
+                filter_input(INPUT_SERVER, self::SERVER_REQUEST_URI),
+                self::SEPARATOR))
+         && filter_input(INPUT_SERVER, self::SERVER_REDIRECT_URL)) {           
            foreach (explode("&", $this->query) as $value) {
                foreach (explode("=", $value) as $value) {
                    $redirect = str_replace(
@@ -73,11 +72,6 @@ class ServerRequestUri extends AbstractUri implements
                        $redirect);
                }
            }
-       }
-       $QueryStringAppend = explode(self::PATH_SEPARATOR, $redirect);
-       if (1 < count($QueryStringAppend)) {
-           array_pop($QueryStringAppend);
-           $redirect = implode("", $QueryStringAppend);
        }
        return $redirect;
    }
@@ -89,10 +83,7 @@ class ServerRequestUri extends AbstractUri implements
     */
    public final function getPath(): string
    {
-       $path = parent::getPath();
-       return $this->redirect !== "" && $this->redirect !== $path
-            ? $this->redirect
-            : $path;
+       return !$this->redirect ? parent::getPath() : $this->redirect;
    }
 
    /**
@@ -103,9 +94,9 @@ class ServerRequestUri extends AbstractUri implements
    public final function __toString()
    {
        $uri = parent::__toString();
-       $basePath = explode($this->path, $uri);
-       return "" !== $this->redirect
-            ? $basePath . ltrim($this->redirect, self::SEPARATOR)
+       return $this->redirect
+            ? ($this->path ? explode($this->path, $uri)[0] : "")
+            . $this->redirect
             : $uri;
    }
 

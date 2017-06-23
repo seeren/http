@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
- * @version 1.0.2
+ * @version 1.0.3
  */
 
 namespace Seeren\Http\Stream;
@@ -39,7 +39,7 @@ class ServerRequestStream extends Stream
        try {
            parent::__construct("php://input", self::MODE_R);
            $body = $this->__toString();
-           $this->stream = fopen("php://temp", self::MODE_R_MORE);
+           $this->stream = @fopen("php://temp", self::MODE_R_MORE);
            $this->meta["writable"] = true;
            $this->write($body);
            $this->rewind();

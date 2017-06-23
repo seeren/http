@@ -15,8 +15,6 @@
 
 namespace Seeren\Http\Stream;
 
-use RuntimeException;
-
 /**
  * Class for represent client request stream
  * 
@@ -31,17 +29,10 @@ class ClientRequestStream extends Stream
     * Construct ClientRequestStream
     * 
     * @return null
-    * 
-    * @throws RuntimeException on faillure
     */
    public function __construct()
    {
-       try {
-           parent::__construct("php://temp", self::MODE_R_MORE);
-       } catch (RuntimeException $e) {
-           throw new RuntimeException(
-               "Can't create ClientRequestStream: " . $e->getMessage());
-       }
+       parent::__construct("php://temp", self::MODE_R_MORE);
    }
 
 }

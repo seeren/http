@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Test\Stream\StreamInterfaceTest class
+ * This file contain Seeren\Http\Test\Stream\AbstractStreamTest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
@@ -9,8 +9,8 @@
  *    /_//_//_//_//_//_/
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
- * @link http://www.seeren.fr/ Seeren
- * @version 1.0.3
+ * @link https://github.com/seeren/http
+ * @version 1.0.2
  */
 
 namespace Seeren\Http\Test\Stream;
@@ -25,7 +25,7 @@ use Psr\Http\Message\StreamInterface;
  * @subpackage Stream\Test
  * @abstract
  */
-abstract class StreamInterfaceTest extends \PHPUnit\Framework\TestCase
+abstract class AbstractStreamTest extends \PHPUnit\Framework\TestCase
 {
 
    /**
@@ -36,9 +36,17 @@ abstract class StreamInterfaceTest extends \PHPUnit\Framework\TestCase
    abstract protected function getStream(): StreamInterface;
 
    /**
-    * Test StreamInterface::close
+    * Test to string
     */
-   public final function testClose()
+   public function testToString()
+   {
+       $this->assertTrue(is_string($this->getStream()->__toString()));
+   }
+
+   /**
+    * Test close
+    */
+   public function testClose()
    {
        $stream = $this->getStream();
        $stream->close();
@@ -50,9 +58,9 @@ abstract class StreamInterfaceTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Test StreamInterface::detach
+    * Test detach
     */
-   public final function testDetach()
+   public function testDetach()
    {
        $stream = $this->getStream();
        $this->assertTrue(
@@ -62,9 +70,9 @@ abstract class StreamInterfaceTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Test StreamInterface::getSize
+    * Test get size
     */
-   public final function testGetSize()
+   public function testGetSize()
    {
        $stream = $this->getStream();
        $size = (int) $stream->getSize();
@@ -78,11 +86,9 @@ abstract class StreamInterfaceTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Test StreamInterface::tell
-    *
-    * @expectedException \RuntimeException
+    * Test tell run time exception
     */
-   public final function testTell()
+   public function testTellRuntimeException()
    {
        $stream = $this->getStream();
        $stream->close();
@@ -90,9 +96,9 @@ abstract class StreamInterfaceTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Test StreamInterface::eof
+    * Test eof
     */
-   public final function testEof()
+   public function testEof()
    {
        $stream = $this->getStream();
        $state = false;
@@ -104,9 +110,9 @@ abstract class StreamInterfaceTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Test StreamInterface::isSeekable
+    * Test is seekable
     */
-   public final function testISeekable()
+   public function testISeekable()
    {
        $stream = $this->getStream();
        $this->assertTrue(
@@ -114,11 +120,10 @@ abstract class StreamInterfaceTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Test StreamInterface::seek
+    * Test seek run time exception
     *
-    * @expectedException \RuntimeException
     */
-   public final function testSeek()
+   public function testSeekRuntimeException()
    {
        $stream = $this->getStream();
        $stream->close();
@@ -126,15 +131,55 @@ abstract class StreamInterfaceTest extends \PHPUnit\Framework\TestCase
    }
 
    /**
-    * Test StreamInterface::rewind
-    *
-    * @expectedException \RuntimeException
+    * Test rewind run time exception
     */
-   public final function testrewind()
+   public function testRewindRuntimeException()
    {
        $stream = $this->getStream();
        $stream->close();
        $stream->rewind();
+   }
+
+   /**
+    * Test write run time exception
+    */
+   public function testWriteRuntimeException()
+   {
+       $stream = $this->getStream();
+       $stream->close();
+       $stream->write("1");
+   }
+
+   /**
+    * Test read run time exception
+    */
+   public function testReadRuntimeException()
+   {
+       $stream = $this->getStream();
+       $stream->close();
+       $stream->read(1);
+   }
+
+   /**
+    * Test get contents run time exception
+    */
+   public function testGetContentsRuntimeException()
+   {
+       $stream = $this->getStream();
+       $stream->close();
+       $stream->getContents();
+   }
+
+   /**
+    * Test get meta data
+    */
+   public function testGetMetadata()
+   {
+       $stream = $this->getStream();
+       $this->assertTrue(
+           is_bool($stream->getMetadata("readable"))
+        && is_array($stream->getMetadata())
+       );
    }
 
 }

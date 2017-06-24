@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="src/Message"/>
+	<buildpathentry kind="src" path="src/Request"/>
+	<buildpathentry kind="src" path="src/Response"/>
+	<buildpathentry kind="src" path="src/Stream"/>
+	<buildpathentry kind="src" path="src/Upload"/>
+	<buildpathentry kind="src" path="src/Uri"/>
+	<buildpathentry kind="src" path="test/Stream"/>
+	<buildpathentry kind="src" path="test/Uri"/>
+	<buildpathentry kind="src" path="vendor"/>
+	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+</buildpath>

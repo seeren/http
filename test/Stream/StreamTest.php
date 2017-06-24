@@ -44,7 +44,7 @@ final class StreamTest extends AbstractStreamTest
    /**
     * Provide readable writable for mode
     */
-   public function readableWritableProvider()
+   public final function readableWritableProvider()
    {
         return [
             ["r", true, false],

@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
- * @version 1.1.2
+ * @version 1.1.3
  */
 
 namespace Seeren\Http\Upload;
@@ -79,7 +79,7 @@ class UploadedFile implements PsrUploadedFileInterface, UploadedFileInterface
                $this->tmpName = (string) $file[self::TMP];
                $this->body = new Stream($this->tmpName, Stream::MODE_R);
                $this->size = $this->body->getSize("size");
-           } catch (RuntimeException $e) {
+           } catch (InvalidArgumentException $e) {
                $this->error = 4;
            }
        }
@@ -114,17 +114,19 @@ class UploadedFile implements PsrUploadedFileInterface, UploadedFileInterface
         $dir  = $lastDirPos ? substr($path, 0, $lastDirPos + 1) : null;
         if (!$dir || !is_dir($dir)) {
             throw new InvalidArgumentException("Can't move to: " . $path);
-        } else if (!is_file($this->tmpName)) {
-            throw new RuntimeException(
-                "Can't move to: " . $this->tmpName . " is not a file");
-        } else if (false === file_put_contents(
-                                $path,
-                                $this->body->__toString())) {
-            throw new RuntimeException("Can't move to: " . $path);
+        }
+        try {
+            if (false === @file_put_contents(
+                    $path,
+                    (string) $this->getStream())) {
+                throw new RuntimeException("Can't move to: " . $path);
+            }
+        } catch (RuntimeException $e) {
+            throw $e;
         }
         $this->body->detach();
         $this->body = null;
-        unlink($this->tmpName);
+        @unlink($this->tmpName);
     }
 
    /**

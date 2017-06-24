@@ -9,15 +9,16 @@
  *    /_//_//_//_//_//_/
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
- * @link http://www.seeren.fr/ Seeren
- * @version 1.0.1
+ * @link https://github.com/seeren/http
+ * @version 2.0.1
  */
 
 namespace Seeren\Http\Test\Response;
 
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\ResponseInterface;
-use Seeren\Http\Test\Message\MessageInterfaceTest;
+use Seeren\Http\Test\Message\AbstractMessageTest;
+
 /**
  * Class for test ResponseInterface
  * 
@@ -26,7 +27,7 @@ use Seeren\Http\Test\Message\MessageInterfaceTest;
  * @subpackage Response\Test
  * @abstract
  */
-abstract class ResponseInterfaceTest extends MessageInterfaceTest
+abstract class AbstractResponseTest extends AbstractMessageTest
 {
 
    /**
@@ -46,17 +47,6 @@ abstract class ResponseInterfaceTest extends MessageInterfaceTest
        return $this->getResponse();
    }
 
-   /**
-    * Test ResponseInterface::withStatus
-    *
-    * @expectedException \InvalidArgumentException
-    * @dataProvider provideInvalidCode
-    */
-   public final function testWithStatus($code)
-   {
-       $this->getMessage()->withStatus($code);
-   }
-   
    public final function provideInvalidCode()
    {
        return [
@@ -64,26 +54,43 @@ abstract class ResponseInterfaceTest extends MessageInterfaceTest
            [227],
            [311],
            [457],
-           [521]
+           [521],
        ];
    }
 
    /**
-    * Test ResponseInterface::getStatusCode
+    * Test with status
+    *
+    * @expectedException \InvalidArgumentException
+    * @dataProvider provideInvalidCode
     */
-   public final function testGetStatusCode()
+   public function testWithStatus($code)
    {
-       $mock = $this->getMessage()->withStatus(101);
-       $this->assertTrue(101 === $mock->getStatusCode());
+       $this->getMessage()->withStatus($code);
    }
 
    /**
-    * Test ResponseInterface::getReasonPhrase
+    * Test get status code
     */
-   public final function testGetReasonPhrase()
+   public function testGetStatusCode()
    {
-       $mock = $this->getMessage()->withStatus(101);
-       $this->assertTrue("Switching Protocols" === $mock->getReasonPhrase());
+       $this->assertTrue(
+           101
+       === $this->getMessage()
+           ->withStatus(101)
+           ->getStatusCode());
+   }
+
+   /**
+    * Test get reason phrase
+    */
+   public function testGetReasonPhrase()
+   {
+       $this->assertTrue(
+           "Switching Protocols"
+       === $this->getMessage()
+           ->withStatus(101)
+           ->getReasonPhrase());
    }
 
 }

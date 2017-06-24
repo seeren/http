@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Test\Response\ResponseTest class
+ * This file contain Seeren\Http\Test\Response\ServerResponseTest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
@@ -10,25 +10,26 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
- * @version 2.0.1
+ * @version 1.0.1
  */
 
 namespace Seeren\Http\Test\Response;
 
 use Psr\Http\Message\ResponseInterface;
+use Seeren\Http\Response\ServerResponse;
 use Seeren\Http\Response\Response;
-use Seeren\Http\Stream\ClientRequestStream;
+use Seeren\Http\Stream\ServerResponseStream;
 use ReflectionClass;
 
 /**
- * Class for test Response
+ * Class for test ServerResponse
  * 
  * @category Seeren
  * @package Http
  * @subpackage Response\Test
  * @final
  */
-final class ResponseTest extends AbstractResponseTest
+final class ServerResponseTest extends AbstractResponseTest
 {
 
    /**
@@ -38,14 +39,15 @@ final class ResponseTest extends AbstractResponseTest
     */
    protected function getResponse(): ResponseInterface
    {
-       return (new ReflectionClass(Response::class))
+       return (new ReflectionClass(ServerResponse::class))
               ->newInstanceArgs([
-                    (new ReflectionClass(ClientRequestStream::class))
+                    (new ReflectionClass(ServerResponseStream::class))
                     ->newInstanceArgs([])
               ]);
    }
 
    /**
+    * @covers \Seeren\Http\Response\ServerResponse::__construct
     * @covers \Seeren\Http\Response\Response::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::getProtocolVersion
@@ -53,7 +55,7 @@ final class ResponseTest extends AbstractResponseTest
     * @covers \Seeren\Http\Message\AbstractMessage::with
     * @covers \Seeren\Http\Message\AbstractMessage::withProtocolVersion
     * @covers \Seeren\Http\Response\Response::setStatus
-    * @covers \Seeren\Http\Stream\ClientRequestStream::__construct
+    * @covers \Seeren\Http\Stream\ServerResponseStream::__construct
     * @covers \Seeren\Http\Stream\Stream::__construct
     * @covers \Seeren\Http\Stream\Stream::setReadableWritable
     */
@@ -63,6 +65,7 @@ final class ResponseTest extends AbstractResponseTest
    }
 
    /**
+    * @covers \Seeren\Http\Response\ServerResponse::__construct
     * @covers \Seeren\Http\Response\Response::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::hasHeader
@@ -72,7 +75,7 @@ final class ResponseTest extends AbstractResponseTest
     * @covers \Seeren\Http\Message\AbstractMessage::with
     * @covers \Seeren\Http\Message\AbstractMessage::withHeader
     * @covers \Seeren\Http\Response\Response::setStatus
-    * @covers \Seeren\Http\Stream\ClientRequestStream::__construct
+    * @covers \Seeren\Http\Stream\ServerResponseStream::__construct
     * @covers \Seeren\Http\Stream\Stream::__construct
     * @covers \Seeren\Http\Stream\Stream::setReadableWritable
     */
@@ -82,6 +85,7 @@ final class ResponseTest extends AbstractResponseTest
    }
 
    /**
+    * @covers \Seeren\Http\Response\ServerResponse::__construct
     * @covers \Seeren\Http\Response\Response::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::getHeader
@@ -91,7 +95,7 @@ final class ResponseTest extends AbstractResponseTest
     * @covers \Seeren\Http\Message\AbstractMessage::with
     * @covers \Seeren\Http\Message\AbstractMessage::withHeader
     * @covers \Seeren\Http\Response\Response::setStatus
-    * @covers \Seeren\Http\Stream\ClientRequestStream::__construct
+    * @covers \Seeren\Http\Stream\ServerResponseStream::__construct
     * @covers \Seeren\Http\Stream\Stream::__construct
     * @covers \Seeren\Http\Stream\Stream::setReadableWritable
     */
@@ -99,7 +103,9 @@ final class ResponseTest extends AbstractResponseTest
    {
        parent::testGetHeader();
    }
+
    /**
+    * @covers \Seeren\Http\Response\ServerResponse::__construct
     * @covers \Seeren\Http\Response\Response::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::getHeaderLine
@@ -109,7 +115,7 @@ final class ResponseTest extends AbstractResponseTest
     * @covers \Seeren\Http\Message\AbstractMessage::with
     * @covers \Seeren\Http\Message\AbstractMessage::withHeader
     * @covers \Seeren\Http\Response\Response::setStatus
-    * @covers \Seeren\Http\Stream\ClientRequestStream::__construct
+    * @covers \Seeren\Http\Stream\ServerResponseStream::__construct
     * @covers \Seeren\Http\Stream\Stream::__construct
     * @covers \Seeren\Http\Stream\Stream::setReadableWritable
     */
@@ -119,13 +125,14 @@ final class ResponseTest extends AbstractResponseTest
    }
 
    /**
+    * @covers \Seeren\Http\Response\ServerResponse::__construct
     * @covers \Seeren\Http\Response\Response::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::parseHeaderValue
     * @covers \Seeren\Http\Message\AbstractMessage::parseProtocol
     * @covers \Seeren\Http\Message\AbstractMessage::withHeader
     * @covers \Seeren\Http\Response\Response::setStatus
-    * @covers \Seeren\Http\Stream\ClientRequestStream::__construct
+    * @covers \Seeren\Http\Stream\ServerResponseStream::__construct
     * @covers \Seeren\Http\Stream\Stream::__construct
     * @covers \Seeren\Http\Stream\Stream::setReadableWritable
     * @expectedException \InvalidArgumentException
@@ -137,6 +144,7 @@ final class ResponseTest extends AbstractResponseTest
    }
 
    /**
+    * @covers \Seeren\Http\Response\ServerResponse::__construct
     * @covers \Seeren\Http\Response\Response::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::getHeaders
@@ -146,7 +154,7 @@ final class ResponseTest extends AbstractResponseTest
     * @covers \Seeren\Http\Message\AbstractMessage::with
     * @covers \Seeren\Http\Message\AbstractMessage::withHeader
     * @covers \Seeren\Http\Response\Response::setStatus
-    * @covers \Seeren\Http\Stream\ClientRequestStream::__construct
+    * @covers \Seeren\Http\Stream\ServerResponseStream::__construct
     * @covers \Seeren\Http\Stream\Stream::__construct
     * @covers \Seeren\Http\Stream\Stream::setReadableWritable
     */
@@ -156,6 +164,7 @@ final class ResponseTest extends AbstractResponseTest
    }
 
    /**
+    * @covers \Seeren\Http\Response\ServerResponse::__construct
     * @covers \Seeren\Http\Response\Response::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::parseHeaderName
@@ -163,7 +172,7 @@ final class ResponseTest extends AbstractResponseTest
     * @covers \Seeren\Http\Message\AbstractMessage::parseProtocol
     * @covers \Seeren\Http\Message\AbstractMessage::withAddedHeader
     * @covers \Seeren\Http\Response\Response::setStatus
-    * @covers \Seeren\Http\Stream\ClientRequestStream::__construct
+    * @covers \Seeren\Http\Stream\ServerResponseStream::__construct
     * @covers \Seeren\Http\Stream\Stream::__construct
     * @covers \Seeren\Http\Stream\Stream::setReadableWritable
     * @expectedException \InvalidArgumentException
@@ -175,6 +184,7 @@ final class ResponseTest extends AbstractResponseTest
    }
 
    /**
+    * @covers \Seeren\Http\Response\ServerResponse::__construct
     * @covers \Seeren\Http\Response\Response::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::getHeaders
@@ -184,7 +194,7 @@ final class ResponseTest extends AbstractResponseTest
     * @covers \Seeren\Http\Message\AbstractMessage::with
     * @covers \Seeren\Http\Message\AbstractMessage::withAddedHeader
     * @covers \Seeren\Http\Response\Response::setStatus
-    * @covers \Seeren\Http\Stream\ClientRequestStream::__construct
+    * @covers \Seeren\Http\Stream\ServerResponseStream::__construct
     * @covers \Seeren\Http\Stream\Stream::__construct
     * @covers \Seeren\Http\Stream\Stream::setReadableWritable
     */
@@ -194,6 +204,7 @@ final class ResponseTest extends AbstractResponseTest
    }
 
    /**
+    * @covers \Seeren\Http\Response\ServerResponse::__construct
     * @covers \Seeren\Http\Response\Response::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::getHeaders
@@ -204,7 +215,7 @@ final class ResponseTest extends AbstractResponseTest
     * @covers \Seeren\Http\Message\AbstractMessage::withHeader
     * @covers \Seeren\Http\Message\AbstractMessage::withoutHeader
     * @covers \Seeren\Http\Response\Response::setStatus
-    * @covers \Seeren\Http\Stream\ClientRequestStream::__construct
+    * @covers \Seeren\Http\Stream\ServerResponseStream::__construct
     * @covers \Seeren\Http\Stream\Stream::__construct
     * @covers \Seeren\Http\Stream\Stream::setReadableWritable
     */
@@ -214,12 +225,13 @@ final class ResponseTest extends AbstractResponseTest
    }
 
    /**
+    * @covers \Seeren\Http\Response\ServerResponse::__construct
     * @covers \Seeren\Http\Response\Response::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::getBody
     * @covers \Seeren\Http\Message\AbstractMessage::parseProtocol
     * @covers \Seeren\Http\Response\Response::setStatus
-    * @covers \Seeren\Http\Stream\ClientRequestStream::__construct
+    * @covers \Seeren\Http\Stream\ServerResponseStream::__construct
     * @covers \Seeren\Http\Stream\Stream::__construct
     * @covers \Seeren\Http\Stream\Stream::setReadableWritable
     */
@@ -229,6 +241,7 @@ final class ResponseTest extends AbstractResponseTest
    }
 
    /**
+    * @covers \Seeren\Http\Response\ServerResponse::__construct
     * @covers \Seeren\Http\Response\Response::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::getBody
@@ -236,7 +249,7 @@ final class ResponseTest extends AbstractResponseTest
     * @covers \Seeren\Http\Message\AbstractMessage::with
     * @covers \Seeren\Http\Message\AbstractMessage::withBody
     * @covers \Seeren\Http\Response\Response::setStatus
-    * @covers \Seeren\Http\Stream\ClientRequestStream::__construct
+    * @covers \Seeren\Http\Stream\ServerResponseStream::__construct
     * @covers \Seeren\Http\Stream\Stream::__construct
     * @covers \Seeren\Http\Stream\Stream::getMetadata
     * @covers \Seeren\Http\Stream\Stream::setReadableWritable
@@ -247,12 +260,13 @@ final class ResponseTest extends AbstractResponseTest
    }
 
    /**
+    * @covers \Seeren\Http\Response\ServerResponse::__construct
     * @covers \Seeren\Http\Response\Response::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::parseProtocol
     * @covers \Seeren\Http\Message\AbstractMessage::withBody
     * @covers \Seeren\Http\Response\Response::setStatus
-    * @covers \Seeren\Http\Stream\ClientRequestStream::__construct
+    * @covers \Seeren\Http\Stream\ServerResponseStream::__construct
     * @covers \Seeren\Http\Stream\Stream::__construct
     * @covers \Seeren\Http\Stream\Stream::close
     * @covers \Seeren\Http\Stream\Stream::detach
@@ -266,13 +280,14 @@ final class ResponseTest extends AbstractResponseTest
    }
 
    /**
+    * @covers \Seeren\Http\Response\ServerResponse::__construct
     * @covers \Seeren\Http\Response\Response::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::parseProtocol
     * @covers \Seeren\Http\Message\AbstractMessage::with
     * @covers \Seeren\Http\Response\Response::setStatus
     * @covers \Seeren\Http\Response\Response::withStatus
-    * @covers \Seeren\Http\Stream\ClientRequestStream::__construct
+    * @covers \Seeren\Http\Stream\ServerResponseStream::__construct
     * @covers \Seeren\Http\Stream\Stream::__construct
     * @covers \Seeren\Http\Stream\Stream::setReadableWritable
     * @expectedException \InvalidArgumentException
@@ -284,6 +299,7 @@ final class ResponseTest extends AbstractResponseTest
    }
    
    /**
+    * @covers \Seeren\Http\Response\ServerResponse::__construct
     * @covers \Seeren\Http\Response\Response::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::parseProtocol
@@ -291,7 +307,7 @@ final class ResponseTest extends AbstractResponseTest
     * @covers \Seeren\Http\Response\Response::getStatusCode
     * @covers \Seeren\Http\Response\Response::setStatus
     * @covers \Seeren\Http\Response\Response::withStatus
-    * @covers \Seeren\Http\Stream\ClientRequestStream::__construct
+    * @covers \Seeren\Http\Stream\ServerResponseStream::__construct
     * @covers \Seeren\Http\Stream\Stream::__construct
     * @covers \Seeren\Http\Stream\Stream::setReadableWritable
     */
@@ -301,6 +317,7 @@ final class ResponseTest extends AbstractResponseTest
    }
    
    /**
+    * @covers \Seeren\Http\Response\ServerResponse::__construct
     * @covers \Seeren\Http\Response\Response::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::parseProtocol
@@ -308,7 +325,7 @@ final class ResponseTest extends AbstractResponseTest
     * @covers \Seeren\Http\Response\Response::getReasonPhrase
     * @covers \Seeren\Http\Response\Response::setStatus
     * @covers \Seeren\Http\Response\Response::withStatus
-    * @covers \Seeren\Http\Stream\ClientRequestStream::__construct
+    * @covers \Seeren\Http\Stream\ServerResponseStream::__construct
     * @covers \Seeren\Http\Stream\Stream::__construct
     * @covers \Seeren\Http\Stream\Stream::setReadableWritable
     */

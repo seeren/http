@@ -282,7 +282,7 @@ final class ResponseTest extends AbstractResponseTest
    {
        parent::testWithStatus($code);
    }
-   
+
    /**
     * @covers \Seeren\Http\Response\Response::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::__construct
@@ -299,7 +299,7 @@ final class ResponseTest extends AbstractResponseTest
    {
        parent::testGetStatusCode();
    }
-   
+
    /**
     * @covers \Seeren\Http\Response\Response::__construct
     * @covers \Seeren\Http\Message\AbstractMessage::__construct
@@ -316,5 +316,5 @@ final class ResponseTest extends AbstractResponseTest
    {
        parent::testGetReasonPhrase();
    }
-    
+
 }

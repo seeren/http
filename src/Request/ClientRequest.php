@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
- * @version 1.1.3
+ * @version 1.1.4
  */
 
 namespace Seeren\Http\Request;
@@ -19,8 +19,10 @@ use Psr\Http\Message\RequestInterface as PsrRequestInterface;
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
+use Seeren\Http\Stream\ClientRequestStream;
 use Seeren\Http\Stream\ClientResponseStream;
 use Seeren\Http\Response\ClientResponse;
+use InvalidArgumentException;
 use RuntimeException;
 
 /**
@@ -46,18 +48,18 @@ class ClientRequest extends AbstractRequest implements
     * 
     * @param string $method method
     * @param UriInterface $uri request uri
-    * @param StreamInterface $stream message body
     * @param array $header message header
+    * @param StreamInterface $stream message body
     * @return null
     */
    public function __construct(
        string $method,
        UriInterface $uri,
-       StreamInterface $stream,
-       array $header = [])
+       array $header = [],
+       StreamInterface $stream = null)
    {
        parent::__construct(
-           $stream,
+           ($stream ? $stream : new ClientRequestStream),
            $uri,
            $method,
            "1.1",
@@ -85,9 +87,19 @@ class ClientRequest extends AbstractRequest implements
     * Get response
     *
     * @return ResponseInterface response
+    * 
+    * @throws RuntimeException on unavailable target for context
     */
    public final function getResponse(): ResponseInterface
    {
+       if (!$this->response) {
+           try {
+               $this->send();
+           } catch (InvalidArgumentException $e) {
+               throw new RuntimeException(
+                   "Can't get response: " . $e->getMessage());
+           }
+       }
        return $this->response;
    }
 
@@ -103,7 +115,7 @@ class ClientRequest extends AbstractRequest implements
        try {
            $this->response = new ClientResponse(
                new ClientResponseStream($this));
-       } catch (RuntimeException $e) {
+       } catch (InvalidArgumentException $e) {
            throw new RuntimeException(
                "Can't send client request: " . $e->getMessage());
        }

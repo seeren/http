@@ -76,7 +76,8 @@ abstract class AbstractRequest extends AbstractMessage
            || static::POST === $method
            || static::PUT === $method
            || static::DELETE === $method
-            ? $method : static::GET;
+            ? $method
+            : static::GET;
    }
 
    /**

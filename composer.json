@@ -1,28 +1,36 @@
 {
-    "name": "seeren/http",
-    "description": "Psr-7 implementation",
-    "keywords": ["psr-7" ,"http-server", "http-client"],
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-      {
-        "name": "Cyril Ichti",
-        "email": "consultant@seeren.fr",
-        "homepage" : "http://www.seeren.fr"
-      }
-    ],
-    "minimum-stability": "dev",
-    "require": {
-      "php": ">=7.0.1",
-      "psr/http-message": "~1.0"
-    },
-    "autoload": {
-      "psr-4": {
-	"Seeren\\Http\\": "src/",
-	"Seeren\\Http\\Test\\": "test/"
-      }
-    },
-    "require-dev": {
-        "phpunit/phpunit": "6.1"
-    }
+	"name" : "seeren/http",
+	"description" : "Manage http message",
+	"keywords" : [
+		"psr-7",
+		"http-server",
+		"http-client"
+	],
+	"type" : "library",
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Cyril Ichti",
+			"email" : "consultant@seeren.fr",
+			"homepage" : "http://www.seeren.fr"
+		}
+	],
+	"minimum-stability" : "dev",
+	"require" : {
+		"php" : ">=7.0.1",
+		"psr/http-message" : "~1.0"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"Seeren\\Http\\" : "src/"
+		}
+	},
+	"autoload-dev" : {
+		"psr-4" : {
+			"Seeren\\Http\\Test\\" : "test/"
+		}
+	},
+	"require-dev" : {
+		"phpunit/phpunit" : "dev-master",
+		"satooshi/php-coveralls" : "dev-master"
+	}
 }

@@ -75,7 +75,7 @@ abstract class AbstractStreamTest extends \PHPUnit\Framework\TestCase
    public function testGetSize()
    {
        $stream = $this->getStream();
-       $size = (int) $stream->getSize();
+       $size = $stream->getSize();
        if ($stream->isWritable()) {
            ob_start();
            $stream->write("test stream");
@@ -83,7 +83,7 @@ abstract class AbstractStreamTest extends \PHPUnit\Framework\TestCase
            $size += 11;
        }
        $this->assertTrue(
-           (null !== $size ? $size : null)
+           ($size === null ? null : $size)
        === $stream->getSize());
    }
 

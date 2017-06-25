@@ -1,118 +1,99 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9f75208140fd4cf5a90a82dc8632bad9)](https://www.codacy.com/app/seeren/http?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=seeren/http&amp;utm_campaign=Badge_Grade) [![Build Status](https://travis-ci.org/seeren/http.svg?branch=master)](https://travis-ci.org/seeren/http) [![GitHub license](https://img.shields.io/badge/license-MIT-orange.svg)](https://raw.githubusercontent.com/seeren/http/master/LICENSE) [![Packagist](https://img.shields.io/packagist/v/seeren/http.svg)](https://packagist.org/packages/seeren/http) [![Packagist](https://img.shields.io/packagist/dt/seeren/http.svg)](https://packagist.org/packages/seeren/http/stats)
+# http
+ [![Build Status](https://travis-ci.org/seeren/http.svg?branch=master)](https://travis-ci.org/seeren/http) [![Coverage Status](https://coveralls.io/repos/github/seeren/http/badge.svg?branch=master)](https://coveralls.io/github/seeren/http?branch=master) [![Packagist](https://img.shields.io/packagist/dt/seeren/http.svg)](https://packagist.org/packages/seeren/http/stats) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4a0463fb5a084be5bda68e4e36d7c7ac)](https://www.codacy.com/app/seeren/http?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=seeren/http&amp;utm_campaign=Badge_Grade) [![Packagist](https://img.shields.io/packagist/v/seeren/http.svg)](https://packagist.org/packages/seeren/http#) [![Packagist](https://img.shields.io/packagist/l/seeren/log.svg)](LICENSE)
 
-# Seeren\Http\
-Psr-7 implementation.
-Manage http message, request, uploaded files, response, uri and stream.
+**Manage http message**
+> This package contain implementations of the [PSR-7 HTTP message interfaces](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md)
 
-## Seeren\Http\Uri\Uri
-Uri need at least a protocol and a host.
-```php
-$uri = new Uri("http", "host");
-echo $uri->withUser("user", "pswd")
-         ->withPort(80)
-         ->withPath("path")
-         ->withQuery("foo=bar");
-```
-
-## Seeren\Http\Uri\ServerRequestUri
-ServerRequestUri use server input for self construction then detect presence of RewriteEngine for correct string representation. An instance is handled by a ServerRequest.
-```php
-$uri = new ServerRequestUri;
-```
-
-## Seeren\Http\Stream\Stream
-For ressource manipulation Stream can be used. This implementation of StreamInterface expect ressource target and mode.
-```php
-(new Stream("foo.txt", "a+"))->write("output");
-```
-Optionnaly a context can be specified
-```php
-$stream = new Stream(
-    "http://example/foo",
-    "r",
-    stream_context_create([
-        "http" => [
-            "method" => "POST",
-            "header"=> "Content-type: application/x-www-form-urlencoded\r\n",
-            "content" => http_build_query(["foo" => "bar"])
-        ]
-]));
-```
-
-## Seeren\Http\Stream\ServerRequestStream
-Request body is handled by ServerRequestStream using php://input.
-```php
-$body = (new ServerRequestStream)->__toString();
-```
-
-## Seeren\Http\Stream\ServerResponseStream
-Response body is send by ServerResponseStream using php://output.
-```php
-(new ServerResponseStream)->write($body);
-```
-
-## Seeren\Http\Response\Response
-Response is a strict Psr implementation. A StreamInterface have to be provided at creation.
-```php
-$response = new Response(new Stream("php://temp/", "r+"));
-$response->getBody()->write("output");
-$response->getBody()->rewind();
-echo $response->getBody();
-```
-
-## Seeren\Http\Response\ServerResponse
-ServerResponse can be used for using a preconfigured response using non cachable body
-```php
-(new Response(new ServerResponseStream))->getBody()->write($body);
-```
-
-## Seeren\Http\Upload\UploadFile
-UploadFile atempt to received a $_FILES like element.
-```php
-(new UploadedFile(
-    ["tmp_name" => "foo.txt"])
-)->moveTo("bar.txt");
-```
-
-## Seeren\Http\Request\Request
-Request is a strict Psr implementation, a StreamInterface and UriInterface have to be provided for creation.
-```php
-$request = new Request(
-    new Stream("php://temp/", "w"),
-    new Uri("http", "host")
-);
-```
-
-## Seeren\Http\Request\ServerRequest
-ServerRequest handle all inputs, protocol, method, headers and body.
-```php
-(new ServerRequest(
-    new ServerRequestStream,
-    new ServerRequestUri)
-)->getUploadedFiles()["foo"]->moveTo("foo.txt");
-```
-
-## Seeren\Http\Request\ClientRequest
-Consum web service with client request, a Response is provided after request is send.
-```php
-$response = (new ClientRequest(
-    "GET",
-    new Uri("http", "host"),
-    new ClientRequestStream))->send()->getResponse();
-```
+## Features
+* Manage client/server request and response
 
 ## Installation
-Require this package with composer
+Require this package with [composer](https://getcomposer.org/)
 ```
 composer require seeren/http dev-master
 ```
 
-## Run the tests
-Run with phpunit after install dependencies
+## Request Usage
+
+#### `Seeren\Http\Request\ClientRequest`
+Consume web service with client request, a method and an uri interface implementation are needed at construction
+```php
+$Psr7Response = (new ClientRequest("GET", new Uri("http", "host"))->getResponse();
 ```
-composer update
-phpunit
+Headers and body can be specified as in the example above for send a post request
+```php
+$Psr7Request = new ClientRequest(
+    "POST",
+    new Uri("http", "host"), [
+        "Content-Type" => "application/x-www-form-urlencoded",
+        "Accept" => "application/json",
+]);
+$Psr7Request->getBody()->write(http_build_query(["key" => "value"]));
+$Psr7Response = $Psr7Request->getResponse();
 ```
 
-## Authors
-* **Cyril Ichti** - [www.seeren.fr](http://www.seeren.fr)
+#### `Seeren\Http\Request\ServerRequest`
+ServerRequest handle all inputs, protocol, method, headers, body, uri and uploaded files of a request send by a client
+```php
+$Psr7ServerRequest = new ServerRequest(new ServerRequestStream, new ServerRequestUri));
+```
+
+## Response Usage
+
+#### `Seeren\Http\Response\Response`
+A generic response is provided and can't provoq a direct output. She need a stream interface implementation at construction
+```php
+$Psr7Response = new Response(new Stream("php://temp/", "r+"));
+$Psr7Response->getBody()->write("output");
+$Psr7Response->getBody()->rewind();
+echo $Psr7Response->getBody();
+```
+#### `Seeren\Http\Response\ServerResponse`
+ServerResponse use non cacheable body and can provoq redirect output using `php://output`
+```php
+(new ServerResponse(new ServerResponseStream))->getBody()->write($body);
+```
+
+## Uri Usage
+
+#### `Seeren\Http\Uri\Uri`
+Uri need at least a schema and a host
+```php
+$uri = new Uri("http", "host");
+```
+An uri is handle by request, you can use this one instead of create a new uri
+```php
+echo $PsrRequest->getUri()
+->withUser("user", "pswd")
+->withPort(80)
+->withPath("target")
+```
+
+## Others Usage
+
+Uploaded files usage is described on [1.3 Streams](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md#13-streams) and streams usage is described on [1.6 Uploaded files](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md#16-uploaded-files)
+
+## Run Unit tests
+Install dependencies
+```
+composer update
+```
+Run [phpunit](https://phpunit.de/) with [Xdebug](https://xdebug.org/) enabled and [OPcache](http://php.net/manual/fr/book.opcache.php) disabled for coverage
+```
+./vendor/bin/phpunit
+```
+## Run Coverage
+Install dependencies
+```
+composer update
+```
+Run [coveralls](https://coveralls.io/) for check coverage
+```
+./vendor/bin/coveralls -v
+```
+
+##  Contributors
+* **Cyril Ichti** - *Initial work* - [seeren](https://github.com/seeren)
+
+## License
+This project is licensed under the **MIT License** - see the [license](LICENSE) file for details.

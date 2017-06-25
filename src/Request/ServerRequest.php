@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
- * @version 1.2.0
+ * @version 1.3.1
  */
 
 namespace Seeren\Http\Request;
@@ -83,7 +83,7 @@ class ServerRequest extends AbstractRequest implements
            $this->parseHeader());
        $this->server = filter_input_array(INPUT_SERVER);
        $this->cookie = $this->parseCookie();
-       $this->queryParam = $this->parseQueryParam();
+       $this->queryParam = $this->parseQueryParam($this->uri->getQuery());
        $this->uploadedFiles = $this->parseUploadedFiles();
        $this->parsedBody = $this->parseParsedBody($this->body->__toString());
        $this->attributes = [];
@@ -154,18 +154,24 @@ class ServerRequest extends AbstractRequest implements
    /**
     * Parse query param
     *
+    * @param string $queryString query string
     * @return array request query param
     */
-   private final function parseQueryParam(): array
+   private final function parseQueryParam($queryString): array
    {
        $queryParam = [];
-       foreach (explode("&", $this->uri->getQuery()) as $value) {
-           if ("" !== $value) {
-               $value = explode("=", $value);
-               $queryParam[urldecode($value[0])] = array_key_exists(1, $value)
-                                                 ? urldecode($value[1])
-                                                 : "";
+       foreach (explode("&", $queryString) as $value) {
+           $parsed = [];
+           parse_str($value, $parsed);
+           $key = key($parsed);
+           if (array_key_exists($key, $queryParam)
+               && is_array($queryParam[$key])) {
+               $queryParam[$key][] = is_array(current($parsed))
+                                   ? current(current($parsed))
+                                   : "";
+               continue;
            }
+           $queryParam[key($parsed)] = current($parsed);
        }
        return $queryParam;
    }
@@ -205,22 +211,11 @@ class ServerRequest extends AbstractRequest implements
     */
    private final function parseParsedBody($body): array
    {
-       $parsedBody = [];
        if (is_string($body) && "" !== $body) {
-           foreach (explode("&", $body) as $value) {
-               $parsed = [];
-               parse_str($value, $parsed);
-               $parsedKey = key($parsed);
-               if (array_key_exists($parsedKey, $parsedBody)
-                && is_array($parsedBody[$parsedKey])) {
-                   $parsedBody[$parsedKey][] = is_array(current($parsed))
-                                             ? current(current($parsed))
-                                             : "";
-                   continue;
-               }
-               $parsedBody[key($parsed)] = current($parsed);
-           }
-       } else if (is_array($body) || is_object($body)) {
+           return $this->parseQueryParam($body);
+       }
+       $parsedBody = [];
+       if (is_array($body) || is_object($body)) {
            foreach ($body as $key => $value) {
                $parsedBody[$key] = $value;
            }

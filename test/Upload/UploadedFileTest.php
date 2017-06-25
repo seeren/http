@@ -81,9 +81,15 @@ final class UploadedFileTest extends AbstractUploadedFileTest
     */
    public function testMoveToRuntimeException()
    {
+       $dir = __DIR__
+       . DIRECTORY_SEPARATOR
+       . "readonly"
+       . DIRECTORY_SEPARATOR
+       . "moved.txt";
+       chmod($dir, 0444);
        (new ReflectionClass(UploadedFile::class))
        ->newInstanceArgs([[]])
-       ->moveTo(__DIR__ . DIRECTORY_SEPARATOR . "moved.txt");
+       ->moveTo($dir);
    }
 
    /**

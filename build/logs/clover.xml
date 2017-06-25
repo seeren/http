@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1498423177">
-  <project timestamp="1498423177">
+<coverage generated="1498424033">
+  <project timestamp="1498424033">
     <package name="Seeren\Http\Message">
       <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Message/AbstractMessage.php">
         <class name="AbstractMessage" namespace="Seeren\Http\Message" fullPackage="Http.Message" category="Seeren" package="Http" subpackage="Message">

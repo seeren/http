@@ -26,7 +26,7 @@ use stdClass;
  * 
  * @category Seeren
  * @package Http
- * @subpackage Message\Test
+ * @subpackage Test\Message
  * @abstract
  */
 abstract class AbstractMessageTest extends \PHPUnit\Framework\TestCase

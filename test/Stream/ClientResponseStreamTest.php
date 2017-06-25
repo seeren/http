@@ -27,7 +27,7 @@ use ReflectionClass;
  * 
  * @category Seeren
  * @package Http
- * @subpackage Stream\Test
+ * @subpackage Test\Stream
  * @final
  */
 final class ClientResponseStreamTest extends AbstractStreamTest

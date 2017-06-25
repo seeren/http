@@ -25,7 +25,7 @@ namespace Seeren\Http\Test\Uri
      * 
      * @category Seeren
      * @package Http
-     * @subpackage Uri\Test
+     * @subpackage Test\Uri
      * @final
      */
     final class ServerRequestUriEnvironment extends \PHPUnit\Framework\TestCase

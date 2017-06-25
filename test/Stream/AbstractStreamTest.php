@@ -22,7 +22,7 @@ use Psr\Http\Message\StreamInterface;
  * 
  * @category Seeren
  * @package Http
- * @subpackage Stream\Test
+ * @subpackage Test\Stream
  * @abstract
  */
 abstract class AbstractStreamTest extends \PHPUnit\Framework\TestCase

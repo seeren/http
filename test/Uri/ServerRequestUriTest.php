@@ -24,7 +24,7 @@ use ReflectionClass;
  * 
  * @category Seeren
  * @package Http
- * @subpackage Uri\Test
+ * @subpackage Test\Uri
  * @final
  */
 final class ServerRequestUriTest extends AbstractUriTest

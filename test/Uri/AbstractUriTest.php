@@ -22,7 +22,7 @@ use Psr\Http\Message\UriInterface;
  * 
  * @category Seeren
  * @package Http
- * @subpackage Uri\Test
+ * @subpackage Test\Uri
  * @abstract
  */
 abstract class AbstractUriTest extends \PHPUnit\Framework\TestCase

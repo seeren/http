@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Test\Response\ResponseInterfaceTest class
+ * This file contain Seeren\Http\Test\Response\AbstractResponseTest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
@@ -24,7 +24,7 @@ use Seeren\Http\Test\Message\AbstractMessageTest;
  * 
  * @category Seeren
  * @package Http
- * @subpackage Response\Test
+ * @subpackage Test\Response
  * @abstract
  */
 abstract class AbstractResponseTest extends AbstractMessageTest

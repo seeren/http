@@ -24,7 +24,7 @@ use ReflectionClass;
  * 
  * @category Seeren
  * @package Http
- * @subpackage Upload\Test
+ * @subpackage Test\Upload
  * @final
  */
 final class UploadedFileTest extends AbstractUploadedFileTest

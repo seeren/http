@@ -23,7 +23,7 @@ use Psr\Http\Message\StreamInterface;
  * 
  * @category Seeren
  * @package Http
- * @subpackage Upload\Test
+ * @subpackage Test\Upload
  * @abstract
  */
 abstract class AbstractUploadedFileTest extends \PHPUnit\Framework\TestCase

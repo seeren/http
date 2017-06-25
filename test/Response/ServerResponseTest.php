@@ -26,7 +26,7 @@ use ReflectionClass;
  * 
  * @category Seeren
  * @package Http
- * @subpackage Response\Test
+ * @subpackage Test\Response
  * @final
  */
 final class ServerResponseTest extends AbstractResponseTest

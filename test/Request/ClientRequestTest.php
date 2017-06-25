@@ -16,18 +16,18 @@
 namespace Seeren\Http\Test\Request;
 
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Seeren\Http\Request\ClientRequest;
 use Seeren\Http\Stream\ClientRequestStream;
 use Seeren\Http\Uri\Uri;
 use ReflectionClass;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class for test ClientRequest
  * 
  * @category Seeren
  * @package Http
- * @subpackage Request\Test
+ * @subpackage Test\Request
  */
 class ClientRequestTest extends AbstractRequestTest
 {

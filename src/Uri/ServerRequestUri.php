@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
- * @version 1.1.5
+ * @version 1.1.7
  */
 
 namespace Seeren\Http\Uri;
@@ -87,6 +87,27 @@ class ServerRequestUri extends AbstractUri implements
    }
 
    /**
+    * Get an instance for uri path
+    *
+    * @param string $path uri path
+    * @return UriInterface for uri path
+    *
+    * @throws InvalidArgumentException
+    */
+   public final function withPath($path): UriInterface
+   {
+       try {
+           $uri = parent::withPath($path);
+       } catch (InvalidArgumentException $e) {
+           throw $e;
+       }
+       if (isset($uri->redirect)) {
+           $uri->redirect = "";
+       }
+       return $uri;
+   }
+
+   /**
     * Get UriInterface to string
     *
     * @return string uri to string
@@ -95,7 +116,9 @@ class ServerRequestUri extends AbstractUri implements
    {
        $uri = parent::__toString();
        return $this->redirect
-            ? ($this->path ? explode($this->path, $uri)[0] : "")
+            ? (explode($this->host, $uri)[0])
+            . $this->host
+            . self::SEPARATOR
             . $this->redirect
             : $uri;
    }

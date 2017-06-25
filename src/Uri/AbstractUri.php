@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
- * @version 1.0.2
+ * @version 1.0.3
  */
 
 namespace Seeren\Http\Uri;
@@ -329,7 +329,7 @@ abstract class AbstractUri
     * 
     * @throws InvalidArgumentException
     */
-   public final function withPath($path): UriInterface
+   public function withPath($path): UriInterface
    {
        if (!is_string($path)
         || !($parsedPath = $this->parsePath($path))) {

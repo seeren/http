@@ -140,7 +140,13 @@ class ServerRequest extends AbstractRequest implements
        $cookie = [];
        foreach ($this->getHeader("Cookie") as $value) {
            $value = explode("=", $value);
-           $cookie[$value[0]] = array_key_exists(1, $value) ? $value[1] : "";
+           $key = $value[0];
+           $cookieValue = "";
+           if (array_key_exists(1, $value)) {
+               array_shift($value);
+               $cookieValue .= implode("=", $value);
+           }
+           $cookie[$key] = $cookieValue;
        }
        return $cookie;
    }

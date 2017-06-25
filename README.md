@@ -49,7 +49,7 @@ $Psr7Response->getBody()->rewind();
 echo $Psr7Response->getBody();
 ```
 #### `Seeren\Http\Response\ServerResponse`
-ServerResponse use non cacheable body and can provoq redirect output using `php://output`
+ServerResponse use non cacheable body and can provoq direct output using `php://output`
 ```php
 (new ServerResponse(new ServerResponseStream))->getBody()->write($body);
 ```

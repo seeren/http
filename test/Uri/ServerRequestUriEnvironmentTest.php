@@ -42,7 +42,6 @@ namespace Seeren\Http\Test\Uri
            ->newInstanceArgs([])
            ->withScheme("http")
            ->withHost("host")
-           ->withPath("path")
            ->withQuery("foo=bar&bar=baz");
        }
 

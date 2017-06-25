@@ -58,6 +58,7 @@ final class ServerRequestUriTest extends AbstractUriTest
     * @covers \Seeren\Http\Uri\AbstractUri::withPath
     * @covers \Seeren\Http\Uri\AbstractUri::withScheme
     * @covers \Seeren\Http\Uri\ServerRequestUri::parseRedirect
+    * @covers \Seeren\Http\Uri\ServerRequestUri::withPath
     */
    public function testGetScheme ()
    {
@@ -78,6 +79,7 @@ final class ServerRequestUriTest extends AbstractUriTest
     * @covers \Seeren\Http\Uri\AbstractUri::withPath
     * @covers \Seeren\Http\Uri\AbstractUri::withScheme
     * @covers \Seeren\Http\Uri\ServerRequestUri::parseRedirect
+    * @covers \Seeren\Http\Uri\ServerRequestUri::withPath
     */
    public function testGetHttpsScheme ()
    {
@@ -100,6 +102,7 @@ final class ServerRequestUriTest extends AbstractUriTest
     * @covers \Seeren\Http\Uri\AbstractUri::withScheme
     * @covers \Seeren\Http\Uri\AbstractUri::withUserInfo
     * @covers \Seeren\Http\Uri\ServerRequestUri::parseRedirect
+    * @covers \Seeren\Http\Uri\ServerRequestUri::withPath
     * @dataProvider provideAutority
     */
    public function testGetAuthority($user, $pwsd, $host, $port, $autority)
@@ -123,6 +126,7 @@ final class ServerRequestUriTest extends AbstractUriTest
     * @covers \Seeren\Http\Uri\AbstractUri::withScheme
     * @covers \Seeren\Http\Uri\AbstractUri::withUserInfo
     * @covers \Seeren\Http\Uri\ServerRequestUri::parseRedirect
+    * @covers \Seeren\Http\Uri\ServerRequestUri::withPath
     * @dataProvider provideAutority
     */
    public function testGetUserInfo($user, $pwsd, $host, $port, $autority)
@@ -144,6 +148,7 @@ final class ServerRequestUriTest extends AbstractUriTest
     * @covers \Seeren\Http\Uri\AbstractUri::withPath
     * @covers \Seeren\Http\Uri\AbstractUri::withScheme
     * @covers \Seeren\Http\Uri\ServerRequestUri::parseRedirect
+    * @covers \Seeren\Http\Uri\ServerRequestUri::withPath
     */
    public function testGetHost()
    {
@@ -165,6 +170,7 @@ final class ServerRequestUriTest extends AbstractUriTest
     * @covers \Seeren\Http\Uri\AbstractUri::withPort
     * @covers \Seeren\Http\Uri\AbstractUri::withScheme
     * @covers \Seeren\Http\Uri\ServerRequestUri::parseRedirect
+    * @covers \Seeren\Http\Uri\ServerRequestUri::withPath
     */
    public function testGetPort()
    {
@@ -186,6 +192,7 @@ final class ServerRequestUriTest extends AbstractUriTest
     * @covers \Seeren\Http\Uri\AbstractUri::withQuery
     * @covers \Seeren\Http\Uri\AbstractUri::withScheme
     * @covers \Seeren\Http\Uri\ServerRequestUri::parseRedirect
+    * @covers \Seeren\Http\Uri\ServerRequestUri::withPath
     * @dataProvider provideRawAndEncodedQuery
     */
    public function testGetQuery($raw, $encoded)
@@ -208,6 +215,7 @@ final class ServerRequestUriTest extends AbstractUriTest
     * @covers \Seeren\Http\Uri\AbstractUri::withPath
     * @covers \Seeren\Http\Uri\AbstractUri::withScheme
     * @covers \Seeren\Http\Uri\ServerRequestUri::parseRedirect
+    * @covers \Seeren\Http\Uri\ServerRequestUri::withPath
     */
    public function testGetFragment()
    {
@@ -231,6 +239,7 @@ final class ServerRequestUriTest extends AbstractUriTest
     * @covers \Seeren\Http\Uri\AbstractUri::withPath
     * @covers \Seeren\Http\Uri\AbstractUri::withScheme
     * @covers \Seeren\Http\Uri\ServerRequestUri::parseRedirect
+    * @covers \Seeren\Http\Uri\ServerRequestUri::withPath
     * @expectedException \InvalidArgumentException
     * @dataProvider provideInvalidScheme
     */
@@ -252,6 +261,7 @@ final class ServerRequestUriTest extends AbstractUriTest
     * @covers \Seeren\Http\Uri\AbstractUri::withPath
     * @covers \Seeren\Http\Uri\AbstractUri::withScheme
     * @covers \Seeren\Http\Uri\ServerRequestUri::parseRedirect
+    * @covers \Seeren\Http\Uri\ServerRequestUri::withPath
     * @expectedException \InvalidArgumentException
     * @dataProvider provideInvalidHost
     */
@@ -274,6 +284,7 @@ final class ServerRequestUriTest extends AbstractUriTest
     * @covers \Seeren\Http\Uri\AbstractUri::withPort
     * @covers \Seeren\Http\Uri\AbstractUri::withScheme
     * @covers \Seeren\Http\Uri\ServerRequestUri::parseRedirect
+    * @covers \Seeren\Http\Uri\ServerRequestUri::withPath
     * @expectedException \InvalidArgumentException
     * @dataProvider provideInvalidPort
     */
@@ -295,6 +306,7 @@ final class ServerRequestUriTest extends AbstractUriTest
     * @covers \Seeren\Http\Uri\AbstractUri::withPath
     * @covers \Seeren\Http\Uri\AbstractUri::withScheme
     * @covers \Seeren\Http\Uri\ServerRequestUri::parseRedirect
+    * @covers \Seeren\Http\Uri\ServerRequestUri::withPath
     * @expectedException \InvalidArgumentException
     * @dataProvider provideInvaliPath
     */
@@ -317,6 +329,7 @@ final class ServerRequestUriTest extends AbstractUriTest
     * @covers \Seeren\Http\Uri\AbstractUri::withQuery
     * @covers \Seeren\Http\Uri\AbstractUri::withScheme
     * @covers \Seeren\Http\Uri\ServerRequestUri::parseRedirect
+    * @covers \Seeren\Http\Uri\ServerRequestUri::withPath
     * @expectedException \InvalidArgumentException
     * @dataProvider provideInvaliQuery
     */

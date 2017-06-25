@@ -94,7 +94,7 @@ final class ClientResponseTest extends AbstractResponseTest
                    (new ReflectionClass(Stream::class))
                    ->newInstanceArgs(["php://temp/", Stream::MODE_R_MORE]),
                    (new ReflectionClass(Uri::class))
-                   ->newInstanceArgs( ["https", "github.com"]),
+                   ->newInstanceArgs(["https", "github.com"]),
                    "GET",
                    "1.1",
                    ["Accept" => "*"]

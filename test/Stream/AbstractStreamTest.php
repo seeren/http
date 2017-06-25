@@ -82,7 +82,9 @@ abstract class AbstractStreamTest extends \PHPUnit\Framework\TestCase
            ob_end_clean();
            $size += 11;
        }
-       $this->assertTrue(($size ? $size : null) === $stream->getSize());
+       $this->assertTrue(
+           (null !== $size ? $size : null)
+       === $stream->getSize());
    }
 
    /**

@@ -72,6 +72,51 @@ final class ClientResponseStreamTest extends AbstractStreamTest
     * @covers \Seeren\Http\Stream\Stream::getContents
     * @covers \Seeren\Http\Stream\Stream::getMetadata
     * @covers \Seeren\Http\Stream\Stream::isReadable
+    * @covers \Seeren\Http\Stream\Stream::isSeekable
+    * @covers \Seeren\Http\Stream\Stream::rewind
+    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
+    * @covers \Seeren\Http\Uri\AbstractUri::__construct
+    * @covers \Seeren\Http\Uri\AbstractUri::__toString
+    * @covers \Seeren\Http\Uri\AbstractUri::getAuthority
+    * @covers \Seeren\Http\Uri\AbstractUri::parseHost
+    * @covers \Seeren\Http\Uri\AbstractUri::parsePath
+    * @covers \Seeren\Http\Uri\AbstractUri::parsePort
+    * @covers \Seeren\Http\Uri\AbstractUri::parseQuery
+    * @covers \Seeren\Http\Uri\AbstractUri::parseScheme
+    * @covers \Seeren\Http\Uri\Uri::__construct
+    * @expectedException \InvalidArgumentException
+    */
+   public function testConstructionInvalidArgumentException()
+   {
+        (new ReflectionClass(ClientResponseStream::class))
+        ->newInstanceArgs([
+          (new ReflectionClass(Request::class))
+          ->newInstanceArgs([
+            (new ReflectionClass(Stream::class))
+            ->newInstanceArgs(["php://temp/", Stream::MODE_R_MORE]),
+            (new ReflectionClass(Uri::class))
+            ->newInstanceArgs( ["http", "bad host"])
+          ])
+        ]);
+   }
+
+   /**
+    * @covers \Seeren\Http\Stream\Stream::__construct
+    * @covers \Seeren\Http\Message\AbstractMessage::__construct
+    * @covers \Seeren\Http\Message\AbstractMessage::getBody
+    * @covers \Seeren\Http\Message\AbstractMessage::getHeaders
+    * @covers \Seeren\Http\Message\AbstractMessage::parseProtocol
+    * @covers \Seeren\Http\Request\AbstractRequest::__construct
+    * @covers \Seeren\Http\Request\AbstractRequest::getMethod
+    * @covers \Seeren\Http\Request\AbstractRequest::getUri
+    * @covers \Seeren\Http\Request\AbstractRequest::parseMethod
+    * @covers \Seeren\Http\Request\Request::__construct
+    * @covers \Seeren\Http\Stream\ClientResponseStream::__construct
+    * @covers \Seeren\Http\Stream\ClientResponseStream::parseContext
+    * @covers \Seeren\Http\Stream\Stream::__toString
+    * @covers \Seeren\Http\Stream\Stream::getContents
+    * @covers \Seeren\Http\Stream\Stream::getMetadata
+    * @covers \Seeren\Http\Stream\Stream::isReadable
     * @covers \Seeren\Http\Stream\Stream::setReadableWritable
     * @covers \Seeren\Http\Uri\AbstractUri::__construct
     * @covers \Seeren\Http\Uri\AbstractUri::__toString

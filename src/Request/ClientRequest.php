@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
- * @version 1.1.4
+ * @version 1.1.5
  */
 
 namespace Seeren\Http\Request;
@@ -95,7 +95,7 @@ class ClientRequest extends AbstractRequest implements
        if (!$this->response) {
            try {
                $this->send();
-           } catch (InvalidArgumentException $e) {
+           } catch (RuntimeException $e) {
                throw new RuntimeException(
                    "Can't get response: " . $e->getMessage());
            }

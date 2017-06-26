@@ -43,8 +43,8 @@ class ClientResponseStream extends Stream
                $request->getUri()->__toString(),
                self::MODE_R,
                stream_context_create($this->parseContext($request)));
-       } catch (RuntimeException $e) {
-           throw new RuntimeException(
+       } catch (InvalidArgumentException $e) {
+           throw new InvalidArgumentException(
                "Can't create client response stream: " . $e->getMessage());
        }
    }

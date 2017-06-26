@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1498511400">
-  <project timestamp="1498511400">
+<coverage generated="1498512158">
+  <project timestamp="1498512158">
     <package name="Seeren\Http\Message">
       <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Message/AbstractMessage.php">
         <class name="AbstractMessage" namespace="Seeren\Http\Message" fullPackage="Http.Message" category="Seeren" package="Http" subpackage="Message">
@@ -131,7 +131,7 @@
       </file>
       <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Request/ClientRequest.php">
         <class name="ClientRequest" namespace="Seeren\Http\Request" fullPackage="Http.Request" category="Seeren" package="Http" subpackage="Request">
-          <metrics complexity="9" methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="20" elements="26" coveredelements="23"/>
+          <metrics complexity="9" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="23" elements="27" coveredelements="27"/>
         </class>
         <line num="55" type="method" name="__construct" visibility="public" complexity="2" crap="2" count="33"/>
         <line num="61" type="stmt" count="33"/>
@@ -145,21 +145,22 @@
         <line num="80" type="stmt" count="2"/>
         <line num="81" type="stmt" count="2"/>
         <line num="83" type="stmt" count="33"/>
-        <line num="93" type="method" name="getResponse" visibility="public" complexity="3" crap="3.33" count="2"/>
+        <line num="93" type="method" name="getResponse" visibility="public" complexity="3" crap="3" count="2"/>
         <line num="95" type="stmt" count="2"/>
         <line num="97" type="stmt" count="2"/>
         <line num="98" type="stmt" count="1"/>
-        <line num="99" type="stmt" count="0"/>
-        <line num="100" type="stmt" count="0"/>
-        <line num="103" type="stmt" count="1"/>
-        <line num="113" type="method" name="send" visibility="public" complexity="2" crap="2" count="2"/>
-        <line num="116" type="stmt" count="2"/>
+        <line num="99" type="stmt" count="1"/>
+        <line num="100" type="stmt" count="1"/>
+        <line num="101" type="stmt" count="1"/>
+        <line num="104" type="stmt" count="1"/>
+        <line num="114" type="method" name="send" visibility="public" complexity="2" crap="2" count="2"/>
         <line num="117" type="stmt" count="2"/>
-        <line num="118" type="stmt" count="1"/>
+        <line num="118" type="stmt" count="2"/>
         <line num="119" type="stmt" count="1"/>
         <line num="120" type="stmt" count="1"/>
-        <line num="122" type="stmt" count="1"/>
-        <metrics loc="125" ncloc="74" classes="1" methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="20" elements="26" coveredelements="23"/>
+        <line num="121" type="stmt" count="1"/>
+        <line num="123" type="stmt" count="1"/>
+        <metrics loc="126" ncloc="75" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="23" elements="27" coveredelements="27"/>
       </file>
       <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Request/Request.php">
         <class name="Request" namespace="Seeren\Http\Request" fullPackage="Http.Request" category="Seeren" package="Http" subpackage="Request">
@@ -752,6 +753,6 @@
     <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Uri/UriInterface.php">
       <metrics loc="62" ncloc="19" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <metrics files="26" loc="3289" ncloc="1585" classes="17" methods="114" coveredmethods="110" conditionals="0" coveredconditionals="0" statements="496" coveredstatements="489" elements="610" coveredelements="599"/>
+    <metrics files="26" loc="3290" ncloc="1586" classes="17" methods="114" coveredmethods="111" conditionals="0" coveredconditionals="0" statements="497" coveredstatements="492" elements="611" coveredelements="603"/>
   </project>
 </coverage>

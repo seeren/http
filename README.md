@@ -20,7 +20,7 @@ Consume web service with client request, a method and an uri interface implement
 ```php
 $Psr7Response = (new ClientRequest("GET", new Uri("http", "host"))->getResponse();
 ```
-Headers and body can be specified as in the example above for send a post request
+Headers and body can be specified at construction or after for send a post request
 ```php
 $Psr7Request = new ClientRequest(
     "POST",
@@ -41,7 +41,7 @@ $Psr7ServerRequest = new ServerRequest(new ServerRequestStream, new ServerReques
 ## Response Usage
 
 #### `Seeren\Http\Response\Response`
-A generic response is provided and can't provoq a direct output. She need a stream interface implementation at construction
+A generic response is provided and do not provoq a direct output when writing. She need a stream interface implementation at construction
 ```php
 $Psr7Response = new Response(new Stream("php://temp/", "r+"));
 $Psr7Response->getBody()->write("output");
@@ -49,7 +49,7 @@ $Psr7Response->getBody()->rewind();
 echo $Psr7Response->getBody();
 ```
 #### `Seeren\Http\Response\ServerResponse`
-ServerResponse use non cacheable body and can provoq direct output using `php://output`
+ServerResponse use non cacheable body and can provoq direct output  when writing beause it use `php://output`
 ```php
 (new ServerResponse(new ServerResponseStream))->getBody()->write($body);
 ```
@@ -71,7 +71,7 @@ echo $PsrRequest->getUri()
 
 ## Others Usage
 
-Uploaded files usage is described on [1.3 Streams](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md#13-streams) and streams usage is described on [1.6 Uploaded files](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md#16-uploaded-files)
+Stream usage is described on [1.3 Streams](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md#13-streams) and uploaded files usage is described on [1.6 Uploaded files](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md#16-uploaded-files)
 
 ## Run Unit tests
 Install dependencies

@@ -92,17 +92,22 @@ class ServerRequest extends AbstractRequest implements
    /**
     * Parse header
     * 
+    * <p>
+    * <b>
+    * Need htaccess folowing RewriteCond for handle authorization header
+    * without apache_request_headers function enabled:
+    * </b>
+    * <code>
+    * RewriteEngine On
+    * RewriteCond %{HTTP:Authorization} .+
+    * RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    * </code>
+    * </p>
     * @return array request header
     */
    private final function parseHeader(): array
    {
        $headers = [];
-       if(function_exists("apache_request_headers")) {
-           foreach (apache_request_headers() as $key => $value) {
-               $headers[$key] = $this->parseServerHeaderValue($key, $value);
-           }
-           return $headers;
-       }
         foreach(filter_input_array(INPUT_SERVER) as $key => $value) {
             if (strpos($key, "HTTP_") === 0) {
                 $key = str_replace(" ", "-", ucwords(

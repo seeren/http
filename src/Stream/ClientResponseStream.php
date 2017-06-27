@@ -15,8 +15,9 @@
 
 namespace Seeren\Http\Stream;
 
-use RuntimeException;
 use Psr\Http\Message\RequestInterface;
+use InvalidArgumentException;
+use RuntimeException;
 
 /**
  * Class for represent client response stream

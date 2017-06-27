@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
- * @version 1.3.1
+ * @version 1.3.2
  */
 
 namespace Seeren\Http\Request;
@@ -165,11 +165,10 @@ class ServerRequest extends AbstractRequest implements
            parse_str($value, $parsed);
            $key = key($parsed);
            if (array_key_exists($key, $queryParam)
-               && is_array($queryParam[$key])) {
-               $queryParam[$key][] = is_array(current($parsed))
-                                   ? current(current($parsed))
-                                   : "";
-               continue;
+            && is_array($queryParam[$key])
+            && is_array(current($parsed))) {
+                $queryParam[$key][] = current(current($parsed));
+                continue;
            }
            $queryParam[key($parsed)] = current($parsed);
        }

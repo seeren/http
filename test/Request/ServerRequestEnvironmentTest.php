@@ -237,13 +237,12 @@ namespace Seeren\Http\Test\Uri
          */
         public function testGetParsedBody()
         {
-
             $this->assertTrue(
                 $this
                 ->getServerRequest()
                 ->getParsedBody() === [
                     "foo" => "bar",
-                    "bar" => ["baz", "qux"]
+                    "bar" => "foo"
                 ]
             );
         }
@@ -300,7 +299,7 @@ namespace Seeren\Http\Stream
     {
         if ($target === "php://input") {
            $stream = @fopen("php://temp", "r+");
-           fwrite($stream, "foo=bar&bar[]=baz&bar[]=qux");
+           fwrite($stream, "foo=bar&bar[]=baz&bar[]=qux&bar=foo");
            rewind($stream);
            return $stream;
         } else if ($context) {

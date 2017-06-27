@@ -10,12 +10,13 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
- * @version 1.1.7
+ * @version 1.1.8
  */
 
 namespace Seeren\Http\Uri;
 
 use Psr\Http\Message\UriInterface as PsrUriInterface;
+use InvalidArgumentException;
 
 /**
  * Class for represent server request uri

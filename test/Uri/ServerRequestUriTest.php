@@ -129,9 +129,9 @@ final class ServerRequestUriTest extends AbstractUriTest
     * @covers \Seeren\Http\Uri\ServerRequestUri::withPath
     * @dataProvider provideAutority
     */
-   public function testGetUserInfo($user, $pwsd, $host, $port, $autority)
+   public function testGetUserInfo($user, $pwsd, $host, $port)
    {
-       parent::testGetUserInfo($user, $pwsd, $host, $port, $autority);
+       parent::testGetUserInfo($user, $pwsd, $host, $port);
    }
 
    /**

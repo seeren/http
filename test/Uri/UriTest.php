@@ -108,9 +108,9 @@ final class UriTest extends AbstractUriTest
     * @covers \Seeren\Http\Uri\AbstractUri::withUserInfo
     * @dataProvider provideAutority
     */
-   public function testGetUserInfo($user, $pwsd, $host, $port, $autority)
+   public function testGetUserInfo($user, $pwsd, $host, $port)
    {
-       parent::testGetUserInfo($user, $pwsd, $host, $port, $autority);
+       parent::testGetUserInfo($user, $pwsd, $host, $port);
    }
 
    /**

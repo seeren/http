@@ -170,7 +170,7 @@ abstract class AbstractUriTest extends \PHPUnit\Framework\TestCase
    /**
     * Test get user info
     */
-   public function testGetUserInfo($user, $pwsd, $host, $port, $autority)
+   public function testGetUserInfo($user, $pwsd, $host, $port)
    {
        $userInfo = $user . ($pwsd ? ":" . $pwsd : "");
        $this->assertTrue(

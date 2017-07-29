@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1500852413">
-  <project timestamp="1500852413">
+<coverage generated="1501361786">
+  <project timestamp="1501361786">
     <package name="Seeren\Http\Message">
       <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Message/AbstractMessage.php">
         <class name="AbstractMessage" namespace="Seeren\Http\Message" fullPackage="Http.Message" category="Seeren" package="Http" subpackage="Message">
@@ -90,44 +90,45 @@
     <package name="Seeren\Http\Request">
       <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Request/AbstractRequest.php">
         <class name="AbstractRequest" namespace="Seeren\Http\Request" fullPackage="Http.Request" category="Seeren" package="Http" subpackage="Request">
-          <metrics complexity="19" methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="27" coveredstatements="27" elements="35" coveredelements="35"/>
+          <metrics complexity="20" methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="28" coveredstatements="28" elements="36" coveredelements="36"/>
         </class>
         <line num="55" type="method" name="__construct" visibility="protected" complexity="1" crap="1" count="126"/>
         <line num="62" type="stmt" count="126"/>
         <line num="63" type="stmt" count="126"/>
         <line num="64" type="stmt" count="126"/>
         <line num="65" type="stmt" count="126"/>
-        <line num="73" type="method" name="parseMethod" visibility="private" complexity="5" crap="5" count="126"/>
+        <line num="73" type="method" name="parseMethod" visibility="private" complexity="6" crap="6" count="126"/>
         <line num="75" type="stmt" count="126"/>
         <line num="76" type="stmt" count="51"/>
         <line num="77" type="stmt" count="51"/>
-        <line num="78" type="stmt" count="126"/>
-        <line num="79" type="stmt" count="80"/>
-        <line num="80" type="stmt" count="126"/>
-        <line num="88" type="method" name="getRequestTarget" visibility="public" complexity="2" crap="2" count="3"/>
-        <line num="90" type="stmt" count="3"/>
-        <line num="99" type="method" name="withRequestTarget" visibility="public" complexity="1" crap="1" count="3"/>
-        <line num="101" type="stmt" count="3"/>
+        <line num="78" type="stmt" count="51"/>
+        <line num="79" type="stmt" count="126"/>
+        <line num="80" type="stmt" count="80"/>
+        <line num="81" type="stmt" count="126"/>
+        <line num="89" type="method" name="getRequestTarget" visibility="public" complexity="2" crap="2" count="3"/>
+        <line num="91" type="stmt" count="3"/>
+        <line num="100" type="method" name="withRequestTarget" visibility="public" complexity="1" crap="1" count="3"/>
         <line num="102" type="stmt" count="3"/>
         <line num="103" type="stmt" count="3"/>
-        <line num="111" type="method" name="getMethod" visibility="public" complexity="1" crap="1" count="20"/>
-        <line num="113" type="stmt" count="20"/>
-        <line num="124" type="method" name="withMethod" visibility="public" complexity="4" crap="4" count="15"/>
-        <line num="126" type="stmt" count="15"/>
-        <line num="127" type="stmt" count="9"/>
-        <line num="128" type="stmt" count="15"/>
-        <line num="129" type="stmt" count="12"/>
+        <line num="104" type="stmt" count="3"/>
+        <line num="112" type="method" name="getMethod" visibility="public" complexity="1" crap="1" count="20"/>
+        <line num="114" type="stmt" count="20"/>
+        <line num="125" type="method" name="withMethod" visibility="public" complexity="4" crap="4" count="15"/>
+        <line num="127" type="stmt" count="15"/>
+        <line num="128" type="stmt" count="9"/>
+        <line num="129" type="stmt" count="15"/>
         <line num="130" type="stmt" count="12"/>
-        <line num="132" type="stmt" count="3"/>
-        <line num="140" type="method" name="getUri" visibility="public" complexity="1" crap="1" count="17"/>
-        <line num="142" type="stmt" count="17"/>
-        <line num="152" type="method" name="withUri" visibility="public" complexity="4" crap="4" count="4"/>
-        <line num="156" type="stmt" count="4"/>
+        <line num="131" type="stmt" count="12"/>
+        <line num="133" type="stmt" count="3"/>
+        <line num="141" type="method" name="getUri" visibility="public" complexity="1" crap="1" count="17"/>
+        <line num="143" type="stmt" count="17"/>
+        <line num="153" type="method" name="withUri" visibility="public" complexity="4" crap="4" count="4"/>
         <line num="157" type="stmt" count="4"/>
         <line num="158" type="stmt" count="4"/>
-        <line num="159" type="stmt" count="3"/>
-        <line num="161" type="stmt" count="1"/>
-        <metrics loc="164" ncloc="86" classes="1" methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="27" coveredstatements="27" elements="35" coveredelements="35"/>
+        <line num="159" type="stmt" count="4"/>
+        <line num="160" type="stmt" count="3"/>
+        <line num="162" type="stmt" count="1"/>
+        <metrics loc="165" ncloc="87" classes="1" methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="28" coveredstatements="28" elements="36" coveredelements="36"/>
       </file>
       <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Request/ClientRequest.php">
         <class name="ClientRequest" namespace="Seeren\Http\Request" fullPackage="Http.Request" category="Seeren" package="Http" subpackage="Request">
@@ -294,7 +295,7 @@
       <metrics loc="47" ncloc="16" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Request/RequestInterface.php">
-      <metrics loc="108" ncloc="32" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      <metrics loc="112" ncloc="33" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Request/ServerRequestInterface.php">
       <metrics loc="38" ncloc="13" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
@@ -749,6 +750,6 @@
     <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Uri/UriInterface.php">
       <metrics loc="62" ncloc="19" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <metrics files="26" loc="3295" ncloc="1580" classes="17" methods="114" coveredmethods="114" conditionals="0" coveredconditionals="0" statements="493" coveredstatements="493" elements="607" coveredelements="607"/>
+    <metrics files="26" loc="3300" ncloc="1582" classes="17" methods="114" coveredmethods="114" conditionals="0" coveredconditionals="0" statements="494" coveredstatements="494" elements="608" coveredelements="608"/>
   </project>
 </coverage>

@@ -90,6 +90,7 @@ abstract class AbstractRequestTest extends AbstractMessageTest
         && $request->withMethod("POST")->getMethod() === "POST"
         && $request->withMethod("PUT")->getMethod() === "PUT"
         && $request->withMethod("DELETE")->getMethod() === "DELETE"
+        && $request->withMethod("OPTIONS")->getMethod() === "OPTIONS"
         && $request->getMethod() === $method
        );
    }

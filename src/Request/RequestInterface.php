@@ -45,6 +45,10 @@ interface RequestInterface extends MessageInterface
         */
        DELETE                     = "DELETE",
        /**
+        * @var string method name
+        */
+       OPTIONS                    = "OPTIONS",
+       /**
         * @var string header value
         */
        HEADER_ACCEPT              = "Accept",

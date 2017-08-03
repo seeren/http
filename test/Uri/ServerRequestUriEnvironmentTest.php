@@ -87,7 +87,7 @@ namespace Seeren\Http\Test\Uri
        public function testToString()
        {
            $this->assertTrue((string)
-               $this->getUri() === "http://host/foo/bar/baz/");
+               $this->getUri() === "http://host/?foo=bar&bar=baz");
        }
 
     }

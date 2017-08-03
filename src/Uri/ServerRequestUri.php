@@ -61,20 +61,12 @@ class ServerRequestUri extends AbstractUri implements
     */
    private final function parseRedirect(): string
    {
-       if (($redirect = ltrim((string)
-                filter_input(INPUT_SERVER, self::SERVER_REQUEST_URI),
-                self::SEPARATOR))
-         && filter_input(INPUT_SERVER, self::SERVER_REDIRECT_URL)) {           
-           foreach (explode("&", $this->query) as $value) {
-               foreach (explode("=", $value) as $value) {
-                   $redirect = str_replace(
-                       urldecode($value),
-                       $value,
-                       $redirect);
-               }
-           }
-       }
-       return $redirect;
+       return ($redirect = ltrim((string)
+                   filter_input(INPUT_SERVER, self::SERVER_REQUEST_URI),
+                   self::SEPARATOR))
+           && filter_input(INPUT_SERVER, self::SERVER_REDIRECT_URL)
+            ? str_replace("?" . $this->query, "", $redirect)
+            : "";
    }
 
    /**
@@ -115,13 +107,7 @@ class ServerRequestUri extends AbstractUri implements
     */
    public final function __toString()
    {
-       $uri = parent::__toString();
-       return $this->redirect
-            ? (explode($this->host, $uri)[0])
-            . $this->host
-            . self::SEPARATOR
-            . $this->redirect
-            : $uri;
+       return str_replace($this->path, $this->redirect, parent::__toString());
    }
 
 }

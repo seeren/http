@@ -162,20 +162,22 @@ class ServerRequest extends AbstractRequest implements
     * @param string $queryString query string
     * @return array request query param
     */
-   private final function parseQueryParam($queryString): array
+   private final function parseQueryParam(string $queryString): array
    {
        $queryParam = [];
-       foreach (explode("&", $queryString) as $value) {
-           $parsed = [];
-           parse_str($value, $parsed);
-           $key = key($parsed);
-           if (array_key_exists($key, $queryParam)
-            && is_array($queryParam[$key])
-            && is_array(current($parsed))) {
-                $queryParam[$key][] = current(current($parsed));
-                continue;
+       if ($queryString) {
+           foreach (explode("&", $queryString) as $value) {
+               $parsed = [];
+               parse_str($value, $parsed);
+               $key = key($parsed);
+               if (array_key_exists($key, $queryParam)
+                && is_array($queryParam[$key])
+                && is_array(current($parsed))) {
+                    $queryParam[$key][] = current(current($parsed));
+                    continue;
+               }
+               $queryParam[key($parsed)] = current($parsed);
            }
-           $queryParam[key($parsed)] = current($parsed);
        }
        return $queryParam;
    }

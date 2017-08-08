@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
- * @version 1.1.8
+ * @version 1.1.9
  */
 
 namespace Seeren\Http\Uri;

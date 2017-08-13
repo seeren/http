@@ -10,7 +10,7 @@
  *
  * @copyright (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
- * @version 1.1.9
+ * @version 1.1.10
  */
 
 namespace Seeren\Http\Uri;
@@ -61,10 +61,12 @@ class ServerRequestUri extends AbstractUri implements
     */
    private final function parseRedirect(): string
    {
-       return ($redirect = ltrim((string)
-                   filter_input(INPUT_SERVER, self::SERVER_REQUEST_URI),
-                   self::SEPARATOR))
-           && filter_input(INPUT_SERVER, self::SERVER_REDIRECT_URL)
+       return ($redirect = (string) filter_input(
+                   INPUT_SERVER,
+                   self::SERVER_REQUEST_URI))
+           && (string) filter_input(
+                   INPUT_SERVER,
+                   self::SERVER_REQUEST_URI)
             ? str_replace("?" . $this->query, "", $redirect)
             : "";
    }
@@ -76,7 +78,7 @@ class ServerRequestUri extends AbstractUri implements
     */
    public final function getPath(): string
    {
-       return !$this->redirect ? parent::getPath() : $this->redirect;
+       return ltrim((!$this->redirect ? parent::getPath() : $this->redirect), self::SEPARATOR);
    }
 
    /**
@@ -94,7 +96,7 @@ class ServerRequestUri extends AbstractUri implements
        } catch (InvalidArgumentException $e) {
            throw $e;
        }
-       if (isset($uri->redirect)) {
+       if ($uri->redirect) {
            $uri->redirect = "";
        }
        return $uri;
@@ -107,7 +109,10 @@ class ServerRequestUri extends AbstractUri implements
     */
    public final function __toString()
    {
-       return str_replace($this->path, $this->redirect, parent::__toString());
+       return str_replace(
+           $this->path,
+           ltrim($this->redirect, self::SEPARATOR),
+           parent::__toString());
    }
 
 }

@@ -1,0 +1,7 @@
+/.settings/
+/test/Upload/readonly/
+/test/Upload/dummy.txt
+/test/Upload/moved.txt
+/vendor/
+/.buildpath
+/.project

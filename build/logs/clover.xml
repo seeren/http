@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1502639781">
-  <project timestamp="1502639781">
+<coverage generated="1509200690">
+  <project timestamp="1509200690">
     <package name="Seeren\Http\Message">
-      <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Message/AbstractMessage.php">
+      <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Message/AbstractMessage.php">
         <class name="AbstractMessage" namespace="Seeren\Http\Message" fullPackage="Http.Message" category="Seeren" package="Http" subpackage="Message">
           <metrics complexity="32" methods="16" coveredmethods="16" conditionals="0" coveredconditionals="0" statements="59" coveredstatements="59" elements="75" coveredelements="75"/>
         </class>
@@ -84,11 +84,11 @@
         <metrics loc="286" ncloc="152" classes="1" methods="16" coveredmethods="16" conditionals="0" coveredconditionals="0" statements="59" coveredstatements="59" elements="75" coveredelements="75"/>
       </file>
     </package>
-    <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Message/MessageInterface.php">
+    <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Message/MessageInterface.php">
       <metrics loc="66" ncloc="20" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <package name="Seeren\Http\Request">
-      <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Request/AbstractRequest.php">
+      <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Request/AbstractRequest.php">
         <class name="AbstractRequest" namespace="Seeren\Http\Request" fullPackage="Http.Request" category="Seeren" package="Http" subpackage="Request">
           <metrics complexity="20" methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="28" coveredstatements="28" elements="36" coveredelements="36"/>
         </class>
@@ -130,7 +130,7 @@
         <line num="162" type="stmt" count="1"/>
         <metrics loc="165" ncloc="87" classes="1" methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="28" coveredstatements="28" elements="36" coveredelements="36"/>
       </file>
-      <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Request/ClientRequest.php">
+      <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Request/ClientRequest.php">
         <class name="ClientRequest" namespace="Seeren\Http\Request" fullPackage="Http.Request" category="Seeren" package="Http" subpackage="Request">
           <metrics complexity="9" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="22" elements="26" coveredelements="26"/>
         </class>
@@ -162,7 +162,7 @@
         <line num="122" type="stmt" count="1"/>
         <metrics loc="125" ncloc="74" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="22" elements="26" coveredelements="26"/>
       </file>
-      <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Request/Request.php">
+      <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Request/Request.php">
         <class name="Request" namespace="Seeren\Http\Request" fullPackage="Http.Request" category="Seeren" package="Http" subpackage="Request">
           <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
         </class>
@@ -171,7 +171,7 @@
         <line num="52" type="stmt" count="46"/>
         <metrics loc="54" ncloc="25" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
       </file>
-      <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Request/ServerRequest.php">
+      <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Request/ServerRequest.php">
         <class name="ServerRequest" namespace="Seeren\Http\Request" fullPackage="Http.Request" category="Seeren" package="Http" subpackage="Request">
           <metrics complexity="45" methods="20" coveredmethods="20" conditionals="0" coveredconditionals="0" statements="94" coveredstatements="94" elements="114" coveredelements="114"/>
         </class>
@@ -292,17 +292,17 @@
         <metrics loc="397" ncloc="230" classes="1" methods="20" coveredmethods="20" conditionals="0" coveredconditionals="0" statements="94" coveredstatements="94" elements="114" coveredelements="114"/>
       </file>
     </package>
-    <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Request/ClientRequestInterface.php">
+    <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Request/ClientRequestInterface.php">
       <metrics loc="47" ncloc="16" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Request/RequestInterface.php">
+    <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Request/RequestInterface.php">
       <metrics loc="112" ncloc="33" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Request/ServerRequestInterface.php">
+    <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Request/ServerRequestInterface.php">
       <metrics loc="38" ncloc="13" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <package name="Seeren\Http\Response">
-      <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Response/ClientResponse.php">
+      <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Response/ClientResponse.php">
         <class name="ClientResponse" namespace="Seeren\Http\Response" fullPackage="Http.Response" category="Seeren" package="Http" subpackage="Response">
           <metrics complexity="3" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="16" elements="17" coveredelements="17"/>
         </class>
@@ -325,7 +325,7 @@
         <line num="55" type="stmt" count="33"/>
         <metrics loc="57" ncloc="32" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="16" elements="17" coveredelements="17"/>
       </file>
-      <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Response/Response.php">
+      <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Response/Response.php">
         <class name="Response" namespace="Seeren\Http\Response" fullPackage="Http.Response" category="Seeren" package="Http" subpackage="Response">
           <metrics complexity="7" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="18" elements="23" coveredelements="23"/>
         </class>
@@ -354,7 +354,7 @@
         <line num="117" type="stmt" count="3"/>
         <metrics loc="120" ncloc="61" classes="1" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="18" elements="23" coveredelements="23"/>
       </file>
-      <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Response/ServerResponse.php">
+      <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Response/ServerResponse.php">
         <class name="ServerResponse" namespace="Seeren\Http\Response" fullPackage="Http.Response" category="Seeren" package="Http" subpackage="Response">
           <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
         </class>
@@ -364,11 +364,11 @@
         <metrics loc="42" ncloc="16" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
       </file>
     </package>
-    <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Response/ResponseInterface.php">
+    <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Response/ResponseInterface.php">
       <metrics loc="288" ncloc="77" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <package name="Seeren\Http\Stream">
-      <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Stream/ClientRequestStream.php">
+      <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Stream/ClientRequestStream.php">
         <class name="ClientRequestStream" namespace="Seeren\Http\Stream" fullPackage="Http.Stream" category="Seeren" package="Http" subpackage="Stream">
           <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
         </class>
@@ -377,7 +377,7 @@
         <line num="36" type="stmt" count="140"/>
         <metrics loc="38" ncloc="14" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
       </file>
-      <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Stream/ClientResponseStream.php">
+      <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Stream/ClientResponseStream.php">
         <class name="ClientResponseStream" namespace="Seeren\Http\Stream" fullPackage="Http.Stream" category="Seeren" package="Http" subpackage="Stream">
           <metrics complexity="5" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="17" elements="19" coveredelements="19"/>
         </class>
@@ -402,7 +402,7 @@
         <line num="75" type="stmt" count="17"/>
         <metrics loc="78" ncloc="45" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="17" elements="19" coveredelements="19"/>
       </file>
-      <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Stream/ServerRequestStream.php">
+      <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Stream/ServerRequestStream.php">
         <class name="ServerRequestStream" namespace="Seeren\Http\Stream" fullPackage="Http.Stream" category="Seeren" package="Http" subpackage="Stream">
           <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="8" elements="9" coveredelements="9"/>
         </class>
@@ -417,7 +417,7 @@
         <line num="42" type="stmt" count="60"/>
         <metrics loc="44" ncloc="20" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="8" elements="9" coveredelements="9"/>
       </file>
-      <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Stream/ServerResponseStream.php">
+      <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Stream/ServerResponseStream.php">
         <class name="ServerResponseStream" namespace="Seeren\Http\Stream" fullPackage="Http.Stream" category="Seeren" package="Http" subpackage="Stream">
           <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
         </class>
@@ -426,7 +426,7 @@
         <line num="36" type="stmt" count="44"/>
         <metrics loc="38" ncloc="14" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
       </file>
-      <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Stream/Stream.php">
+      <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Stream/Stream.php">
         <class name="Stream" namespace="Seeren\Http\Stream" fullPackage="Http.Stream" category="Seeren" package="Http" subpackage="Stream">
           <metrics complexity="46" methods="17" coveredmethods="17" conditionals="0" coveredconditionals="0" statements="79" coveredstatements="79" elements="96" coveredelements="96"/>
         </class>
@@ -529,11 +529,11 @@
         <metrics loc="309" ncloc="176" classes="1" methods="17" coveredmethods="17" conditionals="0" coveredconditionals="0" statements="79" coveredstatements="79" elements="96" coveredelements="96"/>
       </file>
     </package>
-    <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Stream/StreamInterface.php">
+    <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Stream/StreamInterface.php">
       <metrics loc="71" ncloc="22" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <package name="Seeren\Http\Upload">
-      <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Upload/UploadedFile.php">
+      <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Upload/UploadedFile.php">
         <class name="UploadedFile" namespace="Seeren\Http\Upload" fullPackage="Http.Upload" category="Seeren" package="Http" subpackage="Upload">
           <metrics complexity="18" methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="37" coveredstatements="37" elements="44" coveredelements="44"/>
         </class>
@@ -584,11 +584,11 @@
         <metrics loc="172" ncloc="95" classes="1" methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="37" coveredstatements="37" elements="44" coveredelements="44"/>
       </file>
     </package>
-    <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Upload/UploadedFileInterface.php">
+    <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Upload/UploadedFileInterface.php">
       <metrics loc="50" ncloc="16" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <package name="Seeren\Http\Uri">
-      <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Uri/AbstractUri.php">
+      <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Uri/AbstractUri.php">
         <class name="AbstractUri" namespace="Seeren\Http\Uri" fullPackage="Http.Uri" category="Seeren" package="Http" subpackage="Uri">
           <metrics complexity="48" methods="23" coveredmethods="23" conditionals="0" coveredconditionals="0" statements="76" coveredstatements="76" elements="99" coveredelements="99"/>
         </class>
@@ -693,7 +693,7 @@
         <line num="386" type="stmt" count="21"/>
         <metrics loc="389" ncloc="200" classes="1" methods="23" coveredmethods="23" conditionals="0" coveredconditionals="0" statements="76" coveredstatements="76" elements="99" coveredelements="99"/>
       </file>
-      <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Uri/ServerRequestUri.php">
+      <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Uri/ServerRequestUri.php">
         <class name="ServerRequestUri" namespace="Seeren\Http\Uri" fullPackage="Http.Uri" category="Seeren" package="Http" subpackage="Uri">
           <metrics complexity="10" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="28" coveredstatements="28" elements="33" coveredelements="33"/>
         </class>
@@ -732,7 +732,7 @@
         <line num="115" type="stmt" count="1"/>
         <metrics loc="118" ncloc="68" classes="1" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="28" coveredstatements="28" elements="33" coveredelements="33"/>
       </file>
-      <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Uri/Uri.php">
+      <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Uri/Uri.php">
         <class name="Uri" namespace="Seeren\Http\Uri" fullPackage="Http.Uri" category="Seeren" package="Http" subpackage="Uri">
           <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
         </class>
@@ -742,10 +742,10 @@
         <metrics loc="61" ncloc="30" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
       </file>
     </package>
-    <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Uri/ServerRequestUriInterface.php">
+    <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Uri/ServerRequestUriInterface.php">
       <metrics loc="66" ncloc="20" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="C:\xampp\htdocs\seeren-dev-master\http\src/Uri/UriInterface.php">
+    <file name="C:\xampp\htdocs\dev-master.seeren\http\src/Uri/UriInterface.php">
       <metrics loc="62" ncloc="19" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <metrics files="26" loc="3293" ncloc="1575" classes="17" methods="114" coveredmethods="114" conditionals="0" coveredconditionals="0" statements="492" coveredstatements="492" elements="606" coveredelements="606"/>

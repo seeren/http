@@ -3,8 +3,8 @@
 	"description" : "Manage http message",
 	"keywords" : [
 		"psr-7",
-		"http-server",
-		"http-client"
+		"client",
+		"server"
 	],
 	"type" : "library",
 	"license" : "MIT",
@@ -16,7 +16,7 @@
 	],
 	"minimum-stability" : "dev",
 	"require" : {
-		"php" : ">=7.0.1",
+		"php" : ">=7.2.0",
 		"psr/http-message" : "~1.0"
 	},
 	"autoload" : {
@@ -30,7 +30,7 @@
 		}
 	},
 	"require-dev" : {
-		"phpunit/phpunit" : "dev-master",
-		"satooshi/php-coveralls" : "dev-master"
+		"phpunit/phpunit" : "7.0.2",
+		"satooshi/php-coveralls" : "2.0.0"
 	}
 }

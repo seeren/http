@@ -2,6 +2,9 @@
 /test/Upload/readonly/
 /test/Upload/dummy.txt
 /test/Upload/moved.txt
+/public/
 /vendor/
 /.buildpath
 /.project
+/composer.lock
+/phpunit.xml

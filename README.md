@@ -27,7 +27,7 @@ $response = $request->getResponse();
 ```
 
 #### `Seeren\Http\Request\ServerRequest`
-Receive http request
+Retrieve http request
 ```php
 $request = new ServerRequest(new ServerRequestStream, new ServerRequestUri));
 ```

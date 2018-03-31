@@ -13,87 +13,49 @@ Require this package with [composer](https://getcomposer.org/)
 composer require seeren/http dev-master
 ```
 
-## Request Usage
+## Usage
 
 #### `Seeren\Http\Request\ClientRequest`
-Consume web service with client request, a method and an uri interface implementation are needed at construction
+Send http request
 ```php
-$Psr7Response = (new ClientRequest("GET", new Uri("http", "host"))->getResponse();
+$request = new ClientRequest("POST", new Uri("http", "host"), $header, $body);
 ```
-Headers and body can be specified at construction or after for send a post request
+
+Retrieve http response
 ```php
-$Psr7Request = new ClientRequest(
-    "POST",
-    new Uri("http", "host"), [
-        "Content-Type" => "application/x-www-form-urlencoded",
-        "Accept" => "application/json",
-]);
-$Psr7Request->getBody()->write(http_build_query(["key" => "value"]));
-$Psr7Response = $Psr7Request->getResponse();
+$response = $request->getResponse();
 ```
 
 #### `Seeren\Http\Request\ServerRequest`
-ServerRequest handle all inputs, protocol, method, headers, body, uri and uploaded files of a request send by a client
+Receive http request
 ```php
-$Psr7ServerRequest = new ServerRequest(new ServerRequestStream, new ServerRequestUri));
+$request = new ServerRequest(new ServerRequestStream, new ServerRequestUri));
 ```
 
-## Response Usage
-
-#### `Seeren\Http\Response\Response`
-A generic response is provided and do not provoq a direct output when writing. She need a stream interface implementation at construction
-```php
-$Psr7Response = new Response(new Stream("php://temp/", "r+"));
-$Psr7Response->getBody()->write("output");
-$Psr7Response->getBody()->rewind();
-echo $Psr7Response->getBody();
-```
 #### `Seeren\Http\Response\ServerResponse`
-ServerResponse use non cacheable body and can provoq direct output  when writing beause it use `php://output`
+Send http response
 ```php
-(new ServerResponse(new ServerResponseStream))->getBody()->write($body);
+(new ServerResponse(new ServerResponseStream))->getBody()->write($output);
 ```
-
-## Uri Usage
 
 #### `Seeren\Http\Uri\Uri`
-Uri need at least a schema and a host
+Build Uri from others
 ```php
-$uri = new Uri("http", "host");
-```
-An uri is handle by request, you can use this one instead of create a new uri
-```php
-echo $PsrRequest->getUri()
-->withUser("user", "pswd")
-->withPort(80)
-->withPath("target")
+$uri = $request->getUri()->withUser("user", "pswd")
 ```
 
-## Others Usage
+## Run Tests
 
-Stream usage is described on [1.3 Streams](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md#13-streams) and uploaded files usage is described on [1.6 Uploaded files](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md#16-uploaded-files)
-
-## Run Unit tests
-Install dependencies
-```
-composer update
-```
-Run [phpunit](https://phpunit.de/) with [Xdebug](https://xdebug.org/) enabled and [OPcache](http://php.net/manual/fr/book.opcache.php) disabled for coverage
+Run [phpunit](https://phpunit.de/) with [Xdebug](https://xdebug.org/) enable and [OPcache](http://php.net/manual/fr/book.opcache.php) disable
 ```
 ./vendor/bin/phpunit
 ```
 ## Run Coverage
-Install dependencies
-```
-composer update
-```
-Run [coveralls](https://coveralls.io/) for check coverage
-```
-./vendor/bin/coveralls -v
-```
 
-##  Contributors
-* **Cyril Ichti** - *Initial work* - [seeren](https://github.com/seeren)
+Run [coveralls](https://coveralls.io/)
+```
+./vendor/bin/php-coveralls -v
+```
 
 ## License
 This project is licensed under the **MIT License** - see the [license](LICENSE) file for details.

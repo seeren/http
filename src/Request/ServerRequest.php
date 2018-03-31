@@ -1,16 +1,15 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Request\ServerRequest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
- * @version 1.3.2
+ * @version 1.3.3
  */
 
 namespace Seeren\Http\Request;
@@ -37,37 +36,40 @@ class ServerRequest extends AbstractRequest implements
 {
 
    protected
+
        /**
-        * @var array server param
+        * @var array
         */
        $server,
+
        /**
-        * @var array cookie
+        * @var array
         */
        $cookie,
+
        /**
-        * @var array query param
+        * @var array
         */
        $queryParam,
+
        /**
-        * @var array UploadedFileInterface collection
+        * @var array UploadedFileInterface
         */
        $uploadedFiles,
+
        /**
-        * @var array parsed body
+        * @var array
         */
        $parsedBody,
+
        /**
-        * @var array attributes
+        * @var array
         */
        $attributes;
 
    /**
-    * Construct ServerRequest
-    * 
-    * @param StreamInterface $stream server request stream
-    * @param UriInterface $uri server request uri
-    * @return null
+    * @param StreamInterface $stream
+    * @param UriInterface $uri
     */
    public function __construct(
        ServerRequestStream $stream,
@@ -90,41 +92,21 @@ class ServerRequest extends AbstractRequest implements
    }
 
    /**
-    * Parse header
-    * 
-    * <p>
-    * <b>
-    * Need htaccess folowing RewriteCond for handle authorization header
-    * without apache_request_headers function enabled:
-    * </b>
-    * <code>
-    * RewriteEngine On
-    * RewriteCond %{HTTP:Authorization} .+
-    * RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-    * </code>
-    * </p>
     * @return array request header
     */
    private final function parseHeader(): array
    {
        $headers = [];
-        foreach(filter_input_array(INPUT_SERVER) as $key => $value) {
-            if (strpos($key, "HTTP_") === 0) {
-                $key = str_replace(" ", "-", ucwords(
-                           str_replace("_", " ", strtolower(substr($key, 5)))
-                        ));
+       foreach(apache_request_headers() as $key => $value) {
                 $headers[$key] = $this->parseServerHeaderValue($key, $value);
-            }
         }
        return $headers;
    }
 
     /**
-     * Parse header value
-     * 
      * @param string $key
      * @param string $value
-     * @return array header value
+     * @return array
      */
    private final function parseServerHeaderValue(
        string $key,
@@ -136,8 +118,6 @@ class ServerRequest extends AbstractRequest implements
    }
 
    /**
-    * Parse cookie
-    *
     * @return array request cookie
     */
    private final function parseCookie(): array
@@ -157,8 +137,6 @@ class ServerRequest extends AbstractRequest implements
    }
 
    /**
-    * Parse query param
-    *
     * @param string $queryString query string
     * @return array request query param
     */
@@ -183,8 +161,6 @@ class ServerRequest extends AbstractRequest implements
    }
 
    /**
-    * Parse server uploaded files
-    *
     * @return array uploaded files
     */
    private final function parseUploadedFiles(): array
@@ -210,8 +186,6 @@ class ServerRequest extends AbstractRequest implements
    }
 
    /**
-    * Parse parsed body
-    *
     * @param array $body server body
     * @return array parsed body
     */
@@ -230,9 +204,8 @@ class ServerRequest extends AbstractRequest implements
    }
 
    /**
-    * Get server param
-    *
-    * @return array server params
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\ServerRequestInterface::getServerParams()
     */
    public final function getServerParams(): array
    {
@@ -240,9 +213,8 @@ class ServerRequest extends AbstractRequest implements
    }
 
    /**
-    * Get cookies
-    *
-    * @return array cookies params
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\ServerRequestInterface::getCookieParams()
     */
    public final function getCookieParams(): array
    {
@@ -250,10 +222,8 @@ class ServerRequest extends AbstractRequest implements
    }
 
    /**
-    * Get an instance for cookies
-    *
-    * @param array $cookies cookie
-    * @return MessageInterface for cookies
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\ServerRequestInterface::withCookieParams()
     */
    public final function withCookieParams(
        array $cookies): ServerRequestInterface
@@ -262,9 +232,8 @@ class ServerRequest extends AbstractRequest implements
    }
 
    /**
-    * Get query params
-    *
-    * @return array query params
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\ServerRequestInterface::getQueryParams()
     */
    public final function getQueryParams(): array
    {
@@ -272,10 +241,8 @@ class ServerRequest extends AbstractRequest implements
    }
 
    /**
-    * Get an instance for query params
-    *
-    * @param array $query query params
-    * @return MessageInterface for query params
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\ServerRequestInterface::withQueryParams()
     */
    public final function withQueryParams(array $query): ServerRequestInterface
    {
@@ -283,9 +250,8 @@ class ServerRequest extends AbstractRequest implements
    }
 
    /**
-    * Get UploadedFiles
-    *
-    * @return array UploadedFileInterface collection
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\ServerRequestInterface::getUploadedFiles()
     */
    public final function getUploadedFiles(): array
    {
@@ -293,12 +259,8 @@ class ServerRequest extends AbstractRequest implements
    }
 
    /**
-    * Get a new instance for uploadedFiles
-    *
-    * @param array UploadedFileInterface collection
-    * @return MessageInterface for uploadedFiles
-    * 
-    * @throws InvalidArgumentException
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\ServerRequestInterface::withUploadedFiles()
     */
    public final function withUploadedFiles(
        array $uploadedFiles): ServerRequestInterface
@@ -314,9 +276,8 @@ class ServerRequest extends AbstractRequest implements
    }
 
    /**
-    * Get parsed body
-    *
-    * @return null|array|object deserialized body parameters
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\ServerRequestInterface::getParsedBody()
     */
    public final function getParsedBody(): array
    {
@@ -324,12 +285,8 @@ class ServerRequest extends AbstractRequest implements
    }
 
    /**
-    * Get an instance for deserialized body
-    *
-    * @param null|array|object $data deserialized body data
-    * @return MessageInterface for deserialized body
-    * 
-    * @throws InvalidArgumentException
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\ServerRequestInterface::withParsedBody()
     */
    public final function withParsedBody($data): ServerRequestInterface
    {
@@ -342,9 +299,8 @@ class ServerRequest extends AbstractRequest implements
    }
 
    /**
-    * Get attributes
-    * 
-    * @return array attributes
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\ServerRequestInterface::getAttributes()
     */
    public final function getAttributes(): array
    {
@@ -352,11 +308,8 @@ class ServerRequest extends AbstractRequest implements
    }
 
    /**
-    * Get attributes
-    *
-    * @param string $name attribute name
-    * @param mixed $default default value
-    * @return mixed
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\ServerRequestInterface::getAttribute()
     */
    public final function getAttribute($name, $default = null)
    {
@@ -366,11 +319,8 @@ class ServerRequest extends AbstractRequest implements
    }
 
    /**
-    * Get an instance for attribute
-    *
-    * @param string $name name
-    * @param mixed $value value
-    * @return MessageInterface for attribute
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\ServerRequestInterface::withAttribute()
     */
    public final function withAttribute($name, $value): ServerRequestInterface
    {
@@ -380,10 +330,8 @@ class ServerRequest extends AbstractRequest implements
    }
 
    /**
-    * Get an instance without attribute
-    *
-    * @param string $name name
-    * @return MessageInterface
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\ServerRequestInterface::withoutAttribute()
     */
    public final function withoutAttribute($name): ServerRequestInterface
    {

@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Uri\ServerRequestUri class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 1.1.10
  */
@@ -32,14 +31,12 @@ class ServerRequestUri extends AbstractUri implements
 
    private
        /**
-        * @var string redirected uri
+        * @var string
         */
        $redirect;
 
    /**
-    * Construct ServerRequestUri
-    * 
-    * @return null
+    * @constructor
     */
    public function __construct()
    {
@@ -55,8 +52,6 @@ class ServerRequestUri extends AbstractUri implements
    }
 
    /**
-    * Parse redirect uri
-    * 
     * @return string redirect uri
     */
    private final function parseRedirect(): string
@@ -64,30 +59,24 @@ class ServerRequestUri extends AbstractUri implements
        return ($redirect = (string) filter_input(
                    INPUT_SERVER,
                    self::SERVER_REQUEST_URI))
-           && (string) filter_input(
-                   INPUT_SERVER,
-                   self::SERVER_REQUEST_URI)
             ? str_replace("?" . $this->query, "", $redirect)
             : "";
    }
 
    /**
-    * Get uri path
-    *
-    * @return string uri path
+    * {@inheritDoc}
+    * @see \Seeren\Http\Uri\AbstractUri::getPath()
     */
    public final function getPath(): string
    {
-       return ltrim((!$this->redirect ? parent::getPath() : $this->redirect), self::SEPARATOR);
+       return ltrim((!$this->redirect
+            ? parent::getPath()
+            : $this->redirect), self::SEPARATOR);
    }
 
    /**
-    * Get an instance for uri path
-    *
-    * @param string $path uri path
-    * @return UriInterface for uri path
-    *
-    * @throws InvalidArgumentException
+    * {@inheritDoc}
+    * @see \Seeren\Http\Uri\AbstractUri::withPath()
     */
    public final function withPath($path): UriInterface
    {
@@ -103,9 +92,8 @@ class ServerRequestUri extends AbstractUri implements
    }
 
    /**
-    * Get UriInterface to string
-    *
-    * @return string uri to string
+    * {@inheritDoc}
+    * @see \Seeren\Http\Uri\AbstractUri::__toString()
     */
    public final function __toString()
    {

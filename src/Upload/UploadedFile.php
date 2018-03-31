@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Upload\UploadedFile class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 1.1.3
  */
@@ -32,36 +31,39 @@ class UploadedFile implements PsrUploadedFileInterface, UploadedFileInterface
 {
 
    protected
+
        /**
-        * @var StreamInterface body
-       */
+        * @var StreamInterface
+        */
        $body,
+
        /**
-        * @var string file name
+        * @var string
         */
        $name,
+
        /**
-        * @var string file type
+        * @var string
         */
        $type,
+
        /**
-        * @var string file tmp_name
+        * @var string
         */
        $tmpName,
+
        /**
-        * @var int file error
+        * @var int
         */
        $error,
+
        /**
-        * @var int file size
+        * @var int
         */
        $size;
 
    /**
-    * Construct UploadedFile
-    * 
-    * @param array $file parsed file
-    * @return null
+    * @param array $file
     */
    public function __construct(array $file)
    {
@@ -86,10 +88,8 @@ class UploadedFile implements PsrUploadedFileInterface, UploadedFileInterface
    }
 
    /**
-    * Get stream
-    *
-    * @return StreamInterface uploaded file body
-    * @throws RuntimeException 
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UploadedFileInterface::getStream()
     */
    public final function getStream(): StreamInterface
    {
@@ -100,12 +100,8 @@ class UploadedFile implements PsrUploadedFileInterface, UploadedFileInterface
    }
 
     /**
-     * Move the uploaded file
-     * 
-     * @param string $targetPath target path
-     * 
-     * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * {@inheritDoc}
+     * @see \Psr\Http\Message\UploadedFileInterface::moveTo()
      */
     public final function moveTo($targetPath)
     {    
@@ -130,9 +126,8 @@ class UploadedFile implements PsrUploadedFileInterface, UploadedFileInterface
     }
 
    /**
-    * Get size
-    *
-    * @return int|null file size
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UploadedFileInterface::getSize()
     */
    public final function getSize()
    {
@@ -140,9 +135,8 @@ class UploadedFile implements PsrUploadedFileInterface, UploadedFileInterface
    }
 
    /**
-    * Get file error
-    *
-    * @return int UPLOAD_ERR_XXX
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UploadedFileInterface::getError()
     */
    public final function getError(): int
    {
@@ -150,9 +144,8 @@ class UploadedFile implements PsrUploadedFileInterface, UploadedFileInterface
    }
 
    /**
-    * Get file name
-    *
-    * @return string|null file name
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UploadedFileInterface::getClientFilename()
     */
    public final function getClientFilename()
    {
@@ -160,9 +153,8 @@ class UploadedFile implements PsrUploadedFileInterface, UploadedFileInterface
    }
 
    /**
-    * Get file type
-    *
-    * @return string|null file type
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UploadedFileInterface::getClientMediaType()
     */
    public final function getClientMediaType()
    {

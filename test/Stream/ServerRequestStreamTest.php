@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Test\Stream\ServerRequestStreamTest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 2.0.1
  */
@@ -31,9 +30,8 @@ final class ServerRequestStreamTest extends AbstractStreamTest
 {
 
    /**
-    * Get StreamInterface
-    *
-    * @return StreamInterface stream
+    * {@inheritDoc}
+    * @see \Seeren\Http\Test\Stream\AbstractStreamTest::getStream()
     */
    protected final function getStream(): StreamInterface
    {

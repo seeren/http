@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Test\Upload\UploadedFileTest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 2.0.1
  */
@@ -31,9 +30,8 @@ final class UploadedFileTest extends AbstractUploadedFileTest
 {
 
    /**
-    * Get UploadedFileInterface
-    *
-    * @return UploadedFileInterface uploaded file
+    * {@inheritDoc}
+    * @see \Seeren\Http\Test\Upload\AbstractUploadedFileTest::getUploadedFile()
     */
    protected final function getUploadedFile(): UploadedFileInterface
    {

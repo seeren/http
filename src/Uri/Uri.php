@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Uri\Uri class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 1.1.2
  */
@@ -28,16 +27,13 @@ class Uri extends AbstractUri implements PsrUriInterface, UriInterface
 {
 
     /**
-     * Construct Uri
-     * 
-     * @param string $scheme uri scheme
-     * @param string $host uri host
-     * @param string $path uri path
-     * @param string $query uri query
-     * @param string $user uri user
-     * @param int $port uri port
-     * @param string $fragment uri fragment
-     * @return null
+     * @param string $scheme
+     * @param string $host
+     * @param string $path
+     * @param string $query
+     * @param string $user
+     * @param int $port
+     * @param string $fragment
      */
     public function __construct(
         string $scheme,

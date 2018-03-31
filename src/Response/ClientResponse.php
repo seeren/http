@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Response\ClientResponse class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 1.0.3
  */
@@ -28,10 +27,7 @@ class ClientResponse extends Response
 {
 
    /**
-    * Construct ClientResponse
-    * 
     * @param StreamInterface $stream response stream
-    * @return null
     */
    public function __construct(StreamInterface $stream)
    {

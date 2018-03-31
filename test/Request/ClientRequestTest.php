@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Test\Request\ClientRequestTest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 1.0.1
  */
@@ -33,9 +32,8 @@ class ClientRequestTest extends AbstractRequestTest
 {
 
     /**
-     * Get RequestInterface
-     *
-     * @return RequestInterface request
+     * {@inheritDoc}
+     * @see \Seeren\Http\Test\Request\AbstractRequestTest::getRequest()
      */
     protected function getRequest(): RequestInterface
     {
@@ -49,9 +47,7 @@ class ClientRequestTest extends AbstractRequestTest
     }
 
     /**
-     * Get RequestInterface
-     *
-     * @return RequestInterface request
+     * @return RequestInterface
      */
     protected function getClientRequest(): RequestInterface
     {

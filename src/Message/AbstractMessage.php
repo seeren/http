@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Response\AbstractMessage class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 1.0.2
  */
@@ -27,30 +26,30 @@ use InvalidArgumentException;
  * @subpackage Message
  * @abstract
  */
-abstract class AbstractMessage
+abstract class AbstractMessage implements  MessageInterface
 {
 
    protected
+
        /**
-        * @var string message protocol
+        * @var string
         */
        $protocol,
+
        /**
-        * @var array message header
+        * @var array
         */
        $header,
+
        /**
-        * @var StreamInterface message body
+        * @var StreamInterface
         */
        $body;
 
    /**
-    * Construct AbstractMessage
-    * 
-    * @param string $version message protocol version
-    * @param array $header message header collection
-    * @param StreamInterface $stream message body
-    * @return null
+    * @param string $version
+    * @param array $header
+    * @param StreamInterface
     */
    protected function __construct(
        string $version,
@@ -63,9 +62,7 @@ abstract class AbstractMessage
    }
 
    /**
-    * Parse protocol
-    *
-    * @param string $version protocol version
+    * @param string $version
     * @return string protocol
     */
    protected final function parseProtocol($version): string
@@ -77,12 +74,9 @@ abstract class AbstractMessage
    }
 
    /**
-    * Get self with
-    *
-    * @param string $name attribute name
-    * @param mixed $value attribute value
-    *
-    * @return MessageInterface self with
+    * @param string $name
+    * @param mixed $value
+    * @return MessageInterface
     */
    protected final function with(string $name, $value): MessageInterface
    {
@@ -92,10 +86,8 @@ abstract class AbstractMessage
    }
 
    /**
-    * Parse header name
-    *
-    * @param string $name header case-insensitive name
-    * @return string header name
+    * @param string $nam
+    * @return string
     */
    protected final function parseHeaderName(string $name): string
    {
@@ -107,10 +99,8 @@ abstract class AbstractMessage
     }
 
     /**
-     * Parse header value
-     *
-     * @param string|array $value header value
-     * @return array header value
+     * @param string|array $value
+     * @return array
      */
     protected final function parseHeaderValue($value): array
     {
@@ -128,9 +118,8 @@ abstract class AbstractMessage
     }
 
    /**
-    * Get HTTP protocol
-    *
-    * @return string HTTP protocol version
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\MessageInterface::getProtocolVersion()
     */
    public final function getProtocolVersion(): string
    {
@@ -138,10 +127,8 @@ abstract class AbstractMessage
    }
 
    /**
-    * Get an instance for protocol version
-    *
-    * @param string $version protocol version
-    * @return MessageInterface for protocol version
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\MessageInterface::withProtocolVersion()
     */
    public final function withProtocolVersion($version): MessageInterface
    {
@@ -149,9 +136,8 @@ abstract class AbstractMessage
    }
 
     /**
-     * Get all headers
-     *
-     * @return array header collection
+     * {@inheritDoc}
+     * @see \Psr\Http\Message\MessageInterface::getHeaders()
      */
     public final function getHeaders(): array
     {
@@ -159,10 +145,8 @@ abstract class AbstractMessage
     }
 
    /**
-    * Has header
-    *
-    * @param string $name header case-insensitive name
-    * @return bool match or not
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\MessageInterface::hasHeader()
     */
    public final function hasHeader($name): bool
    {
@@ -170,10 +154,8 @@ abstract class AbstractMessage
    }
 
    /**
-    * Get header
-    *
-    * @param string $name header case-insensitive name
-    * @return array of string values
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\MessageInterface::getHeader()
     */
    public final function getHeader($name): array
    {
@@ -182,10 +164,8 @@ abstract class AbstractMessage
    }
 
    /**
-    * Get header line
-    *
-    * @param string $name header case-insensitive name
-    * @return string header line
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\MessageInterface::getHeaderLine()
     */
    public final function getHeaderLine($name): string
    {
@@ -196,13 +176,8 @@ abstract class AbstractMessage
    }
 
    /**
-    * Get an instance for header name and value
-    *
-    * @param string $name header case-insensitive name
-    * @param string|array $value header value
-    * @return MessageInterface for header name and value
-    * 
-    * @throws InvalidArgumentException
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\MessageInterface::withHeader()
     */
    public final function withHeader($name, $value): MessageInterface
    {
@@ -217,13 +192,8 @@ abstract class AbstractMessage
    }
 
    /**
-    * Get an instance for header name and value added
-    *
-    * @param string $name header case-insensitive name
-    * @param string|array $value header value
-    * @return MessageInterface for header name and value added
-    * 
-    * @throws InvalidArgumentException
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\MessageInterface::withAddedHeader()
     */
    public final function withAddedHeader($name, $value): MessageInterface
    {
@@ -241,10 +211,8 @@ abstract class AbstractMessage
    }
 
    /**
-    * Get an instance without header
-    *
-    * @param string $name header case-insensitive name
-    * @return MessageInterface for header name removed
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\MessageInterface::withoutHeader()
     */
    public final function withoutHeader($name): MessageInterface
    {
@@ -257,9 +225,8 @@ abstract class AbstractMessage
    }
 
    /**
-    * Get body
-    *
-    * @return StreamInterface body
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\MessageInterface::getBody()
     */
    public final function getBody(): StreamInterface
    {
@@ -267,12 +234,8 @@ abstract class AbstractMessage
    }
 
    /**
-    * Get an instance for body
-    * 
-    * @param StreamInterface $body Body
-    * @return MessageInterface for body
-    * 
-    * @throws InvalidArgumentException
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\MessageInterface::withBody()
     */
    public final function withBody(StreamInterface $body): MessageInterface
    {

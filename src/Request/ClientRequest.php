@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Request\ClientRequest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 1.1.5
  */
@@ -39,18 +38,15 @@ class ClientRequest extends AbstractRequest implements
 
    protected
        /**
-        * @var ResponseInterface response
+        * @var ResponseInterface
         */
        $response;
 
    /**
-    * Construct ClientRequest
-    * 
     * @param string $method method
     * @param UriInterface $uri request uri
     * @param array $header message header
     * @param StreamInterface $stream message body
-    * @return null
     */
    public function __construct(
        string $method,
@@ -67,8 +63,6 @@ class ClientRequest extends AbstractRequest implements
    }
 
    /**
-    * Parse header
-    *
     * @param array $header headers
     * @return array headers
     */
@@ -84,11 +78,8 @@ class ClientRequest extends AbstractRequest implements
    }
 
    /**
-    * Get response
-    *
-    * @return ResponseInterface response
-    * 
-    * @throws RuntimeException on unavailable target for context
+    * {@inheritDoc}
+    * @see \Seeren\Http\Request\ClientRequestInterface::getResponse()
     */
    public final function getResponse(): ResponseInterface
    {
@@ -104,11 +95,8 @@ class ClientRequest extends AbstractRequest implements
    }
 
    /**
-    * Send request
-    *
-    * @return ClientRequestInterface static
-    *
-    * @throws RuntimeException on unavailable target for context
+    * {@inheritDoc}
+    * @see \Seeren\Http\Request\ClientRequestInterface::send()
     */
    public function send(): ClientRequestInterface
    {

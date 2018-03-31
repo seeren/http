@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Test\Request\AbstractServerRequestTest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link http://www.seeren.fr/ Seeren
  * @version 1.0.2
  */
@@ -40,9 +39,8 @@ abstract class AbstractServerRequestTest extends AbstractRequestTest
     abstract protected function getServerRequest(): ServerRequestInterface;
 
     /**
-     * Get RequestInterface
-     *
-     * @return RequestInterface request
+     * {@inheritDoc}
+     * @see \Seeren\Http\Test\Request\AbstractRequestTest::getRequest()
      */
     protected function getRequest(): RequestInterface
     {

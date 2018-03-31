@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Upload\UploadedFileInterface interface
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 1.1.2
  */
@@ -26,24 +25,29 @@ interface UploadedFileInterface
 {
 
    const
+
        /**
-        * @var string file index
+        * @var string
         */
        NAME  = "name",
+
        /**
-        * @var string file index
+        * @var string
         */
        TYPE  = "type",
+
        /**
-        * @var string file index
+        * @var string
         */
        TMP   = "tmp_name",
+
        /**
-        * @var string file index
+        * @var string
         */
        ERROR = "error",
+
        /**
-        * @var string file index
+        * @var string
         */
        SIZE  = "size";
 

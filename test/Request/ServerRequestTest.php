@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Test\Request\ServerRequestTest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 2.0.1
  */
@@ -32,9 +31,8 @@ class ServerRequestTest extends AbstractServerRequestTest
 {
 
     /**
-     * Get ServerRequestInterface
-     *
-     * @return ServerRequestInterface request
+     * {@inheritDoc}
+     * @see \Seeren\Http\Test\Request\AbstractServerRequestTest::getServerRequest()
      */
     protected function getServerRequest(): ServerRequestInterface
     {

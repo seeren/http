@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Response\ServerResponse class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 1.0.2
  */
@@ -28,11 +27,8 @@ class ServerResponse extends Response
 {
 
    /**
-    * Construct ServerResponse
-    * 
     * @param ServerResponseStream $stream response stream
     * @param string $version protocol version
-    * @return null
     */
    public function __construct(ServerResponseStream $stream, $version = "1.1")
    {

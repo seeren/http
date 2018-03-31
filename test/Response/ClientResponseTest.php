@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Test\Response\ClientResponseTest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 1.0.1
  */
@@ -36,9 +35,8 @@ final class ClientResponseTest extends AbstractResponseTest
 {
 
    /**
-    * Get ResponseInterface
-    *
-    * @return ResponseInterface response
+    * {@inheritDoc}
+    * @see \Seeren\Http\Test\Response\AbstractResponseTest::getResponse()
     */
    protected function getResponse(): ResponseInterface
    {

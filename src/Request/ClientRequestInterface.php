@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Request\ClientRequestInterface interface
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 1.1.3
  */
@@ -16,6 +15,7 @@
 namespace Seeren\Http\Request;
 
 use Psr\Http\Message\ResponseInterface;
+use RuntimeException;
 
 /**
  * Interface for represent http client request

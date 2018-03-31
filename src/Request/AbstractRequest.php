@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Request\AbstractRequest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 1.0.3
  */
@@ -33,24 +32,23 @@ abstract class AbstractRequest extends AbstractMessage
 {
 
    protected
+
        /**
-        * @var string method
-       */
+        * @var string
+        */
        $method,
+
        /**
-        * @var UriInterface uri
+        * @var UriInterface
         */
        $uri;
 
    /**
-    * Construct AbstractRequest
-    * 
     * @param StreamInterface $stream message body
     * @param UriInterface $uri request uri
     * @param string $method method
     * @param string $protocol message protocol
     * @param array $header message header
-    * @return null
     */
    protected function __construct(
        StreamInterface $stream,
@@ -82,9 +80,8 @@ abstract class AbstractRequest extends AbstractMessage
    }
 
    /**
-    * Get request target
-    *
-    * @return string request target
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\RequestInterface::getRequestTarget()
     */
    public final function getRequestTarget(): string
    {
@@ -92,10 +89,8 @@ abstract class AbstractRequest extends AbstractMessage
    }
     
    /**
-    * Get an instance for request target
-    *
-    * @param mixed $requestTarget
-    * @return MessageInterface for request target
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\RequestInterface::withRequestTarget()
     */
    public final function withRequestTarget($requestTarget): RequestInterface
    {
@@ -105,9 +100,8 @@ abstract class AbstractRequest extends AbstractMessage
    }
     
    /**
-    * Get method
-    *
-    * @return string method
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\RequestInterface::getMethod()
     */
    public final function getMethod(): string
    {
@@ -115,12 +109,8 @@ abstract class AbstractRequest extends AbstractMessage
    }
     
    /**
-    * Get an instance for method
-    * 
-    * @param string $method case-sensitive
-    * @return MessageInterface for method
-    * 
-    * @throws InvalidArgumentException
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\RequestInterface::withMethod()
     */
    public final function withMethod($method): RequestInterface
    {
@@ -134,9 +124,8 @@ abstract class AbstractRequest extends AbstractMessage
    }
 
    /**
-    * Get uri
-    *
-    * @return UriInterface request uri
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\RequestInterface::getUri()
     */
    public final function getUri(): UriInterface
    {
@@ -144,11 +133,8 @@ abstract class AbstractRequest extends AbstractMessage
    }
 
    /**
-    * Get an instance for uri
-    *
-    * @param UriInterface $uri new request uri
-    * @param bool $preserveHost preserve host header
-    * @return MessageInterface for uri
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\RequestInterface::withUri()
     */
    public final function withUri(
        UriInterface $uri,

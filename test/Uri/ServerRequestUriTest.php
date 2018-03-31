@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Test\Uri\ServerRequestUriTest class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 1.0.1
  */
@@ -31,9 +30,8 @@ final class ServerRequestUriTest extends AbstractUriTest
 {
 
    /**
-    * Get UriInterface
-    *
-    * @return UriInterface uri
+    * {@inheritDoc}
+    * @see \Seeren\Http\Test\Uri\AbstractUriTest::getUri()
     */
    protected final function getUri(): UriInterface
    {

@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Request\ServerRequestInterface interface
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 1.1.3
  */
@@ -26,13 +25,16 @@ interface ServerRequestInterface extends RequestInterface
 {
 
    const
+
        /**
-        * @var string server index
+        * @var string
         */
+
        SERVER_PROTOCOL = "SERVER_PROTOCOL",
+
        /**
-        * @var string server index
+        * @var string
         */
-       SERVER_METHOD   = "REQUEST_METHOD";
+       SERVER_METHOD = "REQUEST_METHOD";
 
 }

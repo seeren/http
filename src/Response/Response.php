@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Response\Response class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 1.2.2
  */
@@ -33,21 +32,20 @@ class Response extends AbstractMessage implements
 {
 
    protected
+
        /**
-        * @var int status code
+        * @var int
         */
        $statusCode,
+
        /**
-        * @var string reason phrase
+        * @var string
         */
        $reasonPhrase;
 
    /**
-    * Construct Response
-    * 
     * @param StreamInterface $stream response stream
     * @param string $version protocol version
-    * @return null
     */
    public function __construct(StreamInterface $stream, $version = "1.1")
    {
@@ -56,11 +54,7 @@ class Response extends AbstractMessage implements
    }
 
    /**
-    * Set status
-    *
     * @param int $code status code
-    * @return null
-    *
     * @throws InvalidArgumentException
     */
    protected final function setStatus(int $code)
@@ -75,9 +69,8 @@ class Response extends AbstractMessage implements
    }
 
    /**
-    * Get status code
-    *
-    * @return int status code
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\ResponseInterface::getStatusCode()
     */
    public final function getStatusCode()
    {
@@ -85,13 +78,8 @@ class Response extends AbstractMessage implements
    }
 
    /**
-    * Return an instance for the specified status code
-    *
-    * @param int $code status code
-    * @param string $reasonPhrase reason phrase
-    * @return ResponseInterface
-    * 
-    * @throws InvalidArgumentException
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\ResponseInterface::withStatus()
     */
    public final function withStatus(
        $code,
@@ -108,9 +96,8 @@ class Response extends AbstractMessage implements
    }
 
    /**
-    * Get reason phrase 
-    *
-    * @return string reason phrase
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\ResponseInterface::getReasonPhrase()
     */
    public final function getReasonPhrase(): string
    {

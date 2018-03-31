@@ -1,14 +1,13 @@
 <?php
 
 /**
- * This file contain Seeren\Http\Uri\AbstractUri class
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @copyright (c) Cyril Ichti <consultant@seeren.fr>
+ * @author (c) Cyril Ichti <consultant@seeren.fr>
  * @link https://github.com/seeren/http
  * @version 1.0.3
  */
@@ -30,37 +29,35 @@ abstract class AbstractUri
 
    protected
        /**
-        * @var string uri scheme
+        * @var string
         */
        $scheme,
        /**
-        * @var string uri user
+        * @var string
         */
        $user,
        /**
-        * @var string uri host
+        * @var string
         */
        $host,
        /**
-        * @var string uri port
+        * @var string
         */
        $port,
        /**
-        * @var string uri path
+        * @var string
         */
        $path,
        /**
-        * @var string uri query
+        * @var string
         */
        $query,
        /**
-        * @var string uri fragment
+        * @var string
         */
        $fragment;
 
    /**
-    * Construct AbstractUri
-    * 
     * @param string $scheme uri scheme
     * @param string $user uri user
     * @param string $host uri host
@@ -68,7 +65,6 @@ abstract class AbstractUri
     * @param string $path uri path
     * @param string $query uri query
     * @param string $fragment uri fragment
-    * @return null
     */
    protected function __construct(
        string $scheme,
@@ -89,8 +85,6 @@ abstract class AbstractUri
    }
 
    /**
-    * Parse scheme
-    * 
     * @param string $scheme uri scheme
     * @return string uri scheme
     */
@@ -102,8 +96,6 @@ abstract class AbstractUri
    }
 
    /**
-    * Parse host
-    *
     * @param string $host uri host
     * @return string uri host
     */
@@ -113,8 +105,6 @@ abstract class AbstractUri
    }
 
    /**
-    * Parse port
-    * 
     * @param string $host uri port
     * @return null|int uri port
     */
@@ -124,8 +114,6 @@ abstract class AbstractUri
    }
 
    /**
-    * Parse path
-    *
     * @param string $host uri port
     * @return string uri path
     */
@@ -137,8 +125,6 @@ abstract class AbstractUri
    }
 
    /**
-    * Parse query
-    * 
     * @param string $query uri query string
     * @return string uri query string
     */
@@ -156,11 +142,8 @@ abstract class AbstractUri
    }
 
    /**
-    * Get self with
-    *
     * @param string $name attribute name
     * @param mixed $value attribute value
-    * 
     * @return UriInterface self with
     */
    private final function with(string $name, $value): UriInterface
@@ -171,9 +154,8 @@ abstract class AbstractUri
    }
 
    /**
-    * Get uri scheme
-    *
-    * @return string uri scheme
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UriInterface::getScheme()
     */
    public final function getScheme(): string
    {
@@ -181,9 +163,8 @@ abstract class AbstractUri
    }
 
    /**
-    * Get uri authority
-    * 
-    * @return string uri authority
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UriInterface::getAuthority()
     */
    public final function getAuthority(): string
    {
@@ -193,9 +174,8 @@ abstract class AbstractUri
    }
 
    /**
-    * Get uri user
-    *
-    * @return string uri user
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UriInterface::getUserInfo()
     */
    public final function getUserInfo(): string
    {
@@ -203,9 +183,8 @@ abstract class AbstractUri
    }
 
    /**
-    * Get uri host
-    *
-    * @return string uri host
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UriInterface::getHost()
     */
    public final function getHost(): string
    {
@@ -213,9 +192,8 @@ abstract class AbstractUri
    }
 
    /**
-    * Get uri port
-    *
-    * @return null|int uri port
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UriInterface::getPort()
     */
    public final function getPort()
    {
@@ -223,9 +201,8 @@ abstract class AbstractUri
    }
 
    /**
-    * Get uri path
-    *
-    * @return string uri path
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UriInterface::getPath()
     */
    public function getPath(): string
    {
@@ -233,9 +210,8 @@ abstract class AbstractUri
    }
 
    /**
-    * Get uri query string
-    *
-    * @return string uri query string
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UriInterface::getQuery()
     */
    public final function getQuery(): string
    {
@@ -243,23 +219,18 @@ abstract class AbstractUri
    }
 
    /**
-    * Get uri fragment
-    *
-    * @return string uri fragment
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UriInterface::getFragment()
     */
    public final function getFragment(): string
    {
        return $this->fragment;
    }
     
-   /**
-    * Get an instance for uri scheme
-    * 
-    * @param string $scheme uri scheme
-    * @return UriInterface for uri scheme
-    * 
-    * @throws InvalidArgumentException
-    */
+    /**
+     * {@inheritDoc}
+     * @see \Psr\Http\Message\UriInterface::withScheme()
+     */
    public final function withScheme($scheme): UriInterface
    {
        if (!is_string($scheme)
@@ -272,11 +243,8 @@ abstract class AbstractUri
    }
 
    /**
-    * Get an instance for user information
-    *
-    * @param string $user uri user name
-    * @param null|string $password uri user password
-    * @return UriInterface for uri user information
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UriInterface::withUserInfo()
     */
    public final function withUserInfo($user, $password = null): UriInterface
    {
@@ -286,17 +254,12 @@ abstract class AbstractUri
    }
 
    /**
-    * Get an instance for uri host
-    *
-    * @param string $host uri host
-    * @return UriInterface for uri host
-    * 
-    * @throws InvalidArgumentException
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UriInterface::withHost()
     */
    public final function withHost($host): UriInterface
    {
-       if (!is_string($host)
-        || !($parsedHost = $this->parseHost($host))) {
+       if (!is_string($host) || !($parsedHost = $this->parseHost($host))) {
            throw new InvalidArgumentException(
                "Can't get with host: invalid host name");
        }
@@ -304,12 +267,8 @@ abstract class AbstractUri
    }
 
    /**
-    * Get an instance for uri port
-    *
-    * @param null|int $port uri port
-    * @return UriInterface for uri port
-    * 
-    * @throws InvalidArgumentException for invalid ports
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UriInterface::withPort()
     */
    public final function withPort($port): UriInterface
    {
@@ -322,12 +281,8 @@ abstract class AbstractUri
    }
 
    /**
-    * Get an instance for uri path
-    *
-    * @param string $path uri path
-    * @return UriInterface for uri path
-    * 
-    * @throws InvalidArgumentException
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UriInterface::withPath()
     */
    public function withPath($path): UriInterface
    {
@@ -340,11 +295,8 @@ abstract class AbstractUri
    }
 
    /**
-    * Get an instance for uri query string
-    *
-    * @return UriInterface for uri query string
-    * 
-    * @throws InvalidArgumentException
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UriInterface::withQuery()
     */
    public final function withQuery($query): UriInterface
    {
@@ -356,11 +308,8 @@ abstract class AbstractUri
    }
 
    /**
-    * Get an instance for uri fragment
-    *
-    *
-    * @param string $fragment uri fragment
-    * @return UriInterface an instance for uri fragment
+    * {@inheritDoc}
+    * @see \Psr\Http\Message\UriInterface::withFragment()
     */
    public final function withFragment($fragment): UriInterface
    {
@@ -368,8 +317,6 @@ abstract class AbstractUri
    }
 
    /**
-    * Get UriInterface to string
-    *
     * @return string
     */
    public function __toString()

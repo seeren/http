@@ -101,14 +101,15 @@ class ServerRequest extends AbstractRequest implements
            foreach(apache_request_headers() as $key => $value) {
                $headers[$key] = $this->parseServerHeaderValue($key, $value);
            }
-           return $headers;
        }
        foreach(filter_input_array(INPUT_SERVER) as $key => $value) {
            if (strpos($key, "HTTP_") === 0) {
                $key = str_replace(" ", "-", ucwords(
                    str_replace("_", " ", strtolower(substr($key, 5)))
                    ));
-               $headers[$key] = $this->parseServerHeaderValue($key, $value);
+               if (!array_key_exists($key, $headers)) {
+                   $headers[$key] = $this->parseServerHeaderValue($key, $value);
+               }
            }
        }
        return $headers;

@@ -1,336 +1,263 @@
 <?php
 
+namespace Seeren\Http\Uri;
+
+use InvalidArgumentException;
+
 /**
+ * Class to represent a generic URI
+ *
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @author (c) Cyril Ichti <consultant@seeren.fr>
- * @link https://github.com/seeren/http
- * @version 1.0.3
+ * @package Seeren\Http\Uri
  */
-
-namespace Seeren\Http\Uri;
-
-use InvalidArgumentException;
-
-/**
- * Class for represent a generic uri
- * 
- * @category Seeren
- * @package Http
- * @subpackage Uri
- * @abstract
- */
-abstract class AbstractUri
+abstract class AbstractUri implements UriInterface
 {
 
-   protected
-       /**
-        * @var string
-        */
-       $scheme,
-       /**
-        * @var string
-        */
-       $user,
-       /**
-        * @var string
-        */
-       $host,
-       /**
-        * @var string
-        */
-       $port,
-       /**
-        * @var string
-        */
-       $path,
-       /**
-        * @var string
-        */
-       $query,
-       /**
-        * @var string
-        */
-       $fragment;
+    use UriTrait;
 
-   /**
-    * @param string $scheme uri scheme
-    * @param string $user uri user
-    * @param string $host uri host
-    * @param string $host uri port
-    * @param string $path uri path
-    * @param string $query uri query
-    * @param string $fragment uri fragment
-    */
-   protected function __construct(
-       string $scheme,
-       string $user,
-       string $host,
-       int $port,
-       string $path,
-       string $query,
-       string $fragment = "")
-   {
-       $this->scheme = $this->parseScheme($scheme);
-       $this->user = $user;
-       $this->host =  $this->parseHost($host);
-       $this->port = $this->parsePort($port);
-       $this->path = $this->parsePath($path);
-       $this->query = $this->parseQuery($query);
-       $this->fragment = $fragment;
-   }
+    /**
+     * @var string
+     */
+    private string $scheme;
 
-   /**
-    * @param string $scheme uri scheme
-    * @return string uri scheme
-    */
-   private final function parseScheme(string $scheme): string
-   {
-       return $scheme === static::SCHEME_HTTPS
-            ? static::SCHEME_HTTPS
-            : static::SCHEME_HTTP;
-   }
+    /**
+     * @var string|null
+     */
+    private string $user;
 
-   /**
-    * @param string $host uri host
-    * @return string uri host
-    */
-   private final function parseHost(string $host): string
-   {
-       return preg_match("/^([a-z0-9-\.])+$/", $host) ? $host : "";
-   }
+    /**
+     * @var string
+     */
+    private string $host;
 
-   /**
-    * @param string $host uri port
-    * @return null|int uri port
-    */
-   private final function parsePort(int $port)
-   {
-       return 0 < $port && 63737 >= $port ? $port : null;
-   }
+    /**
+     * @var int|null
+     */
+    private ?int $port;
 
-   /**
-    * @param string $host uri port
-    * @return string uri path
-    */
-   private final function parsePath(string $path): string
-   {
-       return preg_match("/^([\w-_\.\/])+$/", $path)
-            ? ltrim($path, static::SEPARATOR)
-            : "";
-   }
+    /**
+     * @var string|null
+     */
+    private string $path;
 
-   /**
-    * @param string $query uri query string
-    * @return string uri query string
-    */
-   private final function parseQuery(string $query): string
-   {
-       $parsedQuery = "";
-       foreach (explode("&", $query) as $value) {
-           $value = explode("=", $value, 2);
-           $parsedQuery .= "&" . urlencode(urldecode($value[0]));
-           $parsedQuery .= array_key_exists(1, $value)
-                         ? "=" . urlencode(urldecode($value[1]))
-                         : "";
-       }   
-       return substr($parsedQuery, 1);
-   }
+    /**
+     * @var string|null
+     */
+    private string $query;
 
-   /**
-    * @param string $name attribute name
-    * @param mixed $value attribute value
-    * @return UriInterface self with
-    */
-   private final function with(string $name, $value): UriInterface
-   {
-       $clone = clone $this;
-       $clone->{$name} = $value;
-       return $clone;
-   }
+    /**
+     * @var string|null
+     */
+    private string $fragment;
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UriInterface::getScheme()
-    */
-   public final function getScheme(): string
-   {
-       return $this->scheme;
-   }
+    /**
+     * @param string $scheme
+     * @param string $user
+     * @param string $host
+     * @param int|null $port
+     * @param string $path
+     * @param string $query
+     * @param string $fragment
+     *
+     * @throws InvalidArgumentException
+     */
+    public function __construct(
+        string $scheme,
+        string $user,
+        string $host,
+        ?int $port,
+        string $path,
+        string $query,
+        string $fragment)
+    {
+        $this->scheme = $this->scheme($scheme);
+        $this->user = $user;
+        $this->host = $this->host($host);
+        $this->port = $this->port($port);
+        $this->path = $this->path($path);
+        $this->query = $this->query($query);
+        $this->fragment = $fragment;
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UriInterface::getAuthority()
-    */
-   public final function getAuthority(): string
-   {
-       return ($this->user ? $this->user . static::USER_SEPARATOR : "")
-            . $this->host
-            . ($this->port ? static::HOST_SEPARATOR . $this->port : "");
-   }
+    /**
+     * @param string $name
+     * @param $value
+     * @return UriInterface
+     */
+    private function with(string $name, $value): UriInterface
+    {
+        $clone = clone $this;
+        $clone->{$name} = $value;
+        return $clone;
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UriInterface::getUserInfo()
-    */
-   public final function getUserInfo(): string
-   {
-       return $this->user;
-   }
-
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UriInterface::getHost()
-    */
-   public final function getHost(): string
-   {
-       return $this->host;
-   }
-
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UriInterface::getPort()
-    */
-   public final function getPort()
-   {
-       return $this->port;
-   }
-
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UriInterface::getPath()
-    */
-   public function getPath(): string
-   {
-       return $this->path;
-   }
-
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UriInterface::getQuery()
-    */
-   public final function getQuery(): string
-   {
-       return $this->query;
-   }
-
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UriInterface::getFragment()
-    */
-   public final function getFragment(): string
-   {
-       return $this->fragment;
-   }
-    
     /**
      * {@inheritDoc}
-     * @see \Psr\Http\Message\UriInterface::withScheme()
+     * @see UriInterface::getScheme()
      */
-   public final function withScheme($scheme): UriInterface
-   {
-       if (!is_string($scheme)
-        || !($parsedScheme = $this->parseScheme($scheme))
-        || $parsedScheme !== strtolower($scheme)) {
-           throw new InvalidArgumentException(
-               "Can't get with scheme: not supported");
-       }
-       return $this->with("scheme", $parsedScheme);
-   }
+    public function getScheme(): string
+    {
+        return $this->scheme;
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UriInterface::withUserInfo()
-    */
-   public final function withUserInfo($user, $password = null): UriInterface
-   {
-       return $this->with(
-           "user",
-           $user . ($password ? static::HOST_SEPARATOR . $password: ""));
-   }
+    /**
+     * {@inheritDoc}
+     * @see UriInterface::getAuthority()
+     */
+    public function getAuthority(): string
+    {
+        $authority = '';
+        if ($this->user) {
+            $authority .= $this->user . self::USER_SEPARATOR;
+        }
+        $authority .= $this->host;
+        if ($this->port) {
+            $authority .= self::HOST_SEPARATOR . $this->port;
+        }
+        return $authority;
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UriInterface::withHost()
-    */
-   public final function withHost($host): UriInterface
-   {
-       if (!is_string($host) || !($parsedHost = $this->parseHost($host))) {
-           throw new InvalidArgumentException(
-               "Can't get with host: invalid host name");
-       }
-       return $this->with("host", $parsedHost);
-   }
+    /**
+     * {@inheritDoc}
+     * @see UriInterface::getUserInfo()
+     */
+    public function getUserInfo(): string
+    {
+        return $this->user;
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UriInterface::withPort()
-    */
-   public final function withPort($port): UriInterface
-   {
-       if (!is_int($port)
-        || !($parsedPort = $this->parsePort($port))) {
-           throw new InvalidArgumentException(
-               "Can't get with port: invalid port range");
-       }
-       return $this->with("port", $parsedPort);
-   }
+    /**
+     * {@inheritDoc}
+     * @see UriInterface::getHost()
+     */
+    public function getHost(): string
+    {
+        return $this->host;
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UriInterface::withPath()
-    */
-   public function withPath($path): UriInterface
-   {
-       if (!is_string($path)
-        || !($parsedPath = $this->parsePath($path))) {
-           throw new InvalidArgumentException(
-               "Can't get with path: invalid expression");
-       }
-       return $this->with("path", $parsedPath);
-   }
+    /**
+     * {@inheritDoc}
+     * @see UriInterface::getPort()
+     */
+    public function getPort(): ?int
+    {
+        return $this->port;
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UriInterface::withQuery()
-    */
-   public final function withQuery($query): UriInterface
-   {
-       if (!is_string($query)) {
-           throw new InvalidArgumentException(
-               "Can't get with query: invalid query string");
-       }
-       return $this->with("query", $this->parseQuery($query));
-   }
+    /**
+     * {@inheritDoc}
+     * @see UriInterface::getPath()
+     */
+    public function getPath(): string
+    {
+        return $this->path;
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UriInterface::withFragment()
-    */
-   public final function withFragment($fragment): UriInterface
-   {
-       return $this->with("fragment", $fragment);
-   }
+    /**
+     * {@inheritDoc}
+     * @see UriInterface::getQuery()
+     */
+    public final function getQuery(): string
+    {
+        return $this->query;
+    }
 
-   /**
-    * @return string
-    */
-   public function __toString()
-   {        
-       return $this->scheme
-            . static::SCHEME_SEPARATOR
-            . $this->getAuthority()
-            . ($this->path
-            ? static::SEPARATOR . $this->path
-            : ($this->query || $this->fragment ? static::SEPARATOR : ""))
-            . ($this->query ? static::PATH_SEPARATOR . $this->query : "")
-            . ($this->fragment
-            ? static::QUERY_SEPARATOR . $this->fragment
-            : "");
-   }
+    /**
+     * {@inheritDoc}
+     * @see UriInterface::getFragment()
+     */
+    public final function getFragment(): string
+    {
+        return $this->fragment;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see UriInterface::withScheme()
+     */
+    public function withScheme($scheme): UriInterface
+    {
+        return $this->with('scheme', $this->scheme((string)$scheme));
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see UriInterface::withUserInfo()
+     */
+    public function withUserInfo($user, $password = null): UriInterface
+    {
+        return $this->with('user', $user . ($password ? self::HOST_SEPARATOR . $password : ''));
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see UriInterface::withHost()
+     */
+    public function withHost($host): UriInterface
+    {
+        return $this->with('host', $this->host((string)$host));
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Psr\Http\Message\UriInterface::withPort()
+     */
+    public function withPort($port): UriInterface
+    {
+        return $this->with('port', $port ? $this->port((int)$port) : null);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see UriInterface::withPath()
+     */
+    public function withPath($path): UriInterface
+    {
+        return $this->with('path', $this->path((string)$path));
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Psr\Http\Message\UriInterface::withQuery()
+     */
+    public function withQuery($query): UriInterface
+    {
+        return $this->with('query', $this->query((string)$query));
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see UriInterface::withFragment()
+     */
+    public function withFragment($fragment): UriInterface
+    {
+        return $this->with('fragment', $fragment);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        $uri = $this->scheme . self::SCHEME_SEPARATOR . $this->getAuthority();
+        if ($this->path) {
+            var_dump($this->path);
+            $uri .= self::SEPARATOR . $this->path;
+        } else if ($this->query || $this->fragment) {
+            $uri .= self::SEPARATOR;
+        }
+        if ($this->query) {
+            $uri .= self::PATH_SEPARATOR . $this->query;
+        }
+        if ($this->fragment) {
+            $uri .= self::QUERY_SEPARATOR . $this->fragment;
+        }
+        return $uri;
+    }
 
 }

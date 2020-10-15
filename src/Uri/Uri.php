@@ -2,6 +2,8 @@
 
 namespace Seeren\Http\Uri;
 
+use InvalidArgumentException;
+
 /**
  * Class to represent a URI
  *
@@ -22,17 +24,19 @@ class Uri extends AbstractUri
      * @param string $path
      * @param string $query
      * @param string $user
-     * @param int $port
+     * @param int|null $port
      * @param string $fragment
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct(
         string $scheme,
         string $host,
-        string $path = "",
-        string $query = "",
-        string $user = "",
-        int $port = 0,
-        string $fragment = "")
+        string $path = '',
+        string $query = '',
+        string $user = '',
+        int $port = null,
+        string $fragment = '')
     {
         parent::__construct(
             $scheme,

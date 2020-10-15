@@ -1,10 +1,6 @@
-/.settings/
-/test/Upload/readonly/
-/test/Upload/dummy.txt
-/test/Upload/moved.txt
+/.idea/
+/build/
 /public/
 /vendor/
-/.buildpath
-/.project
-/composer.lock
-/phpunit.xml
+composer.lock
+.phpunit.result.cache

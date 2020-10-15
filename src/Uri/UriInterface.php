@@ -1,68 +1,59 @@
 <?php
 
+namespace Seeren\Http\Uri;
+
 /**
+ * Interface to represent a URI
+ *
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @author (c) Cyril Ichti <consultant@seeren.fr>
- * @link https://github.com/seeren/http
- * @version 1.1.3
+ * @package Seeren\Http\Uri
  */
-namespace Seeren\Http\Uri;
-
-/**
- * Interface for represent an uri
- *
- * @category Seeren
- * @package Http
- * @subpackage Uri
- */
-interface UriInterface
+interface UriInterface extends \Psr\Http\Message\UriInterface
 {
 
-    const
+    /**
+     * @var string
+     */
+    const SCHEME_HTTP = 'http';
 
-        /**
-         * @var string
-         */
-        SCHEME_HTTP = "http",
-    
-        /**
-         * @var string
-         */
-        SCHEME_HTTPS = "https",
-    
-        /**
-         * @var string
-         */
-        SCHEME_SEPARATOR = "://",
-    
-        /**
-         * @var string
-         */
-        SEPARATOR = "/", 
-    
-        /**
-         * @var string
-         */
-        HOST_SEPARATOR = ":", 
-    
-        /**
-         * @var string
-         */
-        USER_SEPARATOR = "@", 
-    
-        /**
-         * @var string
-         */
-        PATH_SEPARATOR = "?", 
-    
-        /**
-         * @var string
-         */
-        QUERY_SEPARATOR = "#";
+    /**
+     * @var string
+     */
+    const SCHEME_HTTPS = 'https';
+
+    /**
+     * @var string
+     */
+    const SCHEME_SEPARATOR = '://';
+
+    /**
+     * @var string
+     */
+    const SEPARATOR = '/';
+
+    /**
+     * @var string
+     */
+    const HOST_SEPARATOR = ':';
+
+    /**
+     * @var string
+     */
+    const USER_SEPARATOR = '@';
+
+    /**
+     * @var string
+     */
+    const PATH_SEPARATOR = '?';
+
+    /**
+     * @var string
+     */
+    const QUERY_SEPARATOR = '#';
 
 }

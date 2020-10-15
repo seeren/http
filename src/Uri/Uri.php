@@ -1,29 +1,19 @@
 <?php
 
+namespace Seeren\Http\Uri;
+
 /**
+ * Class to represent a URI
+ *
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @author (c) Cyril Ichti <consultant@seeren.fr>
- * @link https://github.com/seeren/http
- * @version 1.1.2
+ * @package Seeren\Http\Uri
  */
-
-namespace Seeren\Http\Uri;
-
-use Psr\Http\Message\UriInterface as PsrUriInterface;
-
-/**
- * Class for represent uri
- * 
- * @category Seeren
- * @package Http
- * @subpackage Uri
- */
-class Uri extends AbstractUri implements PsrUriInterface, UriInterface
+class Uri extends AbstractUri
 {
 
     /**
@@ -40,18 +30,18 @@ class Uri extends AbstractUri implements PsrUriInterface, UriInterface
         string $host,
         string $path = "",
         string $query = "",
-        string  $user = "",
+        string $user = "",
         int $port = 0,
         string $fragment = "")
     {
-         parent::__construct(
-             $scheme,
-             $user,
-             $host,
-             $port,
-             $path,
-             $query,
-             $fragment);
+        parent::__construct(
+            $scheme,
+            $user,
+            $host,
+            $port,
+            $path,
+            $query,
+            $fragment);
     }
 
 }

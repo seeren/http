@@ -191,7 +191,11 @@ abstract class AbstractUri implements UriInterface
      */
     public function withUserInfo($user, $password = null): UriInterface
     {
-        return $this->with('user', $user . ($password ? self::HOST_SEPARATOR . $password : ''));
+        $userInfo = $user;
+        if (null !== $password) {
+            $userInfo .= self::HOST_SEPARATOR . $password;
+        }
+        return $this->with('user', $userInfo);
     }
 
     /**
@@ -205,11 +209,14 @@ abstract class AbstractUri implements UriInterface
 
     /**
      * {@inheritDoc}
-     * @see \Psr\Http\Message\UriInterface::withPort()
+     * @see UriInterface::withPort()
      */
     public function withPort($port): UriInterface
     {
-        return $this->with('port', $port ? $this->port((int)$port) : null);
+        if (null !== $port) {
+            $port = (int)$port;
+        }
+        return $this->with('port', $this->port($port));
     }
 
     /**
@@ -246,7 +253,6 @@ abstract class AbstractUri implements UriInterface
     {
         $uri = $this->scheme . self::SCHEME_SEPARATOR . $this->getAuthority();
         if ($this->path) {
-            var_dump($this->path);
             $uri .= self::SEPARATOR . $this->path;
         } else if ($this->query || $this->fragment) {
             $uri .= self::SEPARATOR;

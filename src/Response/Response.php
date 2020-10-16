@@ -1,107 +1,98 @@
 <?php
 
+namespace Seeren\Http\Response;
+
+use Psr\Http\Message\StreamInterface;
+use Seeren\Http\Message\AbstractMessage;
+use InvalidArgumentException;
+
 /**
+ * Class to represent a response
+ *
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @author (c) Cyril Ichti <consultant@seeren.fr>
- * @link https://github.com/seeren/http
- * @version 1.2.2
+ * @package Seeren\Http\Response
  */
-
-namespace Seeren\Http\Response;
-
-use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
-use Psr\Http\Message\StreamInterface;
-use Seeren\Http\Message\AbstractMessage;
-use InvalidArgumentException;
-
-/**
- * Class for represente http response
- * 
- * @category Seeren
- * @package Http
- * @subpackage Response
- */
-class Response extends AbstractMessage implements
-    PsrResponseInterface,
-    ResponseInterface
+class Response extends AbstractMessage implements ResponseInterface
 {
 
-   protected
+    /**
+     * @var int
+     */
+    private int $statusCode;
 
-       /**
-        * @var int
-        */
-       $statusCode,
+    /**
+     * @var string
+     */
+    private string $reasonPhrase;
 
-       /**
-        * @var string
-        */
-       $reasonPhrase;
+    /**
+     * @param StreamInterface $stream
+     * @param string $version
+     */
+    public function __construct(StreamInterface $stream, string $version = '1.1')
+    {
+        parent::__construct($version, [], $stream);
+        $this->setStatus(200);
+    }
 
-   /**
-    * @param StreamInterface $stream response stream
-    * @param string $version protocol version
-    */
-   public function __construct(StreamInterface $stream, $version = "1.1")
-   {
-       parent::__construct((string) $version, [], $stream);
-       $this->setStatus(200);
-   }
+    /**
+     * @param string $name
+     * @param mixed $value
+     * @return ResponseInterface
+     */
+    private function with(string $name, $value): ResponseInterface
+    {
+        $clone = clone $this;
+        $clone->{$name} = $value;
+        return $clone;
+    }
 
-   /**
-    * @param int $code status code
-    * @throws InvalidArgumentException
-    */
-   protected final function setStatus(int $code)
-   {
-       $const = "self::STATUS_" . $code;
-       if (!defined($const)) {
-           throw new InvalidArgumentException(
-               "Can't set status for code: " . $code);
-       }
-       $this->statusCode = $code;
-       $this->reasonPhrase = constant($const);
-   }
+    /**
+     * @param int $code
+     * @throws InvalidArgumentException
+     */
+    private function setStatus(int $code)
+    {
+        $const = 'self::STATUS_' . $code;
+        if (!defined($const)) {
+            throw new InvalidArgumentException('Can\'t set status code "' . $code . '"');
+        }
+        $this->statusCode = $code;
+        $this->reasonPhrase = constant($const);
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\ResponseInterface::getStatusCode()
-    */
-   public final function getStatusCode()
-   {
-       return $this->statusCode;
-   }
+    /**
+     * {@inheritDoc}
+     * @see ResponseInterface::getStatusCode()
+     */
+    public function getStatusCode()
+    {
+        return $this->statusCode;
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\ResponseInterface::withStatus()
-    */
-   public final function withStatus(
-       $code,
-       $reasonPhrase = ""): ResponseInterface
-   {
-       try {
-           $response = $this->with("statusCode", $code);
-           $response->setStatus((int) $code, $reasonPhrase);
-       } catch (InvalidArgumentException $e) {
-           throw new InvalidArgumentException(
-               "Can't get instance for status: " . $e->getMessage());
-       }
-       return $response;
-   }
+    /**
+     * {@inheritDoc}
+     * @see ResponseInterface::withStatus()
+     */
+    public function withStatus($code, $reasonPhrase = null): ResponseInterface
+    {
+        $response = $this->with('statusCode', $code);
+        $response->setStatus((int)$code);
+        return $response;
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\ResponseInterface::getReasonPhrase()
-    */
-   public final function getReasonPhrase(): string
-   {
-       return $this->reasonPhrase;
-   }
+    /**
+     * {@inheritDoc}
+     * @see ResponseInterface::getReasonPhrase()
+     */
+    public function getReasonPhrase(): string
+    {
+        return $this->reasonPhrase;
+    }
 
 }

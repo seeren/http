@@ -1,348 +1,342 @@
 <?php
 
+namespace Seeren\Http\Response;
+
+use Seeren\Http\Message\MessageInterface;
+
 /**
+ * Interface to represent a response
+ *
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @author (c) Cyril Ichti <consultant@seeren.fr>
- * @link https://github.com/seeren/http
- * @version 1.2.5
- */
-namespace Seeren\Http\Response;
-
-use Seeren\Http\Message\MessageInterface;
-
-/**
- * Interface for represent http response
  *
- * @category Seeren
- * @package Http
- * @subpackage Response
+ * @package Seeren\Http\Response
  */
-interface ResponseInterface extends MessageInterface
+interface ResponseInterface extends MessageInterface, \Psr\Http\Message\ResponseInterface
 {
 
-    const
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_ACCESS_CONTROL_ALLOW_ORIGIN = "Access-Control-Allow-Origin",
+    const HEADER_ACCESS_CONTROL_ALLOW_ORIGIN = 'Access-Control-Allow-Origin';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_ACCESS_CONTROL_ALLOW_CREDENTIALS = "Access-Control-Allow-Credentials",
+    const HEADER_ACCESS_CONTROL_ALLOW_CREDENTIALS = 'Access-Control-Allow-Credentials';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_ACCESS_CONTROL_ALLOW_HEADERS = "Access-Control-Allow-Headers",
+    const HEADER_ACCESS_CONTROL_ALLOW_HEADERS = 'Access-Control-Allow-Headers';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_ACCESS_CONTROL_ALLOW_METHODS = "Access-Control-Allow-Methods",
+    const HEADER_ACCESS_CONTROL_ALLOW_METHODS = 'Access-Control-Allow-Methods';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_ACCEPT_RANGES = "Accept-Ranges",
+    const HEADER_ACCEPT_RANGES = 'Accept-Ranges';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_AGE = "Age",
+    const HEADER_AGE = 'Age';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_ALLOW = "Allow",
+    const HEADER_ALLOW = 'Allow';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_CONNECTION = "Connection",
+    const HEADER_CONNECTION = 'Connection';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_CONTENT_DISPOSITION = "Content-Disposition",
+    const HEADER_CONTENT_DISPOSITION = 'Content-Disposition';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_CONTENT_ENCODING = "Content-Encoding",
+    const HEADER_CONTENT_ENCODING = 'Content-Encoding';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_CONTENT_LANGUAGE = "Content-Language",
+    const HEADER_CONTENT_LANGUAGE = 'Content-Language';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_ETAG = "ETag",
+    const HEADER_ETAG = 'ETag';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_EXPIRES = "Expires",
+    const HEADER_EXPIRES = 'Expires';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_LAST_MODIFIED = "Last-Modified",
+    const HEADER_LAST_MODIFIED = 'Last-Modified';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_LOCATION = "Location",
+    const HEADER_LOCATION = 'Location';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_PRAGMA = "Pragma",
+    const HEADER_PRAGMA = 'Pragma';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_REFRESH = "Refresh",
+    const HEADER_REFRESH = 'Refresh';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_RETRY_AFTER = "Retry-After",
+    const HEADER_RETRY_AFTER = 'Retry-After';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_TRANSFERT_ENCODING = "Transfer-Encoding",
+    const HEADER_TRANSFERT_ENCODING = 'Transfer-Encoding';
 
     /**
-     * @var string header value
+     * @var string
      */
-    HEADER_WWW_AUTHENTICATE = "WWW-Authenticate",
+    const HEADER_WWW_AUTHENTICATE = 'WWW-Authenticate';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_100 = "Continue",
+    const STATUS_100 = 'Continue';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_101 = "Switching Protocols",
+    const STATUS_101 = 'Switching Protocols';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_200 = "OK",
+    const STATUS_200 = 'OK';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_201 = "Created",
+    const STATUS_201 = 'Created';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_202 = "Accepted",
+    const STATUS_202 = 'Accepted';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_203 = "Non-Authoritative Information",
+    const STATUS_203 = 'Non-Authoritative Information';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_204 = "No Content",
+    const STATUS_204 = 'No Content';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_205 = "Reset Content",
- 
-    /**
-     * @var string reason phrase
-     */
-    STATUS_206 = "Partial Content",
+    const STATUS_205 = 'Reset Content';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_300 = "Multiple Choices",
+    const STATUS_206 = 'Partial Content';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_301 = "Moved Permanently",
+    const STATUS_300 = 'Multiple Choices';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_302 = "Moved Temporarily",
+    const STATUS_301 = 'Moved Permanently';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_303 = "See Other",
+    const STATUS_302 = 'Moved Temporarily';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_304 = "Not Modified",
+    const STATUS_303 = 'See Other';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_400 = "Bad Request",
+    const STATUS_304 = 'Not Modified';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_401 = "Unauthorized",
+    const STATUS_400 = 'Bad Request';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_402 = " Payment Required",
+    const STATUS_401 = 'Unauthorized';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_403 = "Forbidden",
+    const STATUS_402 = ' Payment Required';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_404 = "Not Found",
+    const STATUS_403 = 'Forbidden';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_405 = "Method Not Allowed",
+    const STATUS_404 = 'Not Found';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_406 = "Not Acceptable",
+    const STATUS_405 = 'Method Not Allowed';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_407 = "Proxy Authentication Required",
+    const STATUS_406 = 'Not Acceptable';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_408 = "Request Timeout",
+    const STATUS_407 = 'Proxy Authentication Required';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_409 = "Conflict",
+    const STATUS_408 = 'Request Timeout';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_410 = "Gone",
+    const STATUS_409 = 'Conflict';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_411 = "Length Required",
+    const STATUS_410 = 'Gone';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_412 = "Precondition Failed",
+    const STATUS_411 = 'Length Required';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_413 = "Payload Too Large",
+    const STATUS_412 = 'Precondition Failed';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_414 = "Request-URI Too Long",
+    const STATUS_413 = 'Payload Too Large';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_415 = "Unsupported Media Type",
+    const STATUS_414 = 'Request-URI Too Long';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_416 = "Requested Range Not Satisfiable",
+    const STATUS_415 = 'Unsupported Media Type';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_417 = "Expectation Failed",
+    const STATUS_416 = 'Requested Range Not Satisfiable';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_500 = "Internal Server Error",
+    const STATUS_417 = 'Expectation Failed';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_501 = "Not Implemented",
+    const STATUS_500 = 'Internal Server Error';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_502 = "Bad Gateway",
+    const STATUS_501 = 'Not Implemented';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_503 = "Service Unavailable",
+    const STATUS_502 = 'Bad Gateway';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_504 = "Gateway Timeout",
+    const STATUS_503 = 'Service Unavailable';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_505 = "HTTP Version Not Supported",
+    const STATUS_504 = 'Gateway Timeout';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_506 = "Variant Also Negotiates",
+    const STATUS_505 = 'HTTP Version Not Supported';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_507 = "Insufficient Storage",
+    const STATUS_506 = 'Variant Also Negotiates';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_508 = "Loop Detected",
+    const STATUS_507 = 'Insufficient Storage';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_509 = "Bandwidth Limit Exceeded",
+    const STATUS_508 = 'Loop Detected';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_510 = "Not Extended",
+    const STATUS_509 = 'Bandwidth Limit Exceeded';
 
     /**
-     * @var string reason phrase
+     * @var string
      */
-    STATUS_520 = "Web server is returning an unknown error";
+    const STATUS_510 = 'Not Extended';
+
+    /**
+     * @var string
+     */
+    const STATUS_520 = 'Web server is returning an unknown error';
+
 }

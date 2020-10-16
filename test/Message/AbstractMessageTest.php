@@ -1,244 +1,272 @@
 <?php
 
-/**
- *     __
- *    / /__ __ __ __ __ __
- *   / // // // // // // /
- *  /_// // // // // // /
- *    /_//_//_//_//_//_/
- *
- * @author (c) Cyril Ichti <consultant@seeren.fr>
- * @link https://github.com/seeren/http
- * @version 2.0.1
- */
-
 namespace Seeren\Http\Test\Message;
 
-use Psr\Http\Message\StreamInterface;
-use Psr\Http\Message\MessageInterface;
-use Seeren\Http\Stream\Stream;
+use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 use ReflectionClass;
-use stdClass;
+use Seeren\Http\Message\AbstractMessage;
+use Seeren\Http\Stream\Stream;
 
-/**
- * Class for test MessageInterface
- * 
- * @category Seeren
- * @package Http
- * @subpackage Test\Message
- * @abstract
- */
-abstract class AbstractMessageTest extends \PHPUnit\Framework\TestCase
+class AbstractMessageTest extends TestCase
 {
 
-   /**
-    * Get MessageInterface
-    *
-    * @return MessageInterface message
-    */
-   abstract protected function getMessage(): MessageInterface;
+    /**
+     * @return array
+     */
+    public function protocolProvider(): array
+    {
+        return [
+            ['1.0'],
+            ['1.1'],
+            ['2'],
+        ];
+    }
 
-   /**
-    * @return StreamInterface
-    */
-   protected function getStream(): StreamInterface
-   {
-       return (new ReflectionClass(Stream::class))
-       ->newInstanceArgs(["php://temp/", Stream::MODE_R_MORE]);
-   }
+    /**
+     * @param string $protocol
+     * @param array $headers
+     * @return object
+     */
+    public function getMock(string $protocol = '1.1', array $headers = []): object
+    {
+        return (new ReflectionClass(DummyMessage::class))->newInstance($protocol, $headers);
+    }
 
-   /**
-    * Provide invalid header
-    */
-   public final function provideInvalidHeader()
-   {
-       return [
-           [true],
-           [1],
-           [1.1],
-           [null],
-           [[]],
-           [""],
-           [(new ReflectionClass(stdClass::class))
-               ->newInstanceArgs([])]
-       ];
-   }
+    /**
+     * @dataProvider protocolProvider
+     * @covers       \Seeren\Http\Message\AbstractMessage::__construct
+     * @covers       \Seeren\Http\Message\AbstractMessage::getProtocolVersion
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseProtocol
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @param string $protocol
+     */
+    public function testGetProtocolVersion(string $protocol): void
+    {
+        $this->assertEquals($protocol, $this->getMock($protocol)->getProtocolVersion());
+    }
 
-   /**
-    * Test with protocol version
-    */
-   public function testWithProtocolVersion()
-   {
-       $message = $this->getMessage();
-       $this->assertTrue(
-           $message
-           ->withProtocolVersion("1.1")
-           ->getProtocolVersion() === "1.1"
-        && $message
-           ->withProtocolVersion(1.0)
-           ->getProtocolVersion() === "1.0"
-        && $message
-           ->withProtocolVersion("1.0")
-           ->getProtocolVersion() === "1.0"
-        && $message
-           ->withProtocolVersion("foo")
-           ->getProtocolVersion() === "1.1"
-       );
-   }
+    /**
+     * @covers       \Seeren\Http\Message\AbstractMessage::__construct
+     * @covers       \Seeren\Http\Message\AbstractMessage::getProtocolVersion
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseProtocol
+     * @covers       \Seeren\Http\Message\AbstractMessage::withProtocolVersion
+     * @covers       \Seeren\Http\Message\AbstractMessage::with
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     */
+    public function testWithProtocolVersion(): void
+    {
+        $this->assertEquals('1.1', $this->getMock()->withProtocolVersion('1.1')->getProtocolVersion());
+    }
 
-   /**
-    * Test get header
-    */
-   public function testGetHeader()
-   {
-       $message = $this->getMessage();
-       $this->assertTrue(
-           count(
-               $message
-               ->getHeader("content-type")) === 0
-        && count(
-            $message
-            ->withHeader("CoNtEnT-TyPe", "text/html;charset=utf8")
-            ->getHeader("content-type")) === 2
-        && count(
-            $message
-            ->withHeader("CoNtEnT-TyPe", ["text/html", "charset=utf8"])
-            ->getHeader("content-type")) === 2
-       );
-   }
+    /**
+     * @covers       \Seeren\Http\Message\AbstractMessage::__construct
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseProtocol
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderName
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderValue
+     * @covers       \Seeren\Http\Message\AbstractMessage::getHeaders
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     */
+    public function testGetHeaders(): void
+    {
+        $this->assertCount(1, $this->getMock('1.1', ['Content-Type' => 'application/json'])
+            ->getHeaders());
+    }
 
-   /**
-    * Test has header
-    */
-   public function testHasHeader()
-   {
-       $this->assertTrue(
-           $this->getMessage()
-           ->withHeader("LoCaTiOn", "/")
-           ->hasHeader("location"));
-   }
+    /**
+     * @covers       \Seeren\Http\Message\AbstractMessage::__construct
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseProtocol
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderName
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderValue
+     * @covers       \Seeren\Http\Message\AbstractMessage::hasHeader
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     */
+    public function testHasHeaders(): void
+    {
+        $this->assertTrue($this->getMock('1.1', ['Content-Type' => 'application/json'])
+            ->hasHeader('Content-Type'));
+    }
 
-   /**
-    * Test get header line
-    */
-   public function testGetHeaderLine()
-   {
-       $message = $this->getMessage();
-       $this->assertTrue(
-           $message
-           ->withHeader("CoNtEnT-TyPe", ["text/html", "charset=utf8"])
-           ->getHeaderLine("content-type")
-      === "text/html,charset=utf8"
-       && $message->getHeaderLine("content-type")
-      === ""
-       );
-   }
+    /**
+     * @covers       \Seeren\Http\Message\AbstractMessage::__construct
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseProtocol
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderName
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderValue
+     * @covers       \Seeren\Http\Message\AbstractMessage::getHeader
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     */
+    public function testGetHeader(): void
+    {
+        $this->assertEquals(
+            ['application/json'],
+            $this->getMock('1.1', ['Content-Type' => 'application/json'])
+                ->getHeader('Content-Type')
+        );
+    }
 
-   /**
-    * Test with header invalid argument exception
-    */
-   public function testWithHeaderInvalidArgumentException($value)
-   {
-       $this->getMessage()->withHeader("Location", $value);
-   }
+    /**
+     * @covers       \Seeren\Http\Message\AbstractMessage::__construct
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseProtocol
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderName
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderValue
+     * @covers       \Seeren\Http\Message\AbstractMessage::getHeaderLine
+     * @covers       \Seeren\Http\Message\AbstractMessage::getHeader
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     */
+    public function testGetHeaderLine(): void
+    {
+        $this->assertEquals(
+            'application/json',
+            $this->getMock('1.1', ['Content-Type' => 'application/json'])
+                ->getHeaderLine('Content-Type')
+        );
+    }
 
-   /**
-    * Test with header
-    */
-   public function testWithHeader()
-   {
-       $message = $this->getMessage();
-       $this->assertTrue(
-           count(
-               $message
-               ->getHeaders()) + 1
-       === count(
-               $message
-               ->withHeader("Location", "/")
-               ->getHeaders())
-       );
-   }
+    /**
+     * @covers       \Seeren\Http\Message\AbstractMessage::__construct
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseProtocol
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderName
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderValue
+     * @covers       \Seeren\Http\Message\AbstractMessage::getHeader
+     * @covers       \Seeren\Http\Message\AbstractMessage::getHeaderLine
+     * @covers       \Seeren\Http\Message\AbstractMessage::with
+     * @covers       \Seeren\Http\Message\AbstractMessage::withHeader
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     */
+    public function testWithHeader(): void
+    {
+        $mock = $this->getMock('1.1', ['Content-Type' => 'application/json']);
+        $this->assertEquals(
+            'application/json',
+            $mock->withHeader('Content-Type', 'application/json')->getHeaderLine('Content-Type')
+        );
+    }
 
-   /**
-    * Test with added header invalid argument exception
-    */
-   public function testWithAddedHeaderInvalidArgumentException($value)
-   {
-       $this->getMessage()->withAddedHeader("Location", $value);
-   }
+    /**
+     * @covers       \Seeren\Http\Message\AbstractMessage::__construct
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseProtocol
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderName
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderValue
+     * @covers       \Seeren\Http\Message\AbstractMessage::getHeader
+     * @covers       \Seeren\Http\Message\AbstractMessage::getHeaderLine
+     * @covers       \Seeren\Http\Message\AbstractMessage::withHeader
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     */
+    public function testWithHeaderException(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->getMock()->withHeader('Content-Type', '');
+    }
 
-   /**
-    * Test with added header
-    */
-   public function testWithAddedHeader()
-   {
-       $message = $this
-       ->getMessage();
-       $this->assertTrue(
-           count(
-               $message
-               ->withAddedHeader("Location", "/")
-               ->getHeaders())
-       === count(
-               $message
-               ->withAddedHeader("Location", "/")
-               ->getHeaders())
-       );
-   }
+    /**
+     * @covers       \Seeren\Http\Message\AbstractMessage::__construct
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseProtocol
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderName
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderValue
+     * @covers       \Seeren\Http\Message\AbstractMessage::getHeader
+     * @covers       \Seeren\Http\Message\AbstractMessage::getHeaderLine
+     * @covers       \Seeren\Http\Message\AbstractMessage::with
+     * @covers       \Seeren\Http\Message\AbstractMessage::withAddedHeader
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     */
+    public function testWithAddedHeader(): void
+    {
+        $mock = $this->getMock('1.1', ['Content-Type' => 'application/json']);
+        $this->assertEquals(
+            'application/json',
+            $mock->withAddedHeader('Content-Type', ['application/json'])->getHeaderLine('Content-Type')
+        );
+    }
 
-   /**
-    * Test without header
-    */
-   public function testWithoutHeader()
-   {
-       $message = $this
-       ->getMessage()
-       ->withHeader("Location", "/");
-       $this->assertTrue(
-           count($message->getHeaders()) - 1
-       === count(
-               $message
-               ->withoutHeader("Location")
-               ->getHeaders())
-       );
-   }
+    /**
+     * @covers       \Seeren\Http\Message\AbstractMessage::__construct
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseProtocol
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderName
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderValue
+     * @covers       \Seeren\Http\Message\AbstractMessage::getHeader
+     * @covers       \Seeren\Http\Message\AbstractMessage::getHeaderLine
+     * @covers       \Seeren\Http\Message\AbstractMessage::withAddedHeader
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     */
+    public function testWithAddedHeaderException(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->getMock()->withAddedHeader('Content-Type', '');
+    }
 
-   /**
-    * Test get body
-    */
-   public function testGetBody()
-   {
-       $this->assertTrue(
-           $this
-           ->getMessage()
-           ->getBody() instanceof StreamInterface
-       );
-   }
+    /**
+     * @covers       \Seeren\Http\Message\AbstractMessage::__construct
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseProtocol
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderName
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderValue
+     * @covers       \Seeren\Http\Message\AbstractMessage::getHeader
+     * @covers       \Seeren\Http\Message\AbstractMessage::getHeaderLine
+     * @covers       \Seeren\Http\Message\AbstractMessage::with
+     * @covers       \Seeren\Http\Message\AbstractMessage::withoutHeader
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     */
+    public function testWithoutAddedHeader(): void
+    {
+        $mock = $this->getMock('1.1', ['Content-Type' => 'application/json']);
+        $this->assertEquals('', $mock->withoutHeader('Content-Type')->getHeaderLine('Content-Type'));
+    }
 
-   /**
-    * Test with body invalid argument exception
-    */
-   public function testWithBodyInvalidArgumentException()
-   {
-       $body = $this->getStream();
-       $body->detach();
-       $this
-       ->getMessage()
-       ->withBody($body);
-   }
+    /**
+     * @covers       \Seeren\Http\Message\AbstractMessage::__construct
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseProtocol
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderName
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderValue
+     * @covers       \Seeren\Http\Message\AbstractMessage::getHeader
+     * @covers       \Seeren\Http\Message\AbstractMessage::getHeaderLine
+     * @covers       \Seeren\Http\Message\AbstractMessage::with
+     * @covers       \Seeren\Http\Message\AbstractMessage::withBody
+     * @covers       \Seeren\Http\Message\AbstractMessage::getBody
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     */
+    public function testWithBody(): void
+    {
+        $mock = $this->getMock();
+        $clone = $mock->withBody(new Stream('php://temp', Stream::MODE_W));
+        $this->assertTrue($mock->getBody() !== $clone->getBody());
+    }
 
-   /**
-    * Test with body
-    */
-   public function testWithBody()
-   {
-       $body = $this->getStream();
-       $this->assertTrue(
-           $this
-           ->getMessage()
-           ->withBody($body)
-           ->getBody() === $body
-      );
-   }
+    /**
+     * @covers       \Seeren\Http\Message\AbstractMessage::__construct
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseProtocol
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderName
+     * @covers       \Seeren\Http\Message\AbstractMessage::parseHeaderValue
+     * @covers       \Seeren\Http\Message\AbstractMessage::getHeader
+     * @covers       \Seeren\Http\Message\AbstractMessage::getHeaderLine
+     * @covers       \Seeren\Http\Message\AbstractMessage::with
+     * @covers       \Seeren\Http\Message\AbstractMessage::withBody
+     * @covers       \Seeren\Http\Message\AbstractMessage::getBody
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @covers       \Seeren\Http\Stream\Stream::close
+     * @covers       \Seeren\Http\Stream\Stream::detach
+     */
+    public function testWithBodyException(): void
+    {
+        $mock = $this->getMock();
+        $body = new Stream('php://temp', Stream::MODE_W);
+        $body->detach();
+        $this->expectException(InvalidArgumentException::class);
+        $mock->withBody($body);
+    }
+
+}
+
+class DummyMessage extends AbstractMessage
+{
+
+    /**
+     * @param string $protocol
+     * @param array $headers
+     */
+    public function __construct(string $protocol = '1.1', array $headers = [])
+    {
+        parent::__construct($protocol, $headers, new Stream('php://temp', Stream::MODE_W));
+    }
 
 }

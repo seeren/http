@@ -1,249 +1,194 @@
 <?php
 
+namespace Seeren\Http\Message;
+
+use Psr\Http\Message\StreamInterface;
+use InvalidArgumentException;
+
 /**
+ * Class to represent a generic message
+ *
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @author (c) Cyril Ichti <consultant@seeren.fr>
- * @link https://github.com/seeren/http
- * @version 1.0.2
+ * @package Seeren\Http\Message
  */
-
-namespace Seeren\Http\Message;
-
-use Psr\Http\Message\StreamInterface;
-use Psr\Http\Message\MessageInterface;
-use InvalidArgumentException;
-
-/**
- * Class for represent http message
- * 
- * @category Seeren
- * @package Http
- * @subpackage Message
- * @abstract
- */
-abstract class AbstractMessage implements  MessageInterface
+abstract class AbstractMessage implements MessageInterface
 {
 
-   protected
+    use MessageTrait;
 
-       /**
-        * @var string
-        */
-       $protocol,
+    /**
+     * @var string
+     */
+    protected string $protocol;
 
-       /**
-        * @var array
-        */
-       $header,
+    /**
+     * @var array,
+     */
+    protected array $headers = [];
 
-       /**
-        * @var StreamInterface
-        */
-       $body;
+    /**
+     * @var StreamInterface
+     */
+    protected StreamInterface $body;
 
-   /**
-    * @param string $version
-    * @param array $header
-    * @param StreamInterface
-    */
-   protected function __construct(
-       string $version,
-       array $header,
-       StreamInterface $stream)
-   {
-       $this->protocol = $this->parseProtocol($version);
-       $this->header = $header;
-       $this->body = $stream;
-   }
-
-   /**
-    * @param string $version
-    * @return string protocol
-    */
-   protected final function parseProtocol($version): string
-   {
-       return static::PROTOCOL
-            . ($version == static::VERSION_0
-            ? static::VERSION_0
-            : static::VERSION_1);
-   }
-
-   /**
-    * @param string $name
-    * @param mixed $value
-    * @return MessageInterface
-    */
-   protected final function with(string $name, $value): MessageInterface
-   {
-       $clone = clone $this;
-       $clone->{$name} = $value;
-       return $clone;
-   }
-
-   /**
-    * @param string $nam
-    * @return string
-    */
-   protected final function parseHeaderName(string $name): string
-   {
-       $key = [];
-       foreach (explode("-", $name) as $name) {
-           $key[] = ucfirst(strtolower($name));
-       }
-       return implode("-", $key);
+    /**
+     * @param string $version
+     * @param array $headers
+     * @param StreamInterface $stream
+     */
+    protected function __construct(
+        string $version,
+        array $headers,
+        StreamInterface $stream)
+    {
+        $this->protocol = $this->parseProtocol($version);
+        $this->body = $stream;
+        foreach ($headers as $key => $value) {
+            $this->headers[$this->parseHeaderName($key)] = $this->parseHeaderValue($value);
+        }
     }
 
     /**
-     * @param string|array $value
-     * @return array
+     * @param string $name
+     * @param mixed $value
+     * @return MessageInterface
      */
-    protected final function parseHeaderValue($value): array
+    private function with(string $name, $value): MessageInterface
     {
-        $header = [];
-        if (is_string($value) && "" !== $value) {
-            foreach (explode(";", $value) as $value) {
-                $header[] = trim($value);
-            }
-        } else if (is_array($value)) {
-            foreach ($value as $value) {
-                $header[] = $value;
-            }
-        }
-        return $header;
+        $clone = clone $this;
+        $clone->{$name} = $value;
+        return $clone;
     }
-
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\MessageInterface::getProtocolVersion()
-    */
-   public final function getProtocolVersion(): string
-   {
-       return str_replace(static::PROTOCOL, "", $this->protocol);
-   }
-
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\MessageInterface::withProtocolVersion()
-    */
-   public final function withProtocolVersion($version): MessageInterface
-   {
-       return $this->with("protocol", $this->parseProtocol($version));
-   }
 
     /**
      * {@inheritDoc}
-     * @see \Psr\Http\Message\MessageInterface::getHeaders()
+     * @see MessageInterface::getProtocolVersion()
      */
-    public final function getHeaders(): array
+    public function getProtocolVersion(): string
     {
-        return $this->header;
+        return str_replace(static::PROTOCOL, '', $this->protocol);
     }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\MessageInterface::hasHeader()
-    */
-   public final function hasHeader($name): bool
-   {
-       return array_key_exists($this->parseHeaderName($name), $this->header);
-   }
+    /**
+     * {@inheritDoc}
+     * @see MessageInterface::withProtocolVersion()
+     */
+    public function withProtocolVersion($version): MessageInterface
+    {
+        return $this->with('protocol', $this->parseProtocol($version));
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\MessageInterface::getHeader()
-    */
-   public final function getHeader($name): array
-   {
-       $key = $this->parseHeaderName($name);
-       return array_key_exists($key, $this->header) ? $this->header[$key] : [];
-   }
+    /**
+     * {@inheritDoc}
+     * @see MessageInterface::getHeaders()
+     */
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\MessageInterface::getHeaderLine()
-    */
-   public final function getHeaderLine($name): string
-   {
-       $key = $this->parseHeaderName($name);
-       return array_key_exists($key, $this->header)
-            ? implode(",", $this->header[$key])
-            : "";
-   }
+    /**
+     * {@inheritDoc}
+     * @see MessageInterface::hasHeader()
+     */
+    public function hasHeader($name): bool
+    {
+        return array_key_exists($this->parseHeaderName($name), $this->headers);
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\MessageInterface::withHeader()
-    */
-   public final function withHeader($name, $value): MessageInterface
-   {
-       $value = $this->parseHeaderValue($value);
-       if (!is_string($name) || [] === $value) {
-           throw new InvalidArgumentException(
-               "Can't get instance for header: invalid " . $name);
-       }
-       $header = $this->header;
-       $header[$this->parseHeaderName($name)] = $value;
-       return $this->with("header", $header);
-   }
+    /**
+     * {@inheritDoc}
+     * @see MessageInterface::getHeader()
+     */
+    public function getHeader($name): array
+    {
+        return $this->headers[$this->parseHeaderName($name)] ?? [];
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\MessageInterface::withAddedHeader()
-    */
-   public final function withAddedHeader($name, $value): MessageInterface
-   {
-       $key = $this->parseHeaderName($name);
-       $header = $this->header;
-       if (!array_key_exists($key, $header)) {
-           $value = $this->parseHeaderValue($value);
-           if ("" === $key || [] === $value) {
-               throw new InvalidArgumentException(
-                   "Can't get instance for added header: invalid " . $name);
-           }
-           $header[$key] = $value;
-       }
-       return $this->with("header", $header);
-   }
+    /**
+     * {@inheritDoc}
+     * @see MessageInterface::getHeaderLine()
+     */
+    public function getHeaderLine($name): string
+    {
+        $line = '';
+        if (($header = $this->getHeader($name))) {
+            $line .= implode(',', $header);
+        }
+        return $line;
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\MessageInterface::withoutHeader()
-    */
-   public final function withoutHeader($name): MessageInterface
-   {
-       $key = $this->parseHeaderName($name);
-       $header = $this->header;
-       if (array_key_exists($key, $header)) {
-           unset($header[$key]);
-       }
-       return $this->with("header", $header);
-   }
+    /**
+     * {@inheritDoc}
+     * @see MessageInterface::withHeader()
+     */
+    public function withHeader($name, $value): MessageInterface
+    {
+        $values = $this->parseHeaderValue($value);
+        if (!is_string($name) || [] === $values) {
+            throw new InvalidArgumentException('Can\'t get ' . static::class . ' for invalid header "' . $name . '"');
+        }
+        $headers = $this->headers;
+        $headers[$this->parseHeaderName($name)] = $values;
+        return $this->with('headers', $headers);
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\MessageInterface::getBody()
-    */
-   public final function getBody(): StreamInterface
-   {
-       return $this->body;
-   }
+    /**
+     * {@inheritDoc}
+     * @see MessageInterface::withAddedHeader()
+     */
+    public function withAddedHeader($name, $value): MessageInterface
+    {
+        $key = $this->parseHeaderName($name);
+        $headers = $this->headers;
+        if (!array_key_exists($key, $headers)) {
+            $values = $this->parseHeaderValue($value);
+            if ('' === $key || [] === $values) {
+                throw new InvalidArgumentException('Can\'t get ' . static::class . ' for invalid header "' . $name . '"');
+            }
+            $headers[$key] = $values;
+        }
+        return $this->with('headers', $headers);
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\MessageInterface::withBody()
-    */
-   public final function withBody(StreamInterface $body): MessageInterface
-   {
-       if (!$body->getMetadata("uri")) {
-           throw new InvalidArgumentException(
-               "Can't get instance for body: invalid stream");
-       }
-       return $this->with("body", $body);
-   }
+    /**
+     * {@inheritDoc}
+     * @see MessageInterface::withoutHeader()
+     */
+    public function withoutHeader($name): MessageInterface
+    {
+        $key = $this->parseHeaderName($name);
+        $headers = $this->headers;
+        if (array_key_exists($key, $headers)) {
+            unset($headers[$key]);
+        }
+        return $this->with('headers', $headers);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see MessageInterface::getBody()
+     */
+    public function getBody(): StreamInterface
+    {
+        return $this->body;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see MessageInterface::withBody()
+     */
+    public function withBody(StreamInterface $body): MessageInterface
+    {
+        if (!$body->getMetadata('readable') && !$body->getMetadata('writable')) {
+            throw new InvalidArgumentException('Can\'t get instance for body because it is closed');
+        }
+        return $this->with('body', $body);
+    }
 
 }

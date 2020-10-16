@@ -1,341 +1,389 @@
 <?php
 
-/**
- *     __
- *    / /__ __ __ __ __ __
- *   / // // // // // // /
- *  /_// // // // // // /
- *    /_//_//_//_//_//_/
- *
- * @author (c) Cyril Ichti <consultant@seeren.fr>
- * @link https://github.com/seeren/http
- * @version 2.0.1
- */
-
 namespace Seeren\Http\Test\Stream;
 
-use Psr\Http\Message\StreamInterface;
-use Seeren\Http\Stream\Stream;
+use PHPUnit\Framework\TestCase;
 use ReflectionClass;
+use RuntimeException;
+use Seeren\Http\Stream\Stream;
 
-/**
- * Class for test Stream
- * 
- * @category Seeren
- * @package Http
- * @subpackage Test\Stream
- * @final
- */
-final class StreamTest extends AbstractStreamTest
+class StreamTest extends TestCase
 {
 
-   /**
-    * {@inheritDoc}
-    * @see \Seeren\Http\Test\Stream\AbstractStreamTest::getStream()
-    */
-   protected final function getStream(): StreamInterface
-   {
-       return (new ReflectionClass(Stream::class))
-              ->newInstanceArgs(["php://temp/", Stream::MODE_R_MORE]);
-   }
-
-   /**
-    * Provide readable writable for mode
-    */
-   public final function readableWritableProvider()
-   {
+    /**
+     * @return string[][]
+     */
+    public function writeModes(): array
+    {
         return [
-            ["r", true, false],
-            ["w", false, true],
-            ["a", false, true],
-            ["c", false, true],
-            ["x", false, true],
-            ["r+", true, true],
-            ["w+", true, true],
-            ["a+", true, true],
-            ["c+", true, true],
-            ["x+", true, true],
-        ];   
-   }
+            [Stream::MODE_W],
+            [Stream::MODE_A],
+            [Stream::MODE_C],
+            [Stream::MODE_X],
+            [Stream::MODE_W],
+        ];
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    * @expectedException \InvalidArgumentException
-    */
-   public function testConstructionRessourceInvalidArgumentException()
-   {
-       $this->getStream()->__construct(
-           "bad value",
-           "r",
-           stream_context_create([
-               "http" => [
-                   "method" => "POST",
-                   "header"=> "Content-Type: application/x-www-form-urlencoded"
-                            . "\r\n",
-                   "content" => http_build_query(["key" => "value"])
-           ]]));
-   }
+    /**
+     * @return string[][]
+     */
+    public function composerPath(): array
+    {
+        return [[__DIR__ . '/../../composer.json']];
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    * @expectedException \InvalidArgumentException
-    */
-   public function testConstructionTargetInvalidArgumentException()
-   {
-       $this->getStream()->__construct("bad value", "r");
-   }
+    /**
+     * @return string[][]
+     */
+    public function fooPath(): array
+    {
+        return [[__DIR__ . '/foo']];
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::getMetadata
-    * @covers \Seeren\Http\Stream\Stream::isReadable
-    * @covers \Seeren\Http\Stream\Stream::isWritable
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    * @dataProvider readableWritableProvider
-    */
-   public function testIsReadableAndIsWritable($mode,$readable, $writable)
-   {
-       $stream = $this->getStream();
-       $stream->__construct("php://temp/", $mode);
-       $this->assertTrue(
-           $stream->isReadable() === $readable
-           && $stream->isWritable() === $writable);
-   }
+    /**
+     * @param string $path
+     * @param string $mode
+     * @return object
+     */
+    public function getMock(string $path, string $mode = Stream::MODE_R): object
+    {
+        return (new ReflectionClass(Stream::class))->newInstanceArgs([$path, $mode]);
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::__toString
-    * @covers \Seeren\Http\Stream\Stream::getContents
-    * @covers \Seeren\Http\Stream\Stream::getMetadata
-    * @covers \Seeren\Http\Stream\Stream::isReadable
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    */
-   public function testToString()
-   {
-       parent::testToString();
-   }
+    /**
+     * @dataProvider writeModes
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $mode
+     */
+    public function testModeWrite(string $mode): void
+    {
+        $path = $this->fooPath()[0][0];
+        $mock = $this->getMock($path, $mode);
+        unlink($path);
+        $this->assertTrue(true === $mock->getMetadata('writable') && false === $mock->getMetadata('readable'));
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::close
-    * @covers \Seeren\Http\Stream\Stream::getMetadata
-    * @covers \Seeren\Http\Stream\Stream::isReadable
-    * @covers \Seeren\Http\Stream\Stream::isSeekable
-    * @covers \Seeren\Http\Stream\Stream::isWritable
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    */
-   public function testClose()
-   {
-       parent::testClose();
-   }
+    /**
+     * @dataProvider fooPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $path
+     */
+    public function testModeMore(string $path): void
+    {
+        $mock = $this->getMock($path, Stream::MODE_X_MORE);
+        unlink($path);
+        $this->assertTrue(true === $mock->getMetadata('writable') && true === $mock->getMetadata('readable'));
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::close
-    * @covers \Seeren\Http\Stream\Stream::detach
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    */
-   public function testDetach()
-   {
-       parent::testDetach();
-   }
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::__toString
+     * @covers       \Seeren\Http\Stream\Stream::getContents
+     * @covers       \Seeren\Http\Stream\Stream::isReadable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testToString(string $composerPath): void
+    {
+        $this->assertTrue('' !== (string)$this->getMock($composerPath));
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::getMetadata
-    * @covers \Seeren\Http\Stream\Stream::getSize
-    * @covers \Seeren\Http\Stream\Stream::isWritable
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    * @covers \Seeren\Http\Stream\Stream::write
-    */
-   public function testGetSize()
-   {
-       parent::testGetSize();
-   }
+    /**
+     * @dataProvider fooPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::__toString
+     * @covers       \Seeren\Http\Stream\Stream::getContents
+     * @covers       \Seeren\Http\Stream\Stream::isReadable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     */
+    public function testToStringNotFound(string $path): void
+    {
+        $mock = $this->getMock($path, Stream::MODE_W);
+        $content = (string)$mock;
+        unlink($path);
+        $this->assertTrue('' === $content);
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::close
-    * @covers \Seeren\Http\Stream\Stream::getMetadata
-    * @covers \Seeren\Http\Stream\Stream::isSeekable
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    * @covers \Seeren\Http\Stream\Stream::tell
-    * @expectedException \RuntimeException
-    */
-   public function testTellRuntimeException()
-   {
-       parent::testTellRuntimeException();
-   }
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::close
+     * @covers       \Seeren\Http\Stream\Stream::__toString
+     * @covers       \Seeren\Http\Stream\Stream::getContents
+     * @covers       \Seeren\Http\Stream\Stream::isReadable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testClose(string $composerPath): void
+    {
+        $mock = $this->getMock($composerPath);
+        $mock->close();
+        $this->assertTrue('' === (string)$mock);
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::getMetadata
-    * @covers \Seeren\Http\Stream\Stream::isSeekable
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    * @covers \Seeren\Http\Stream\Stream::tell
-    */
-   public function testTell()
-   {
-       $this->assertTrue(is_int($this->getStream()->tell()));
-   }
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::detach
+     * @covers       \Seeren\Http\Stream\Stream::close
+     * @covers       \Seeren\Http\Stream\Stream::__toString
+     * @covers       \Seeren\Http\Stream\Stream::getContents
+     * @covers       \Seeren\Http\Stream\Stream::isReadable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testDetach(string $composerPath): void
+    {
+        $mock = $this->getMock($composerPath);
+        $mock->detach();
+        $this->assertFalse($mock->isReadable());
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::__toString
-    * @covers \Seeren\Http\Stream\Stream::eof
-    * @covers \Seeren\Http\Stream\Stream::getContents
-    * @covers \Seeren\Http\Stream\Stream::getMetadata
-    * @covers \Seeren\Http\Stream\Stream::isReadable
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    */
-   public function testEof()
-   {
-       parent::testEof();
-   }
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::getSize
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testGetSize(string $composerPath): void
+    {
+        $this->assertTrue(0 < $this->getMock($composerPath)->getSize());
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::getMetadata
-    * @covers \Seeren\Http\Stream\Stream::isSeekable
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    */
-   public function testISeekable()
-   {
-       parent::testISeekable();
-   }
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::tell
+     * @covers       \Seeren\Http\Stream\Stream::isSeekable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testTell(string $composerPath): void
+    {
+        $this->assertIsInt($this->getMock($composerPath)->tell());
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::close
-    * @covers \Seeren\Http\Stream\Stream::getMetadata
-    * @covers \Seeren\Http\Stream\Stream::isSeekable
-    * @covers \Seeren\Http\Stream\Stream::seek
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    * @expectedException \RuntimeException
-    */
-   public function testSeekRuntimeException()
-   {
-       parent::testSeekRuntimeException();
-   }
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::close
+     * @covers       \Seeren\Http\Stream\Stream::tell
+     * @covers       \Seeren\Http\Stream\Stream::isSeekable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testTellException(string $composerPath): void
+    {
+        $mock = $this->getMock($composerPath);
+        $mock->close();
+        $this->expectException(RuntimeException::class);
+        $mock->tell();
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::getMetadata
-    * @covers \Seeren\Http\Stream\Stream::isSeekable
-    * @covers \Seeren\Http\Stream\Stream::isWritable
-    * @covers \Seeren\Http\Stream\Stream::seek
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    * @covers \Seeren\Http\Stream\Stream::write
-    */
-   public function testSeek()
-   {
-       $stream = $this->getStream();
-       $stream->write("foo");
-       $this->assertTrue($stream->seek(1) === null);
-   }
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::eof
+     * @param string $composerPath
+     */
+    public function testEof(string $composerPath): void
+    {
+        $this->assertIsBool($this->getMock($composerPath)->eof());
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::close
-    * @covers \Seeren\Http\Stream\Stream::getMetadata
-    * @covers \Seeren\Http\Stream\Stream::isReadable
-    * @covers \Seeren\Http\Stream\Stream::rewind
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    * @expectedException \RuntimeException
-    */
-   public function testRewindRuntimeException()
-   {
-       parent::testRewindRuntimeException();
-   }
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::isSeekable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testIsSeekable(string $composerPath): void
+    {
+        $this->assertIsBool($this->getMock($composerPath)->isSeekable());
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::getMetadata
-    * @covers \Seeren\Http\Stream\Stream::isReadable
-    * @covers \Seeren\Http\Stream\Stream::isSeekable
-    * @covers \Seeren\Http\Stream\Stream::isWritable
-    * @covers \Seeren\Http\Stream\Stream::rewind
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    * @covers \Seeren\Http\Stream\Stream::write
-    */
-   public function testRewind()
-   {
-       $stream = $this->getStream();
-       $stream->write("foo");
-       $this->assertTrue($stream->rewind() === null);
-   }
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::seek
+     * @covers       \Seeren\Http\Stream\Stream::isSeekable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testSeek(string $composerPath): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->assertIsBool($this->getMock($composerPath)->seek(-1));
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::close
-    * @covers \Seeren\Http\Stream\Stream::write
-    * @covers \Seeren\Http\Stream\Stream::getMetadata
-    * @covers \Seeren\Http\Stream\Stream::isWritable
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    * @expectedException \RuntimeException
-    */
-   public function testWriteRuntimeException()
-   {
-       parent::testWriteRuntimeException();
-   }
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::__toString
+     * @covers       \Seeren\Http\Stream\Stream::getContents
+     * @covers       \Seeren\Http\Stream\Stream::rewind
+     * @covers       \Seeren\Http\Stream\Stream::isReadable
+     * @covers       \Seeren\Http\Stream\Stream::isSeekable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testRewind(string $composerPath): void
+    {
+        $mock = $this->getMock($composerPath);
+        $content = (string)$mock;
+        $mock->rewind();
+        $this->assertEquals($content, (string)$mock);
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::close
-    * @covers \Seeren\Http\Stream\Stream::read
-    * @covers \Seeren\Http\Stream\Stream::getMetadata
-    * @covers \Seeren\Http\Stream\Stream::isReadable
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    * @expectedException \RuntimeException
-    */
-   public function testReadRuntimeException()
-   {
-       parent::testReadRuntimeException();
-   }
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::close
+     * @covers       \Seeren\Http\Stream\Stream::__toString
+     * @covers       \Seeren\Http\Stream\Stream::getContents
+     * @covers       \Seeren\Http\Stream\Stream::rewind
+     * @covers       \Seeren\Http\Stream\Stream::isReadable
+     * @covers       \Seeren\Http\Stream\Stream::isSeekable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testRewindException(string $composerPath): void
+    {
+        $mock = $this->getMock($composerPath);
+        $mock->close();
+        $this->expectException(RuntimeException::class);
+        $mock->rewind();
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::getMetadata
-    * @covers \Seeren\Http\Stream\Stream::isReadable
-    * @covers \Seeren\Http\Stream\Stream::isSeekable
-    * @covers \Seeren\Http\Stream\Stream::isWritable
-    * @covers \Seeren\Http\Stream\Stream::read
-    * @covers \Seeren\Http\Stream\Stream::rewind
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    * @covers \Seeren\Http\Stream\Stream::write
-    */
-   public function testRead()
-   {
-       $stream = $this->getStream();
-       $stream->write("foo");
-       $stream->rewind();
-       $this->assertTrue($stream->read(3) === "foo");
-   }
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::isWritable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testIsWritable(string $composerPath): void
+    {
+        $this->assertIsBool($this->getMock($composerPath)->isWritable());
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::close
-    * @covers \Seeren\Http\Stream\Stream::getContents
-    * @covers \Seeren\Http\Stream\Stream::getMetadata
-    * @covers \Seeren\Http\Stream\Stream::isReadable
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    * @expectedException \RuntimeException
-    */
-   public function testGetContentsRuntimeException()
-   {
-       parent::testGetContentsRuntimeException();
-   }
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::isReadable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testIsReadable(string $composerPath): void
+    {
+        $this->assertIsBool($this->getMock($composerPath)->isReadable());
+    }
 
-   /**
-    * @covers \Seeren\Http\Stream\Stream::__construct
-    * @covers \Seeren\Http\Stream\Stream::getMetadata
-    * @covers \Seeren\Http\Stream\Stream::setReadableWritable
-    */
-   public function testGetMetadata()
-   {
-       parent::testGetMetadata();
-   }
+    /**
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::write
+     * @covers       \Seeren\Http\Stream\Stream::isWritable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     */
+    public function testWrite(): void
+    {
+        $path = __DIR__ . '/tmp';
+        $mock = $this->getMock($path, Stream::MODE_W_MORE);
+        $size = $mock->write('foo');
+        unlink($path);
+        $this->assertIsInt($size);
+    }
+
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::close
+     * @covers       \Seeren\Http\Stream\Stream::write
+     * @covers       \Seeren\Http\Stream\Stream::isWritable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testWriteException(string $composerPath): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->assertIsString($this->getMock($composerPath)->write('foo'));
+    }
+
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::read
+     * @covers       \Seeren\Http\Stream\Stream::isReadable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testRead(string $composerPath): void
+    {
+        $this->assertIsString($this->getMock($composerPath)->read(1));
+    }
+
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::close
+     * @covers       \Seeren\Http\Stream\Stream::read
+     * @covers       \Seeren\Http\Stream\Stream::isReadable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testReadException(string $composerPath): void
+    {
+        $mock = $this->getMock($composerPath);
+        $mock->close();
+        $this->expectException(RuntimeException::class);
+        $this->assertIsString($mock->read(1));
+    }
+
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::getContents
+     * @covers       \Seeren\Http\Stream\Stream::isReadable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testGetContents(string $composerPath): void
+    {
+        $this->assertIsString($this->getMock($composerPath)->getContents());
+    }
+
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::close
+     * @covers       \Seeren\Http\Stream\Stream::getContents
+     * @covers       \Seeren\Http\Stream\Stream::isReadable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testGetContentsException(string $composerPath): void
+    {
+        $mock = $this->getMock($composerPath);
+        $mock->close();
+        $this->expectException(RuntimeException::class);
+        $this->assertIsString($mock->getContents());
+    }
+
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testGetMetadata(string $composerPath): void
+    {
+        $mock = $this->getMock($composerPath);
+        $this->assertTrue(is_bool($mock->getMetadata('readable')) && is_array($mock->getMetadata()));
+    }
 
 }

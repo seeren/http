@@ -1,164 +1,143 @@
 <?php
 
-/**
- *     __
- *    / /__ __ __ __ __ __
- *   / // // // // // // /
- *  /_// // // // // // /
- *    /_//_//_//_//_//_/
- *
- * @author (c) Cyril Ichti <consultant@seeren.fr>
- * @link https://github.com/seeren/http
- * @version 1.1.3
- */
-
 namespace Seeren\Http\Upload;
 
-use Psr\Http\Message\UploadedFileInterface as PsrUploadedFileInterface;
 use Psr\Http\Message\StreamInterface;
 use Seeren\Http\Stream\Stream;
 use InvalidArgumentException;
 use RuntimeException;
 
 /**
- * Class for represente an uploaded file
- * 
- * @category Seeren
- * @package Http
- * @subpackage Upload
+ * Class to represent a uploaded file
+ *
+ *     __
+ *    / /__ __ __ __ __ __
+ *   / // // // // // // /
+ *  /_// // // // // // /
+ *    /_//_//_//_//_//_/
+ *
+ * @package Seeren\Http\Upload
  */
-class UploadedFile implements PsrUploadedFileInterface, UploadedFileInterface
+class UploadedFile implements UploadedFileInterface
 {
 
-   protected
+    /**
+     * @var StreamInterface|null
+     */
+    private ?StreamInterface $body;
 
-       /**
-        * @var StreamInterface
-        */
-       $body,
+    /**
+     * @var string|null
+     */
+    private ?string $name;
 
-       /**
-        * @var string
-        */
-       $name,
+    /**
+     * @var int|null
+     */
+    private ?int $size;
 
-       /**
-        * @var string
-        */
-       $type,
+    /**
+     * @var string|null
+     */
+    private ?string $type;
 
-       /**
-        * @var string
-        */
-       $tmpName,
+    /**
+     * @var string
+     */
+    private string $tmpName;
 
-       /**
-        * @var int
-        */
-       $error,
+    /**
+     * @var int
+     */
+    private int $error;
 
-       /**
-        * @var int
-        */
-       $size;
-
-   /**
-    * @param array $file
-    */
-   public function __construct(array $file)
-   {
-       $this->name = array_key_exists(self::NAME, $file)
-                   ? (string) $file[self::NAME]
-                   : null;
-       $this->type = array_key_exists(self::TYPE, $file)
-                   ? (string) $file[self::TYPE]
-                   : null;
-       $this->error = array_key_exists(self::ERROR, $file)
-                    ? (int) $file[self::ERROR]
-                    : null;
-       if (array_key_exists(self::TMP, $file)) {
-           try {
-               $this->tmpName = (string) $file[self::TMP];
-               $this->body = new Stream($this->tmpName, Stream::MODE_R);
-               $this->size = $this->body->getSize("size");
-           } catch (InvalidArgumentException $e) {
-               $this->error = 4;
-           }
-       }
-   }
-
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UploadedFileInterface::getStream()
-    */
-   public final function getStream(): StreamInterface
-   {
-       if (!$this->body) {
-           throw new RuntimeException("Can't get Stream: ressource no found");
-       }
-       return $this->body;
-   }
+    /**
+     * @param array $file
+     */
+    public function __construct(array $file)
+    {
+        $this->name = $file[self::NAME] ?? null;
+        $this->type = $file[self::TYPE] ?? null;
+        $this->error = $file[self::ERROR] ?? 0;
+        $this->body = null;
+        $this->size = null;
+        if (array_key_exists(self::TMP, $file)) {
+            try {
+                $this->tmpName = $file[self::TMP] ?? '';
+                $this->body = new Stream($this->tmpName, Stream::MODE_R);
+                $this->size = (int)$this->body->getSize();
+            } catch (InvalidArgumentException $e) {
+                $this->error = 4;
+            }
+        }
+    }
 
     /**
      * {@inheritDoc}
-     * @see \Psr\Http\Message\UploadedFileInterface::moveTo()
+     * @see UploadedFileInterface::getStream()
      */
-    public final function moveTo($targetPath)
-    {    
+    public function getStream(): StreamInterface
+    {
+        if (!$this->body) {
+            throw new RuntimeException("Can't get Stream: resource no found");
+        }
+        return $this->body;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see UploadedFileInterface::moveTo()
+     */
+    public function moveTo($targetPath)
+    {
         $path = str_replace(["/", "\\"], DIRECTORY_SEPARATOR, $targetPath);
         $lastDirPos = strripos($path, DIRECTORY_SEPARATOR);
-        $dir  = $lastDirPos ? substr($path, 0, $lastDirPos + 1) : null;
+        $dir = $lastDirPos ? substr($path, 0, $lastDirPos + 1) : null;
         if (!$dir || !is_dir($dir)) {
             throw new InvalidArgumentException("Can't move to: " . $path);
         }
-        try {
-            if (false === @file_put_contents(
-                    $path,
-                    (string) $this->getStream())) {
-                throw new RuntimeException("Can't move to: " . $path);
-            }
-        } catch (RuntimeException $e) {
-            throw $e;
+        if (false === @file_put_contents($path, (string)$this->getStream())) {
+            throw new RuntimeException("Can't move to: " . $path);
         }
         $this->body->detach();
         $this->body = null;
         @unlink($this->tmpName);
     }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UploadedFileInterface::getSize()
-    */
-   public final function getSize()
-   {
-       return $this->size;
-   }
+    /**
+     * {@inheritDoc}
+     * @see UploadedFileInterface::getSize()
+     */
+    public function getSize(): ?int
+    {
+        return $this->size;
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UploadedFileInterface::getError()
-    */
-   public final function getError(): int
-   {
-       return $this->error;
-   }
+    /**
+     * {@inheritDoc}
+     * @see UploadedFileInterface::getError()
+     */
+    public function getError(): int
+    {
+        return $this->error;
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UploadedFileInterface::getClientFilename()
-    */
-   public final function getClientFilename()
-   {
-       return $this->name;
-   }
+    /**
+     * {@inheritDoc}
+     * @see UploadedFileInterface::getClientFilename()
+     */
+    public function getClientFilename(): ?string
+    {
+        return $this->name;
+    }
 
-   /**
-    * {@inheritDoc}
-    * @see \Psr\Http\Message\UploadedFileInterface::getClientMediaType()
-    */
-   public final function getClientMediaType()
-   {
-       return $this->type;
-   }
+    /**
+     * {@inheritDoc}
+     * @see UploadedFileInterface::getClientMediaType()
+     */
+    public function getClientMediaType(): ?string
+    {
+        return $this->type;
+    }
 
 }

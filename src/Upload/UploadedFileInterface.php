@@ -1,54 +1,44 @@
 <?php
 
+namespace Seeren\Http\Upload;
+
 /**
+ * Interface to represent a uploaded file
+ *
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @author (c) Cyril Ichti <consultant@seeren.fr>
- * @link https://github.com/seeren/http
- * @version 1.1.2
+ * @package Seeren\Http\Upload
  */
-
-namespace Seeren\Http\Upload;
-
-/**
- * Interface for represente an uploaded file
- * 
- * @category Seeren
- * @package Http
- * @subpackage Upload
- */
-interface UploadedFileInterface
+interface UploadedFileInterface extends \Psr\Http\Message\UploadedFileInterface
 {
 
-   const
+    /**
+     * @var string
+     */
+    const NAME = 'name';
 
-       /**
-        * @var string
-        */
-       NAME  = "name",
+    /**
+     * @var string
+     */
+    const TYPE = 'type';
 
-       /**
-        * @var string
-        */
-       TYPE  = "type",
+    /**
+     * @var string
+     */
+    const TMP = 'tmp_name';
 
-       /**
-        * @var string
-        */
-       TMP   = "tmp_name",
+    /**
+     * @var string
+     */
+    const ERROR = 'error';
 
-       /**
-        * @var string
-        */
-       ERROR = "error",
-
-       /**
-        * @var string
-        */
-       SIZE  = "size";
+    /**
+     * @var string
+     */
+    const SIZE = 'size';
 
 }

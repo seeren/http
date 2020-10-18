@@ -77,8 +77,6 @@ trait UriTrait
     /**
      * @param string $query
      * @return string
-     *
-     * @throws InvalidArgumentException
      */
     private function query(string $query): string
     {
@@ -86,15 +84,11 @@ trait UriTrait
             return $query;
         }
         $params = [];
-        $query = rtrim($query, '=');
         foreach (explode('&', $query) as $value) {
             $value = explode('=', $value, 2);
             $params[urldecode($value[0])] = array_key_exists(1, $value) ? urldecode($value[1]) : '';
         }
-        if (($buildQuery = rtrim(http_build_query($params), '=')) !== $query) {
-            throw new InvalidArgumentException('QueryString "' . $query . '" is invalid');
-        }
-        return $buildQuery;
+        return http_build_query($params);
     }
 
 }

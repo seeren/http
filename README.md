@@ -1,61 +1,90 @@
-# http
- [![Build Status](https://travis-ci.org/seeren/http.svg?branch=master)](https://travis-ci.org/seeren/http) [![Coverage Status](https://coveralls.io/repos/github/seeren/http/badge.svg?branch=master)](https://coveralls.io/github/seeren/http?branch=master) [![Packagist](https://img.shields.io/packagist/dt/seeren/http.svg)](https://packagist.org/packages/seeren/http/stats) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4a0463fb5a084be5bda68e4e36d7c7ac)](https://www.codacy.com/app/seeren/http?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=seeren/http&amp;utm_campaign=Badge_Grade) [![Packagist](https://img.shields.io/packagist/v/seeren/http.svg)](https://packagist.org/packages/seeren/http#) [![Packagist](https://img.shields.io/packagist/l/seeren/log.svg)](LICENSE)
+# Seeren\Http
 
-**Manage http message**
-> This package contain implementations of the [PSR-7 HTTP message interfaces](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md)
+[![Build Status](https://travis-ci.org/seeren/http.svg?branch=master)](https://travis-ci.org/seeren/http) [![Coverage Status](https://coveralls.io/repos/github/seeren/http/badge.svg?branch=master)](https://coveralls.io/github/seeren/http?branch=master) [![Packagist](https://img.shields.io/packagist/dt/seeren/http.svg)](https://packagist.org/packages/seeren/http/stats) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4a0463fb5a084be5bda68e4e36d7c7ac)](https://www.codacy.com/app/seeren/http?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=seeren/http&amp;utm_campaign=Badge_Grade) [![Packagist](https://img.shields.io/packagist/v/seeren/http.svg)](https://packagist.org/packages/seeren/http#) [![Packagist](https://img.shields.io/packagist/l/seeren/log.svg)](LICENSE)
 
-## Features
-* Manage client/server request and response
+Manage http messages
 
 ## Installation
-Require this package with [composer](https://getcomposer.org/)
+
+Seeren\Container is a [PSR-7 http messages interfaces](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md)) implementation
+
 ```
 composer require seeren/http dev-master
 ```
 
-## Usage
+## Seeren\Http\Uri
 
-#### `Seeren\Http\Request\ClientRequest`
-Send http request
 ```php
-$request = new ClientRequest("POST", new Uri("http", "host"), $header, $body);
+use Seeren\Http\Uri\Uri;
+
+$uri = new Uri('http', 'host');
 ```
 
-Retrieve http response
+## Seeren\Http\Stream
+
+Handle resources
+
+#### Seeren\Http\RequestStream
+
+Handle input for all http methods
+
 ```php
-$response = $request->getResponse();
+use Seeren\Http\Stream\RequestStream;
+
+$stream = new RequestStream();
+$input = (string) $stream;
 ```
 
-#### `Seeren\Http\Request\ServerRequest`
-Retrieve http request
+#### Seeren\Http\ResponseStream
+
+Handle output
+
 ```php
-$request = new ServerRequest(new ServerRequestStream, new ServerRequestUri));
+use Seeren\Http\Stream\ResponseStream;
+
+$stream = new ResponseStream();
+$stream->write('Output');
 ```
 
-#### `Seeren\Http\Response\ServerResponse`
-Send http response
+#### Seeren\Http\Stream
+
+Handle input or output depending on stream mode
+
 ```php
-(new ServerResponse(new ServerResponseStream))->getBody()->write($output);
+use Seeren\Http\Stream\Stream;
+
+$stream = new Stream('some-url', Stream::MODE_R);
+$content = (string)$stream;
 ```
 
-#### `Seeren\Http\Uri\Uri`
-Build Uri from others
+## Seeren\Http\Request\Request
+
+A request with parsed input for json or form data
+
 ```php
-$uri = $request->getUri()->withUser("user", "pswd")
+use Seeren\Http\Request\Request;
+use Seeren\Http\Stream\RequestStream;
+use Seeren\Http\Uri\RequestUri;
+
+$request = new Request(
+    new RequestStream(),
+    new RequestUri()
+);
 ```
 
-## Run Tests
+## Seeren\Http\Response\Response
 
-Run [phpunit](https://phpunit.de/) with [Xdebug](https://xdebug.org/) enable and [OPcache](http://php.net/manual/fr/book.opcache.php) disable
-```
-./vendor/bin/phpunit
-```
-## Run Coverage
+A client or server response
 
-Run [coveralls](https://coveralls.io/)
-```
-./vendor/bin/php-coveralls -v
+```php
+use Seeren\Http\Response\Response;
+use Seeren\Http\Stream\ResponseStream;
+
+$response = new Response(
+    new ResponseStream()
+);
 ```
 
 ## License
-This project is licensed under the **MIT License** - see the [license](LICENSE) file for details.
+
+This project is licensed under the MIT License

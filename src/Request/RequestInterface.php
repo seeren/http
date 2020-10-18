@@ -1,129 +1,141 @@
 <?php
 
+namespace Seeren\Http\Request;
+
+use Seeren\Http\Message\MessageInterface;
+
 /**
+ * Interface to represent a request
+ *
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @author (c) Cyril Ichti <consultant@seeren.fr>
- * @link https://github.com/seeren/http
- * @version 1.1.4
+ * @package Seeren\Http\Request
  */
-namespace Seeren\Http\Request;
-
-use Seeren\Http\Message\MessageInterface;
-
-/**
- * Interface for represent http request
- *
- * @category Seeren
- * @package Http
- * @subpackage Request
- */
-interface RequestInterface extends MessageInterface
+interface RequestInterface extends MessageInterface, \Psr\Http\Message\RequestInterface
 {
 
-    const
+    /**
+     * @var string
+     */
+    const GET = 'GET';
 
     /**
      * @var string
      */
-    GET = "GET",
+    const HEAD = 'HEAD';
 
     /**
      * @var string
      */
-    POST = "POST",
+    const POST = 'POST';
 
     /**
      * @var string
      */
-    PUT = "PUT",
+    const PUT = 'PUT';
 
     /**
      * @var string
      */
-    DELETE = "DELETE",
+    const DELETE = 'DELETE';
 
     /**
      * @var string
      */
-    OPTIONS = "OPTIONS",
+    const CONNECT = 'CONNECT';
 
     /**
      * @var string
      */
-    HEADER_ACCEPT = "Accept",
+    const OPTIONS = 'OPTIONS';
 
     /**
      * @var string
      */
-    HEADER_EXPECT = "Expect",
+    const TRACE = 'TRACE';
 
     /**
      * @var string
      */
-    HEADER_FROM = "From",
+    const PATCH = 'PATCH';
 
     /**
      * @var string
      */
-    HEADER_HOST = "Host",
+    const HEADER_ACCEPT = 'Accept';
 
     /**
      * @var string
      */
-    HEADER_IF_MATCH = "If-Match",
+    const HEADER_EXPECT = 'Expect';
 
     /**
      * @var string
      */
-    HEADER_IF_MODIFIED_SINCE = "If-Modified-Since",
+    const HEADER_FROM = 'From';
 
     /**
      * @var string
      */
-    HEADER_IF_NOT_MATCH = "If-None-Match",
+    const HEADER_HOST = 'Host';
 
     /**
      * @var string
      */
-    HEADER_IF_RANGE = "If-Range",
+    const HEADER_IF_MATCH = 'If-Match';
 
     /**
      * @var string
      */
-    HEADER_IF_UNMODIFIED_SINCE = "If-Unmodified-Since",
+    const HEADER_IF_MODIFIED_SINCE = 'If-Modified-Since';
 
     /**
      * @var string
      */
-    HEADER_MAX_FORWARDS = "Max-Forwards",
+    const HEADER_IF_NOT_MATCH = 'If-None-Match';
 
     /**
      * @var string
      */
-    HEADER_ORIGIN = "Origin",
+    const HEADER_IF_RANGE = 'If-Range';
 
     /**
      * @var string
      */
-    HEADER_PROXY_AUTHORIZATION = "Proxy-Authorization",
+    const HEADER_IF_UNMODIFIED_SINCE = 'If-Unmodified-Since';
 
     /**
      * @var string
      */
-    HEADER_RANGE = "Range",
+    const HEADER_MAX_FORWARDS = 'Max-Forwards';
 
     /**
      * @var string
      */
-    HEADER_REFERER = "Referer",
+    const HEADER_ORIGIN = 'Origin';
 
     /**
      * @var string
      */
-    HEADER_USER_AGENT = "User-Agent";
+    const HEADER_PROXY_AUTHORIZATION = 'Proxy-Authorization';
+
+    /**
+     * @var string
+     */
+    const HEADER_RANGE = 'Range';
+
+    /**
+     * @var string
+     */
+    const HEADER_REFERER = 'Referer';
+
+    /**
+     * @var string
+     */
+    const HEADER_USER_AGENT = 'User-Agent';
+
 }

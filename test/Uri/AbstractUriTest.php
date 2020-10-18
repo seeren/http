@@ -228,7 +228,7 @@ class AbstractUriTest extends TestCase
     public function testWithQueryException(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->getMock()->withQuery('f o o');
+        $this->getMock()->withQuery([]);
     }
 
     /**

@@ -234,6 +234,9 @@ abstract class AbstractUri implements UriInterface
      */
     public function withQuery($query): UriInterface
     {
+        if (!is_string($query)) {
+            throw new InvalidArgumentException('Query string is invalid');
+        }
         return $this->with('query', $this->query((string)$query));
     }
 

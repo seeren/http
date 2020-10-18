@@ -9,10 +9,10 @@ Manage http messages
 Seeren\Container is a [PSR-7 http messages interfaces](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md)) implementation
 
 ```
-composer require seeren/http dev-master
+composer require seeren/http
 ```
 
-## Seeren\Http\Uri
+## Seeren\Http\Uri\Uri
 
 ```php
 use Seeren\Http\Uri\Uri;
@@ -43,7 +43,7 @@ Handle output
 use Seeren\Http\Stream\ResponseStream;
 
 $stream = new ResponseStream();
-$stream->write('Output');
+$stream->write('Client output');
 ```
 
 #### Seeren\Http\Stream

@@ -37,7 +37,7 @@ trait MessageTrait
      * @param string $headerName
      * @return string
      */
-    private function parseHeaderName(string $headerName): string
+    protected function parseHeaderName(string $headerName): string
     {
         $keys = [];
         foreach (explode('-', $headerName) as $value) {
@@ -50,7 +50,7 @@ trait MessageTrait
      * @param $headerValue
      * @return array
      */
-    private function parseHeaderValue($headerValue): array
+    protected function parseHeaderValue($headerValue): array
     {
         $values = [];
         if (is_string($headerValue) && '' !== $headerValue) {

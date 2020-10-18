@@ -250,7 +250,8 @@ abstract class AbstractUri implements UriInterface
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
+     * @see UriInterface::__toString()
      */
     public function __toString(): string
     {

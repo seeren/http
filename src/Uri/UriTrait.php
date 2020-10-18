@@ -80,15 +80,7 @@ trait UriTrait
      */
     private function query(string $query): string
     {
-        if (!$query) {
-            return $query;
-        }
-        $params = [];
-        foreach (explode('&', $query) as $value) {
-            $value = explode('=', $value, 2);
-            $params[urldecode($value[0])] = array_key_exists(1, $value) ? urldecode($value[1]) : '';
-        }
-        return http_build_query($params);
+        return urldecode($query);
     }
 
 }

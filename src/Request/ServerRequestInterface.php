@@ -1,40 +1,29 @@
 <?php
 
+namespace Seeren\Http\Request;
+
 /**
+ * Interface to represent a server request
+ *
  *     __
  *    / /__ __ __ __ __ __
  *   / // // // // // // /
  *  /_// // // // // // /
  *    /_//_//_//_//_//_/
  *
- * @author (c) Cyril Ichti <consultant@seeren.fr>
- * @link https://github.com/seeren/http
- * @version 1.1.3
+ * @package Seeren\Http\Request
  */
-
-namespace Seeren\Http\Request;
-
-/**
- * Interface for represent http server request
- * 
- * @category Seeren
- * @package Http
- * @subpackage Request
- */
-interface ServerRequestInterface extends RequestInterface
+interface ServerRequestInterface extends RequestInterface, \Psr\Http\Message\ServerRequestInterface
 {
 
-   const
+    /**
+     * @var string
+     */
+    const SERVER_PROTOCOL = 'SERVER_PROTOCOL';
 
-       /**
-        * @var string
-        */
-
-       SERVER_PROTOCOL = "SERVER_PROTOCOL",
-
-       /**
-        * @var string
-        */
-       SERVER_METHOD = "REQUEST_METHOD";
+    /**
+     * @var string
+     */
+    const SERVER_METHOD = 'REQUEST_METHOD';
 
 }

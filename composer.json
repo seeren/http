@@ -21,7 +21,6 @@
     "php": ">=7.4",
     "psr/http-message": "~1.0",
     "psr/http-client": "^1.0",
-    "ext-apache": "*",
     "ext-json": "*"
   },
   "autoload": {

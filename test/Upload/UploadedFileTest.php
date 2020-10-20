@@ -132,6 +132,29 @@ class UploadedFileTest extends TestCase
 
     /**
      * @covers       \Seeren\Http\Upload\UploadedFile::__construct
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::__toString
+     * @covers       \Seeren\Http\Stream\Stream::close
+     * @covers       \Seeren\Http\Stream\Stream::detach
+     * @covers       \Seeren\Http\Stream\Stream::getContents
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @covers       \Seeren\Http\Stream\Stream::getSize
+     * @covers       \Seeren\Http\Stream\Stream::isReadable
+     * @covers       \Seeren\Http\Upload\UploadedFile::getStream
+     * @covers       \Seeren\Http\Upload\UploadedFile::moveTo
+     */
+    public function testMoveToRuntimeException(): void
+    {
+        $path = __DIR__ . '/moved';
+        $mock = $this->getMock();
+        $mock->moveTo($path);
+        unlink($path);
+        $this->expectException(RuntimeException::class);
+        $mock->moveTo($path);
+    }
+
+    /**
+     * @covers       \Seeren\Http\Upload\UploadedFile::__construct
      * @covers       \Seeren\Http\Upload\UploadedFile::moveTo
      * @covers       \Seeren\Http\Upload\UploadedFile::getStream
      * @covers       \Seeren\Http\Stream\Stream::__construct

@@ -217,6 +217,20 @@ class StreamTest extends TestCase
      */
     public function testSeek(string $composerPath): void
     {
+        $this->doesNotPerformAssertions();
+        $this->getMock($composerPath)->seek(1);
+    }
+
+    /**
+     * @dataProvider composerPath
+     * @covers       \Seeren\Http\Stream\Stream::__construct
+     * @covers       \Seeren\Http\Stream\Stream::seek
+     * @covers       \Seeren\Http\Stream\Stream::isSeekable
+     * @covers       \Seeren\Http\Stream\Stream::getMetadata
+     * @param string $composerPath
+     */
+    public function testSeekException(string $composerPath): void
+    {
         $this->expectException(RuntimeException::class);
         $this->assertIsBool($this->getMock($composerPath)->seek(-1));
     }

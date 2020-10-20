@@ -256,10 +256,11 @@ abstract class AbstractUri implements UriInterface
     public function __toString(): string
     {
         $uri = $this->scheme . self::SCHEME_SEPARATOR . $this->getAuthority();
-        if ($this->path) {
-            $uri .= self::SEPARATOR . $this->path;
-        } else if ($this->query || $this->fragment) {
+        if ($this->path || $this->query || $this->fragment) {
             $uri .= self::SEPARATOR;
+        }
+        if ($this->path) {
+            $uri .= $this->path;
         }
         if ($this->query) {
             $uri .= self::PATH_SEPARATOR . $this->query;

@@ -233,6 +233,22 @@ class AbstractUriTest extends TestCase
 
     /**
      * @covers \Seeren\Http\Uri\AbstractUri::__construct
+     * @covers \Seeren\Http\Uri\AbstractUri::with
+     * @covers \Seeren\Http\Uri\AbstractUri::withFragment
+     * @covers \Seeren\Http\Uri\UriTrait::host
+     * @covers \Seeren\Http\Uri\UriTrait::path
+     * @covers \Seeren\Http\Uri\UriTrait::port
+     * @covers \Seeren\Http\Uri\UriTrait::query
+     * @covers \Seeren\Http\Uri\UriTrait::scheme
+     * @covers \Seeren\Http\Uri\AbstractUri::getFragment
+     */
+    public function testWithFragment(): void
+    {
+        $this->assertEquals('foo', $this->getMock()->withFragment('foo')->getFragment());
+    }
+
+    /**
+     * @covers \Seeren\Http\Uri\AbstractUri::__construct
      * @covers \Seeren\Http\Uri\AbstractUri::__toString
      * @covers \Seeren\Http\Uri\AbstractUri::getAuthority
      * @covers \Seeren\Http\Uri\UriTrait::host

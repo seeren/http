@@ -6,6 +6,7 @@ use Psr\Http\Message\StreamInterface;
 use Seeren\Http\Stream\Stream;
 use InvalidArgumentException;
 use RuntimeException;
+use Throwable;
 
 /**
  * Class to represent a uploaded file
@@ -96,8 +97,12 @@ class UploadedFile implements UploadedFileInterface
         if (!$dir || !is_dir($dir)) {
             throw new InvalidArgumentException("Can't move to: " . $path);
         }
-        if (false === @file_put_contents($path, (string)$this->getStream())) {
-            throw new RuntimeException("Can't move to: " . $path);
+        try {
+            if (false === @file_put_contents($path, (string)$this->getStream())) {
+                throw new RuntimeException('Can\'t put content');
+            }
+        } catch (Throwable $e) {
+            throw new RuntimeException('Can\'t move to"' . $path . '":' . $e->getMessage());
         }
         $this->body->detach();
         $this->body = null;

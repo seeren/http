@@ -30,6 +30,44 @@ class RequestTest extends TestCase
      * @covers \Seeren\Http\Message\AbstractMessage::getHeader
      * @covers \Seeren\Http\Message\MessageTrait::parseHeaderName
      * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+     * @covers \Seeren\Http\Request\AbstractRequest::__construct
+     * @covers \Seeren\Http\Request\Request::__construct
+     * @covers \Seeren\Http\Request\Request::getServerParams
+     * @covers \Seeren\Http\Request\RequestTrait::parseMethod
+     * @covers \Seeren\Http\Request\ServerRequestTrait::parseCookie
+     * @covers \Seeren\Http\Request\ServerRequestTrait::parseParsedBody
+     * @covers \Seeren\Http\Request\ServerRequestTrait::parseQueryParam
+     * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeader
+     * @covers \Seeren\Http\Request\ServerRequestTrait::parseUploadedFiles
+     * @covers \Seeren\Http\Stream\RequestStream::__construct
+     * @covers \Seeren\Http\Stream\Stream::__construct
+     * @covers \Seeren\Http\Stream\Stream::__toString
+     * @covers \Seeren\Http\Stream\Stream::getContents
+     * @covers \Seeren\Http\Stream\Stream::getMetadata
+     * @covers \Seeren\Http\Stream\Stream::isReadable
+     * @covers \Seeren\Http\Stream\Stream::isSeekable
+     * @covers \Seeren\Http\Stream\Stream::isWritable
+     * @covers \Seeren\Http\Stream\Stream::rewind
+     * @covers \Seeren\Http\Stream\Stream::write
+     * @covers \Seeren\Http\Uri\AbstractUri::__construct
+     * @covers \Seeren\Http\Uri\AbstractUri::getQuery
+     * @covers \Seeren\Http\Uri\Uri::__construct
+     * @covers \Seeren\Http\Uri\UriTrait::host
+     * @covers \Seeren\Http\Uri\UriTrait::path
+     * @covers \Seeren\Http\Uri\UriTrait::port
+     * @covers \Seeren\Http\Uri\UriTrait::query
+     * @covers \Seeren\Http\Uri\UriTrait::scheme
+     */
+    public function testGetServerParams(): void
+    {
+        $this->assertIsArray($this->getMock()->getServerParams());
+    }
+
+    /**
+     * @covers \Seeren\Http\Message\AbstractMessage::__construct
+     * @covers \Seeren\Http\Message\AbstractMessage::getHeader
+     * @covers \Seeren\Http\Message\MessageTrait::parseHeaderName
+     * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
      * @covers \Seeren\Http\Request\Request::__construct
      * @covers \Seeren\Http\Request\AbstractRequest::__construct
      * @covers \Seeren\Http\Request\Request::getCookieParams

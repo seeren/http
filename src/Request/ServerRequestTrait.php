@@ -60,16 +60,14 @@ trait ServerRequestTrait
     private function parseCookie(): array
     {
         $cookies = [];
-        foreach ($this->getHeader('Cookie') as $values) {
-            foreach ($values as $key => $value) {
-                $value = explode('=', $value);
-                $key = $value[0];
-                $cookieValue = '';
-                if (array_key_exists(1, $value)) {
-                    $cookieValue .= $value[1];
-                }
-                $cookies[$key] = $cookieValue;
+        foreach ($this->getHeader('Cookie') as $value) {
+            $value = explode('=', $value);
+            $key = $value[0];
+            $cookieValue = '';
+            if (array_key_exists(1, $value)) {
+                $cookieValue .= $value[1];
             }
+            $cookies[$key] = $cookieValue;
         }
         return $cookies;
     }

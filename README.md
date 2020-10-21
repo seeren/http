@@ -6,13 +6,17 @@ Manage http messages
 
 ## Installation
 
-Seeren\Container is a [PSR-7 http messages interfaces](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md)) implementation
+Seeren\Http is a [PSR-7 http messages interfaces](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md) implementation
 
 ```
 composer require seeren/http
 ```
 
-## Seeren\Http\Uri\Uri
+## Seeren\Http\Uri
+
+Uri representation
+
+#### Seeren\Http\Uri\Uri
 
 ```php
 use Seeren\Http\Uri\Uri;
@@ -20,11 +24,32 @@ use Seeren\Http\Uri\Uri;
 $uri = new Uri('http', 'host');
 ```
 
+#### Seeren\Http\Uri\RequestUri
+
+Handle incoming request Uri
+
+```php
+use Seeren\Http\Uri\RequestUri;
+
+$uri = new RequestUri();
+```
+
 ## Seeren\Http\Stream
 
-Handle resources
+Resource representation
 
-#### Seeren\Http\RequestStream
+#### Seeren\Http\Stream\Stream
+
+Handle resource with open mode
+
+```php
+use Seeren\Http\Stream\Stream;
+
+$stream = new Stream('some-url', Stream::MODE_R);
+$content = (string)$stream;
+```
+
+#### Seeren\Http\Stream\RequestStream
 
 Handle input for all http methods
 
@@ -35,7 +60,7 @@ $stream = new RequestStream();
 $input = (string) $stream;
 ```
 
-#### Seeren\Http\ResponseStream
+#### Seeren\Http\Stream\ResponseStream
 
 Handle output
 
@@ -46,20 +71,9 @@ $stream = new ResponseStream();
 $stream->write('Client output');
 ```
 
-#### Seeren\Http\Stream
-
-Handle input or output depending on stream mode
-
-```php
-use Seeren\Http\Stream\Stream;
-
-$stream = new Stream('some-url', Stream::MODE_R);
-$content = (string)$stream;
-```
-
 ## Seeren\Http\Request\Request
 
-A request with parsed input for json or form data
+Request with parsed json or form input
 
 ```php
 use Seeren\Http\Request\Request;
@@ -74,7 +88,7 @@ $request = new Request(
 
 ## Seeren\Http\Response\Response
 
-A client or server response
+Client or server response
 
 ```php
 use Seeren\Http\Response\Response;

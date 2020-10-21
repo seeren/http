@@ -217,8 +217,7 @@ class StreamTest extends TestCase
      */
     public function testSeek(string $composerPath): void
     {
-        $this->doesNotPerformAssertions();
-        $this->getMock($composerPath)->seek(1);
+        $this->assertNull($this->getMock($composerPath)->seek(1));
     }
 
     /**

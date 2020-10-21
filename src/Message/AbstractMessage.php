@@ -27,7 +27,7 @@ abstract class AbstractMessage implements MessageInterface
     protected string $protocol;
 
     /**
-     * @var array,
+     * @var array
      */
     protected array $headers = [];
 
@@ -49,7 +49,7 @@ abstract class AbstractMessage implements MessageInterface
         $this->protocol = $this->parseProtocol($version);
         $this->body = $stream;
         foreach ($headers as $key => $value) {
-            $this->headers[$this->parseHeaderName($key)] = $this->parseHeaderValue($value);
+            $this->headers[$this->parseHeaderName($key)] = is_string($value) ? $this->parseHeaderValue($value): $value;
         }
     }
 
@@ -116,11 +116,7 @@ abstract class AbstractMessage implements MessageInterface
      */
     public function getHeaderLine($name): string
     {
-        $line = '';
-        if (($header = $this->getHeader($name))) {
-            $line .= implode(',', $header);
-        }
-        return $line;
+        return implode(',', $this->getHeader($name));
     }
 
     /**
@@ -129,12 +125,11 @@ abstract class AbstractMessage implements MessageInterface
      */
     public function withHeader($name, $value): MessageInterface
     {
-        $values = $this->parseHeaderValue($value);
-        if (!is_string($name) || [] === $values) {
+        if (!is_string($name) || !$value) {
             throw new InvalidArgumentException('Can\'t get ' . static::class . ' for invalid header "' . $name . '"');
         }
         $headers = $this->headers;
-        $headers[$this->parseHeaderName($name)] = $values;
+        $headers[$this->parseHeaderName($name)] = is_string($value) ? $this->parseHeaderValue($value) : $value;
         return $this->with('headers', $headers);
     }
 
@@ -147,11 +142,10 @@ abstract class AbstractMessage implements MessageInterface
         $key = $this->parseHeaderName($name);
         $headers = $this->headers;
         if (!array_key_exists($key, $headers)) {
-            $values = $this->parseHeaderValue($value);
-            if ('' === $key || [] === $values) {
+            if (!is_string($name) || !$value) {
                 throw new InvalidArgumentException('Can\'t get ' . static::class . ' for invalid header "' . $name . '"');
             }
-            $headers[$key] = $values;
+            $headers[$key] = is_string($value) ? $this->parseHeaderValue($value) : $value;
         }
         return $this->with('headers', $headers);
     }

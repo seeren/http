@@ -135,11 +135,8 @@ class AbstractMessageTest extends TestCase
      */
     public function testWithHeader(): void
     {
-        $mock = $this->getMock('1.1', ['Content-Type' => 'application/json']);
-        $this->assertEquals(
-            'application/json',
-            $mock->withHeader('Content-Type', 'application/json')->getHeaderLine('Content-Type')
-        );
+        $mock = $this->getMock('1.1')->withHeader('Content-Type', ['application/json']);
+        $this->assertEquals('application/json', $mock->getHeaderLine('Content-Type'));
     }
 
     /**
@@ -171,10 +168,14 @@ class AbstractMessageTest extends TestCase
      */
     public function testWithAddedHeader(): void
     {
-        $mock = $this->getMock('1.1', ['Content-Type' => 'application/json']);
-        $this->assertEquals(
-            'application/json',
-            $mock->withAddedHeader('Content-Type', ['application/json'])->getHeaderLine('Content-Type')
+        $mock = $this
+            ->getMock('1.1', ['Content-Type' => 'application/json'])
+            ->withAddedHeader('Content-Type', 'application/json')
+            ->withAddedHeader('Accept', 'application/json');
+
+        $this->assertTrue(
+            'application/json' === $mock->getHeaderLine('Content-Type')
+            && 'application/json' === $mock->getHeaderLine('Accept')
         );
     }
 

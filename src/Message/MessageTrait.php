@@ -50,17 +50,11 @@ trait MessageTrait
      * @param $headerValue
      * @return array
      */
-    protected function parseHeaderValue($headerValue): array
+    protected function parseHeaderValue(string $headerValue): array
     {
         $values = [];
-        if (is_string($headerValue) && '' !== $headerValue) {
-            foreach (explode(';', $headerValue) as $value) {
-                $values[] = trim($value);
-            }
-        } else if (is_array($headerValue)) {
-            foreach ($headerValue as $value) {
-                $values[] = $this->parseHeaderValue($value);
-            }
+        foreach (explode(';', $headerValue) as $value) {
+            $values[] = trim($value);
         }
         return $values;
     }

@@ -116,10 +116,9 @@ trait ServerRequestTrait
      */
     private function parseParsedBody(string $body): array
     {
-        if (null !== $json = json_decode($body, true)) {
-            return $json;
+        if (!$parsedBody = json_decode($body, true)) {
+            parse_str($body, $parsedBody);
         }
-        parse_str($body, $parsedBody);
         return $parsedBody;
     }
 

@@ -22,13 +22,11 @@ trait MessageTrait
      */
     private function parseProtocol(string $version): string
     {
-        $protocol = MessageInterface::PROTOCOL;
+        $protocol = MessageInterface::PROTOCOL . MessageInterface::VERSION_0;
         if (MessageInterface::VERSION_1 === $version) {
-            $protocol .= MessageInterface::VERSION_1;
+            $protocol = MessageInterface::PROTOCOL . MessageInterface::VERSION_1;
         } elseif (MessageInterface::VERSION_2 === $version) {
-            $protocol .= MessageInterface::VERSION_2;
-        } else {
-            $protocol .= MessageInterface::VERSION_0;
+            $protocol = MessageInterface::PROTOCOL . MessageInterface::VERSION_2;
         }
         return $protocol;
     }

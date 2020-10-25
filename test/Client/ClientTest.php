@@ -5,6 +5,7 @@ namespace Seeren\Http\Test\Client;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientExceptionInterface;
 use Seeren\Http\Client\Client;
+use Seeren\Http\Client\Exception\ClientException;
 use Seeren\Http\Client\Exception\NetworkException;
 use Seeren\Http\Client\Exception\RequestException;
 use Seeren\Http\Request\AbstractRequest;
@@ -147,6 +148,29 @@ class ClientTest extends TestCase
     {
         $client = new Client('GET', new Uri('https', 'github.com'));
         $this->assertNotEmpty((string)$client->sendRequest()->getBody());
+    }
+
+    /**
+     * @covers \Seeren\Http\Client\Exception\ClientException::__construct
+     * @covers \Seeren\Http\Client\Exception\ClientException::getRequest
+     * @covers \Seeren\Http\Message\AbstractMessage::__construct
+     * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+     * @covers \Seeren\Http\Request\AbstractRequest::__construct
+     * @covers \Seeren\Http\Request\RequestTrait::parseMethod
+     * @covers \Seeren\Http\Stream\Stream::__construct
+     * @covers \Seeren\Http\Uri\AbstractUri::__construct
+     * @covers \Seeren\Http\Uri\Uri::__construct
+     * @covers \Seeren\Http\Uri\UriTrait::host
+     * @covers \Seeren\Http\Uri\UriTrait::path
+     * @covers \Seeren\Http\Uri\UriTrait::port
+     * @covers \Seeren\Http\Uri\UriTrait::query
+     * @covers \Seeren\Http\Uri\UriTrait::scheme
+     */
+    public function testClientException()
+    {
+        $request = new RequestNotReadable();
+        $exception = new ClientException($request);
+        $this->assertEquals($request, $exception->getRequest());
     }
 
 }

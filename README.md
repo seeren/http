@@ -6,10 +6,50 @@ Manage http messages
 
 ## Installation
 
-Seeren\Http is a [PSR-7 http messages interfaces](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md) implementation
+Seeren\Http is a [PSR-7 http messages interfaces](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md)
+and a  [PSR-18 http client interfaces](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-18-http-client-meta.md)
+implementation
 
 ```
 composer require seeren/http
+```
+
+## Seeren\Http\Client
+
+Client representation
+
+#### Seeren\Http\Client\Client
+
+Retrieve response from sending request
+
+```php
+use Seeren\Http\Client\Client;
+use Seeren\Http\Uri\Uri;
+
+$client = new Client('GET', new Uri(
+    'https',
+    'packagist.org',
+    'packages/seeren/http.json'
+));
+echo $client->sendRequest()->getBody();
+```
+
+Specify headers and body in optional arguments
+
+```php
+use Seeren\Http\Client\Client;
+use Seeren\Http\Uri\Uri;
+
+$client = new Client(
+    'GET',
+    new Uri(
+        'https',
+        'packagist.org',
+        'packages/seeren/http.json'
+    ),
+    ['Accept' => 'application/json'],
+    '{}'
+);
 ```
 
 ## Seeren\Http\Uri

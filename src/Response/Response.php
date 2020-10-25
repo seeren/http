@@ -32,12 +32,22 @@ class Response extends AbstractMessage implements ResponseInterface
 
     /**
      * @param StreamInterface $stream
+     * @param array $headers
      * @param string $version
+     * @param int $statusCode
+     * @param string $reasonPhrase
      */
-    public function __construct(StreamInterface $stream, string $version = '1.1')
+    public function __construct(
+        StreamInterface $stream,
+        array $headers = [],
+        string $version = '1.1',
+        int $statusCode = 200,
+        string $reasonPhrase = 'OK'
+    )
     {
-        parent::__construct($version, [], $stream);
-        $this->setStatus(200);
+        parent::__construct($version, $headers, $stream);
+        $this->statusCode = $statusCode;
+        $this->reasonPhrase = $reasonPhrase;
     }
 
     /**

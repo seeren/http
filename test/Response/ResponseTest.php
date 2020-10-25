@@ -18,6 +18,7 @@ class ResponseTest extends TestCase
     {
         return (new ReflectionClass(Response::class))->newInstance(
             (new ReflectionClass(Stream::class))->newInstance('php://temp', Stream::MODE_W),
+            [],
             '1.1'
         );
     }

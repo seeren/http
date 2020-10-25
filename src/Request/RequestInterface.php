@@ -2,8 +2,6 @@
 
 namespace Seeren\Http\Request;
 
-use Seeren\Http\Message\MessageInterface;
-
 /**
  * Interface to represent a request
  *
@@ -15,7 +13,7 @@ use Seeren\Http\Message\MessageInterface;
  *
  * @package Seeren\Http\Request
  */
-interface RequestInterface extends MessageInterface, \Psr\Http\Message\RequestInterface
+interface RequestInterface extends \Psr\Http\Message\RequestInterface
 {
 
     /**

@@ -2,8 +2,6 @@
 
 namespace Seeren\Http\Response;
 
-use Seeren\Http\Message\MessageInterface;
-
 /**
  * Interface to represent a response
  *
@@ -16,7 +14,7 @@ use Seeren\Http\Message\MessageInterface;
  *
  * @package Seeren\Http\Response
  */
-interface ResponseInterface extends MessageInterface, \Psr\Http\Message\ResponseInterface
+interface ResponseInterface extends \Psr\Http\Message\ResponseInterface
 {
 
     /**

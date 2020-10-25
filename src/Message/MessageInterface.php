@@ -13,7 +13,7 @@ namespace Seeren\Http\Message;
  *
  * @package Seeren\Http\Message
  */
-interface MessageInterface
+interface MessageInterface extends \Psr\Http\Message\MessageInterface
 {
 
     /**

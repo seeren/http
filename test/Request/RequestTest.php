@@ -54,11 +54,11 @@ namespace Seeren\Http\Test\Request {
          * @covers \Seeren\Http\Uri\AbstractUri::__construct
          * @covers \Seeren\Http\Uri\AbstractUri::getQuery
          * @covers \Seeren\Http\Uri\Uri::__construct
-         * @covers \Seeren\Http\Uri\UriTrait::host
-         * @covers \Seeren\Http\Uri\UriTrait::path
-         * @covers \Seeren\Http\Uri\UriTrait::port
-         * @covers \Seeren\Http\Uri\UriTrait::query
-         * @covers \Seeren\Http\Uri\UriTrait::scheme
+         * @covers \Seeren\Http\Uri\UriParserTrait::host
+         * @covers \Seeren\Http\Uri\UriParserTrait::path
+         * @covers \Seeren\Http\Uri\UriParserTrait::port
+         * @covers \Seeren\Http\Uri\UriParserTrait::query
+         * @covers \Seeren\Http\Uri\UriParserTrait::scheme
          * @covers \Seeren\Http\Upload\UploadedFile::__construct
          */
         public function testGetServerParams(): void
@@ -97,11 +97,11 @@ namespace Seeren\Http\Test\Request {
          * @covers \Seeren\Http\Uri\AbstractUri::__construct
          * @covers \Seeren\Http\Uri\AbstractUri::getQuery
          * @covers \Seeren\Http\Uri\Uri::__construct
-         * @covers \Seeren\Http\Uri\UriTrait::host
-         * @covers \Seeren\Http\Uri\UriTrait::path
-         * @covers \Seeren\Http\Uri\UriTrait::port
-         * @covers \Seeren\Http\Uri\UriTrait::query
-         * @covers \Seeren\Http\Uri\UriTrait::scheme
+         * @covers \Seeren\Http\Uri\UriParserTrait::host
+         * @covers \Seeren\Http\Uri\UriParserTrait::path
+         * @covers \Seeren\Http\Uri\UriParserTrait::port
+         * @covers \Seeren\Http\Uri\UriParserTrait::query
+         * @covers \Seeren\Http\Uri\UriParserTrait::scheme
          * @covers \Seeren\Http\Upload\UploadedFile::__construct
          */
         public function testWithCookieParams(): void
@@ -141,11 +141,11 @@ namespace Seeren\Http\Test\Request {
          * @covers \Seeren\Http\Uri\AbstractUri::__construct
          * @covers \Seeren\Http\Uri\AbstractUri::getQuery
          * @covers \Seeren\Http\Uri\Uri::__construct
-         * @covers \Seeren\Http\Uri\UriTrait::host
-         * @covers \Seeren\Http\Uri\UriTrait::path
-         * @covers \Seeren\Http\Uri\UriTrait::port
-         * @covers \Seeren\Http\Uri\UriTrait::query
-         * @covers \Seeren\Http\Uri\UriTrait::scheme
+         * @covers \Seeren\Http\Uri\UriParserTrait::host
+         * @covers \Seeren\Http\Uri\UriParserTrait::path
+         * @covers \Seeren\Http\Uri\UriParserTrait::port
+         * @covers \Seeren\Http\Uri\UriParserTrait::query
+         * @covers \Seeren\Http\Uri\UriParserTrait::scheme
          * @covers \Seeren\Http\Upload\UploadedFile::__construct
          */
         public function testWithQueryParams(): void
@@ -186,11 +186,11 @@ namespace Seeren\Http\Test\Request {
          * @covers \Seeren\Http\Uri\AbstractUri::__construct
          * @covers \Seeren\Http\Uri\AbstractUri::getQuery
          * @covers \Seeren\Http\Uri\Uri::__construct
-         * @covers \Seeren\Http\Uri\UriTrait::host
-         * @covers \Seeren\Http\Uri\UriTrait::path
-         * @covers \Seeren\Http\Uri\UriTrait::port
-         * @covers \Seeren\Http\Uri\UriTrait::query
-         * @covers \Seeren\Http\Uri\UriTrait::scheme
+         * @covers \Seeren\Http\Uri\UriParserTrait::host
+         * @covers \Seeren\Http\Uri\UriParserTrait::path
+         * @covers \Seeren\Http\Uri\UriParserTrait::port
+         * @covers \Seeren\Http\Uri\UriParserTrait::query
+         * @covers \Seeren\Http\Uri\UriParserTrait::scheme
          * @covers \Seeren\Http\Upload\UploadedFile::__construct
          */
         public function testWithUploadedFiles(): void
@@ -228,11 +228,11 @@ namespace Seeren\Http\Test\Request {
          * @covers \Seeren\Http\Uri\AbstractUri::__construct
          * @covers \Seeren\Http\Uri\AbstractUri::getQuery
          * @covers \Seeren\Http\Uri\Uri::__construct
-         * @covers \Seeren\Http\Uri\UriTrait::host
-         * @covers \Seeren\Http\Uri\UriTrait::path
-         * @covers \Seeren\Http\Uri\UriTrait::port
-         * @covers \Seeren\Http\Uri\UriTrait::query
-         * @covers \Seeren\Http\Uri\UriTrait::scheme
+         * @covers \Seeren\Http\Uri\UriParserTrait::host
+         * @covers \Seeren\Http\Uri\UriParserTrait::path
+         * @covers \Seeren\Http\Uri\UriParserTrait::port
+         * @covers \Seeren\Http\Uri\UriParserTrait::query
+         * @covers \Seeren\Http\Uri\UriParserTrait::scheme
          * @covers \Seeren\Http\Upload\UploadedFile::__construct
          */
         public function testWithUploadedFilesExceptions(): void
@@ -273,11 +273,11 @@ namespace Seeren\Http\Test\Request {
          * @covers \Seeren\Http\Uri\AbstractUri::__construct
          * @covers \Seeren\Http\Uri\AbstractUri::getQuery
          * @covers \Seeren\Http\Uri\Uri::__construct
-         * @covers \Seeren\Http\Uri\UriTrait::host
-         * @covers \Seeren\Http\Uri\UriTrait::path
-         * @covers \Seeren\Http\Uri\UriTrait::port
-         * @covers \Seeren\Http\Uri\UriTrait::query
-         * @covers \Seeren\Http\Uri\UriTrait::scheme
+         * @covers \Seeren\Http\Uri\UriParserTrait::host
+         * @covers \Seeren\Http\Uri\UriParserTrait::path
+         * @covers \Seeren\Http\Uri\UriParserTrait::port
+         * @covers \Seeren\Http\Uri\UriParserTrait::query
+         * @covers \Seeren\Http\Uri\UriParserTrait::scheme
          * @covers \Seeren\Http\Upload\UploadedFile::__construct
          */
         public function testWithParsedBody(): void
@@ -316,11 +316,11 @@ namespace Seeren\Http\Test\Request {
          * @covers \Seeren\Http\Uri\AbstractUri::__construct
          * @covers \Seeren\Http\Uri\AbstractUri::getQuery
          * @covers \Seeren\Http\Uri\Uri::__construct
-         * @covers \Seeren\Http\Uri\UriTrait::host
-         * @covers \Seeren\Http\Uri\UriTrait::path
-         * @covers \Seeren\Http\Uri\UriTrait::port
-         * @covers \Seeren\Http\Uri\UriTrait::query
-         * @covers \Seeren\Http\Uri\UriTrait::scheme
+         * @covers \Seeren\Http\Uri\UriParserTrait::host
+         * @covers \Seeren\Http\Uri\UriParserTrait::path
+         * @covers \Seeren\Http\Uri\UriParserTrait::port
+         * @covers \Seeren\Http\Uri\UriParserTrait::query
+         * @covers \Seeren\Http\Uri\UriParserTrait::scheme
          * @covers \Seeren\Http\Upload\UploadedFile::__construct
          */
         public function testWithParsedBodyException(): void
@@ -362,11 +362,11 @@ namespace Seeren\Http\Test\Request {
          * @covers \Seeren\Http\Uri\AbstractUri::__construct
          * @covers \Seeren\Http\Uri\AbstractUri::getQuery
          * @covers \Seeren\Http\Uri\Uri::__construct
-         * @covers \Seeren\Http\Uri\UriTrait::host
-         * @covers \Seeren\Http\Uri\UriTrait::path
-         * @covers \Seeren\Http\Uri\UriTrait::port
-         * @covers \Seeren\Http\Uri\UriTrait::query
-         * @covers \Seeren\Http\Uri\UriTrait::scheme
+         * @covers \Seeren\Http\Uri\UriParserTrait::host
+         * @covers \Seeren\Http\Uri\UriParserTrait::path
+         * @covers \Seeren\Http\Uri\UriParserTrait::port
+         * @covers \Seeren\Http\Uri\UriParserTrait::query
+         * @covers \Seeren\Http\Uri\UriParserTrait::scheme
          * @covers \Seeren\Http\Upload\UploadedFile::__construct
          */
         public function testWithAttribute(): void
@@ -412,11 +412,11 @@ namespace Seeren\Http\Test\Request {
          * @covers \Seeren\Http\Uri\AbstractUri::__construct
          * @covers \Seeren\Http\Uri\AbstractUri::getQuery
          * @covers \Seeren\Http\Uri\Uri::__construct
-         * @covers \Seeren\Http\Uri\UriTrait::host
-         * @covers \Seeren\Http\Uri\UriTrait::path
-         * @covers \Seeren\Http\Uri\UriTrait::port
-         * @covers \Seeren\Http\Uri\UriTrait::query
-         * @covers \Seeren\Http\Uri\UriTrait::scheme
+         * @covers \Seeren\Http\Uri\UriParserTrait::host
+         * @covers \Seeren\Http\Uri\UriParserTrait::path
+         * @covers \Seeren\Http\Uri\UriParserTrait::port
+         * @covers \Seeren\Http\Uri\UriParserTrait::query
+         * @covers \Seeren\Http\Uri\UriParserTrait::scheme
          * @covers \Seeren\Http\Upload\UploadedFile::__construct
          */
         public function testWithoutAttribute(): void

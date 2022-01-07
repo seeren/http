@@ -9,9 +9,6 @@ use Seeren\Http\Uri\RequestUri;
 class RequestUriTest extends TestCase
 {
 
-    /**
-     * @return object
-     */
     public function getMock(): object
     {
         return (new ReflectionClass(RequestUri::class))->newInstance();
@@ -21,61 +18,54 @@ class RequestUriTest extends TestCase
      * @covers \Seeren\Http\Uri\RequestUri::__construct
      * @covers \Seeren\Http\Uri\AbstractUri::__construct
      * @covers \Seeren\Http\Uri\AbstractUri::getAuthority
-     * @covers \Seeren\Http\Uri\UriTrait::host
-     * @covers \Seeren\Http\Uri\UriTrait::path
-     * @covers \Seeren\Http\Uri\UriTrait::port
-     * @covers \Seeren\Http\Uri\UriTrait::query
-     * @covers \Seeren\Http\Uri\UriTrait::scheme
+     * @covers \Seeren\Http\Uri\UriParserTrait::parseHost
+     * @covers \Seeren\Http\Uri\UriParserTrait::parsePath
+     * @covers \Seeren\Http\Uri\UriParserTrait::parsePort
+     * @covers \Seeren\Http\Uri\UriParserTrait::parseQuery
+     * @covers \Seeren\Http\Uri\UriParserTrait::parseScheme
      * @covers \Seeren\Http\Uri\AbstractUri::__toString
      */
     public function testPathInfo(): void
     {
-        $this->assertEquals('http://host/info', (string)$this->getMock());
+        $this->assertEquals('https://host:8000/info?foo=bar', (string)$this->getMock());
     }
 
     /**
      * @covers \Seeren\Http\Uri\RequestUri::__construct
      * @covers \Seeren\Http\Uri\AbstractUri::__construct
      * @covers \Seeren\Http\Uri\AbstractUri::getAuthority
-     * @covers \Seeren\Http\Uri\UriTrait::host
-     * @covers \Seeren\Http\Uri\UriTrait::path
-     * @covers \Seeren\Http\Uri\UriTrait::port
-     * @covers \Seeren\Http\Uri\UriTrait::query
-     * @covers \Seeren\Http\Uri\UriTrait::scheme
+     * @covers \Seeren\Http\Uri\UriParserTrait::parseHost
+     * @covers \Seeren\Http\Uri\UriParserTrait::parsePath
+     * @covers \Seeren\Http\Uri\UriParserTrait::parsePort
+     * @covers \Seeren\Http\Uri\UriParserTrait::parseQuery
+     * @covers \Seeren\Http\Uri\UriParserTrait::parseScheme
      * @covers \Seeren\Http\Uri\AbstractUri::__toString
      */
     public function testRedirectUri(): void
     {
-        $this->assertEquals('http://host/redirect', (string)$this->getMock());
+        $this->assertEquals('https://host:8000/redirect?foo=bar', (string)$this->getMock());
     }
 
     /**
      * @covers \Seeren\Http\Uri\RequestUri::__construct
      * @covers \Seeren\Http\Uri\AbstractUri::__construct
      * @covers \Seeren\Http\Uri\AbstractUri::getAuthority
-     * @covers \Seeren\Http\Uri\UriTrait::host
-     * @covers \Seeren\Http\Uri\UriTrait::path
-     * @covers \Seeren\Http\Uri\UriTrait::port
-     * @covers \Seeren\Http\Uri\UriTrait::query
-     * @covers \Seeren\Http\Uri\UriTrait::scheme
+     * @covers \Seeren\Http\Uri\UriParserTrait::parseHost
+     * @covers \Seeren\Http\Uri\UriParserTrait::parsePath
+     * @covers \Seeren\Http\Uri\UriParserTrait::parsePort
+     * @covers \Seeren\Http\Uri\UriParserTrait::parseQuery
+     * @covers \Seeren\Http\Uri\UriParserTrait::parseScheme
      * @covers \Seeren\Http\Uri\AbstractUri::__toString
      */
     public function testRequestUri(): void
     {
-        $this->assertEquals('http://host/path', (string)$this->getMock());
+        $this->assertEquals('https://host:8000/path?foo=bar', (string)$this->getMock());
     }
 
 }
 
 namespace Seeren\Http\Uri;
 
-/**
- * @param int $type
- * @param string $key
- * @param int|null $flag
- * @param array|null $options
- * @return mixed
- */
 function filter_input(
     int $type,
     string $key,
@@ -85,7 +75,11 @@ function filter_input(
     static $called = 0;
     if (5 === $type) {
         if ('REQUEST_SCHEME' === $key) {
-            return 'http';
+            return 'https';
+        } elseif ('REMOTE_USER' === $key) {
+            return null;
+        } elseif ('SERVER_PORT' === $key) {
+            return 8000;
         } elseif ('SERVER_NAME' === $key) {
             return 'host';
         } elseif ($called === 0 && 'PATH_INFO' === $key) {
@@ -96,7 +90,9 @@ function filter_input(
             return 'redirect';
         } elseif ('REQUEST_URI' === $key) {
             return 'path';
+        } elseif ('QUERY_STRING' === $key) {
+            return 'foo=bar';
         }
     }
-    return \filter_input($type, $key, $flag, $options);
+    return null;
 }

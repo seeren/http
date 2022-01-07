@@ -31,11 +31,11 @@ class AbstractRequestTest extends TestCase
      * @covers \Seeren\Http\Uri\AbstractUri::__construct
      * @covers \Seeren\Http\Uri\AbstractUri::getPath
      * @covers \Seeren\Http\Uri\Uri::__construct
-     * @covers \Seeren\Http\Uri\UriTrait::host
-     * @covers \Seeren\Http\Uri\UriTrait::path
-     * @covers \Seeren\Http\Uri\UriTrait::port
-     * @covers \Seeren\Http\Uri\UriTrait::query
-     * @covers \Seeren\Http\Uri\UriTrait::scheme
+     * @covers \Seeren\Http\Uri\UriParserTrait::host
+     * @covers \Seeren\Http\Uri\UriParserTrait::path
+     * @covers \Seeren\Http\Uri\UriParserTrait::port
+     * @covers \Seeren\Http\Uri\UriParserTrait::query
+     * @covers \Seeren\Http\Uri\UriParserTrait::scheme
      */
     public function testGetRequestTarget(): void
     {
@@ -56,11 +56,11 @@ class AbstractRequestTest extends TestCase
      * @covers \Seeren\Http\Uri\AbstractUri::with
      * @covers \Seeren\Http\Uri\AbstractUri::withPath
      * @covers \Seeren\Http\Uri\Uri::__construct
-     * @covers \Seeren\Http\Uri\UriTrait::host
-     * @covers \Seeren\Http\Uri\UriTrait::path
-     * @covers \Seeren\Http\Uri\UriTrait::port
-     * @covers \Seeren\Http\Uri\UriTrait::query
-     * @covers \Seeren\Http\Uri\UriTrait::scheme
+     * @covers \Seeren\Http\Uri\UriParserTrait::host
+     * @covers \Seeren\Http\Uri\UriParserTrait::path
+     * @covers \Seeren\Http\Uri\UriParserTrait::port
+     * @covers \Seeren\Http\Uri\UriParserTrait::query
+     * @covers \Seeren\Http\Uri\UriParserTrait::scheme
      */
     public function testWithRequestTarget(): void
     {
@@ -78,11 +78,11 @@ class AbstractRequestTest extends TestCase
      * @covers \Seeren\Http\Stream\Stream::__construct
      * @covers \Seeren\Http\Uri\AbstractUri::__construct
      * @covers \Seeren\Http\Uri\Uri::__construct
-     * @covers \Seeren\Http\Uri\UriTrait::host
-     * @covers \Seeren\Http\Uri\UriTrait::path
-     * @covers \Seeren\Http\Uri\UriTrait::port
-     * @covers \Seeren\Http\Uri\UriTrait::query
-     * @covers \Seeren\Http\Uri\UriTrait::scheme
+     * @covers \Seeren\Http\Uri\UriParserTrait::host
+     * @covers \Seeren\Http\Uri\UriParserTrait::path
+     * @covers \Seeren\Http\Uri\UriParserTrait::port
+     * @covers \Seeren\Http\Uri\UriParserTrait::query
+     * @covers \Seeren\Http\Uri\UriParserTrait::scheme
      */
     public function testWithMethod(): void
     {
@@ -100,11 +100,11 @@ class AbstractRequestTest extends TestCase
      * @covers \Seeren\Http\Stream\Stream::__construct
      * @covers \Seeren\Http\Uri\AbstractUri::__construct
      * @covers \Seeren\Http\Uri\Uri::__construct
-     * @covers \Seeren\Http\Uri\UriTrait::host
-     * @covers \Seeren\Http\Uri\UriTrait::path
-     * @covers \Seeren\Http\Uri\UriTrait::port
-     * @covers \Seeren\Http\Uri\UriTrait::query
-     * @covers \Seeren\Http\Uri\UriTrait::scheme
+     * @covers \Seeren\Http\Uri\UriParserTrait::host
+     * @covers \Seeren\Http\Uri\UriParserTrait::path
+     * @covers \Seeren\Http\Uri\UriParserTrait::port
+     * @covers \Seeren\Http\Uri\UriParserTrait::query
+     * @covers \Seeren\Http\Uri\UriParserTrait::scheme
      */
     public function testWithMethodException(): void
     {
@@ -124,11 +124,11 @@ class AbstractRequestTest extends TestCase
      * @covers \Seeren\Http\Uri\AbstractUri::__construct
      * @covers \Seeren\Http\Uri\AbstractUri::getHost
      * @covers \Seeren\Http\Uri\Uri::__construct
-     * @covers \Seeren\Http\Uri\UriTrait::host
-     * @covers \Seeren\Http\Uri\UriTrait::path
-     * @covers \Seeren\Http\Uri\UriTrait::port
-     * @covers \Seeren\Http\Uri\UriTrait::query
-     * @covers \Seeren\Http\Uri\UriTrait::scheme
+     * @covers \Seeren\Http\Uri\UriParserTrait::host
+     * @covers \Seeren\Http\Uri\UriParserTrait::path
+     * @covers \Seeren\Http\Uri\UriParserTrait::port
+     * @covers \Seeren\Http\Uri\UriParserTrait::query
+     * @covers \Seeren\Http\Uri\UriParserTrait::scheme
      */
     public function testWithUri(): void
     {
@@ -155,11 +155,11 @@ class AbstractRequestTest extends TestCase
      * @covers \Seeren\Http\Uri\AbstractUri::__construct
      * @covers \Seeren\Http\Uri\AbstractUri::getHost
      * @covers \Seeren\Http\Uri\Uri::__construct
-     * @covers \Seeren\Http\Uri\UriTrait::host
-     * @covers \Seeren\Http\Uri\UriTrait::path
-     * @covers \Seeren\Http\Uri\UriTrait::port
-     * @covers \Seeren\Http\Uri\UriTrait::query
-     * @covers \Seeren\Http\Uri\UriTrait::scheme
+     * @covers \Seeren\Http\Uri\UriParserTrait::host
+     * @covers \Seeren\Http\Uri\UriParserTrait::path
+     * @covers \Seeren\Http\Uri\UriParserTrait::port
+     * @covers \Seeren\Http\Uri\UriParserTrait::query
+     * @covers \Seeren\Http\Uri\UriParserTrait::scheme
      */
     public function testWithUriPreserveHost(): void
     {

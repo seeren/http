@@ -7,26 +7,26 @@ use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use Seeren\Http\Response\Response;
 use Seeren\Http\Stream\Stream;
+use Seeren\Http\Stream\StreamInterface;
 
 class ResponseTest extends TestCase
 {
 
-    /**
-     * @return object
-     */
     public function getMock(): object
     {
-        return (new ReflectionClass(Response::class))->newInstance(
-            (new ReflectionClass(Stream::class))->newInstance('php://temp', Stream::MODE_W),
-            [],
-            '1.1'
-        );
+        return (new ReflectionClass(Response::class))
+            ->newInstance(
+                (new ReflectionClass(Stream::class))
+                    ->newInstance('php://temp', StreamInterface::MODE_W),
+                [],
+                '1.1'
+            );
     }
 
     /**
      * @covers \Seeren\Http\Response\Response::__construct
      * @covers \Seeren\Http\Message\AbstractMessage::__construct
-     * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+     * @covers \Seeren\Http\Message\MessageParserTrait::parseProtocol
      * @covers \Seeren\Http\Response\Response::setStatus
      * @covers \Seeren\Http\Stream\Stream::__construct
      * @covers \Seeren\Http\Response\Response::getStatusCode
@@ -39,7 +39,7 @@ class ResponseTest extends TestCase
     /**
      * @covers \Seeren\Http\Response\Response::__construct
      * @covers \Seeren\Http\Message\AbstractMessage::__construct
-     * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+     * @covers \Seeren\Http\Message\MessageParserTrait::parseProtocol
      * @covers \Seeren\Http\Response\Response::setStatus
      * @covers \Seeren\Http\Stream\Stream::__construct
      * @covers \Seeren\Http\Response\Response::setStatus
@@ -56,7 +56,7 @@ class ResponseTest extends TestCase
     /**
      * @covers \Seeren\Http\Response\Response::__construct
      * @covers \Seeren\Http\Message\AbstractMessage::__construct
-     * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+     * @covers \Seeren\Http\Message\MessageParserTrait::parseProtocol
      * @covers \Seeren\Http\Response\Response::setStatus
      * @covers \Seeren\Http\Stream\Stream::__construct
      * @covers \Seeren\Http\Response\Response::setStatus
@@ -73,7 +73,7 @@ class ResponseTest extends TestCase
     /**
      * @covers \Seeren\Http\Response\Response::__construct
      * @covers \Seeren\Http\Message\AbstractMessage::__construct
-     * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+     * @covers \Seeren\Http\Message\MessageParserTrait::parseProtocol
      * @covers \Seeren\Http\Response\Response::setStatus
      * @covers \Seeren\Http\Stream\Stream::__construct
      * @covers \Seeren\Http\Response\Response::setStatus

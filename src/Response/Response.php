@@ -6,55 +6,20 @@ use Psr\Http\Message\StreamInterface;
 use Seeren\Http\Message\AbstractMessage;
 use InvalidArgumentException;
 
-/**
- * Class to represent a response
- *
- *     __
- *    / /__ __ __ __ __ __
- *   / // // // // // // /
- *  /_// // // // // // /
- *    /_//_//_//_//_//_/
- *
- * @package Seeren\Http\Response
- */
 class Response extends AbstractMessage implements ResponseInterface
 {
 
-    /**
-     * @var int
-     */
-    private int $statusCode;
-
-    /**
-     * @var string
-     */
-    private string $reasonPhrase;
-
-    /**
-     * @param StreamInterface $stream
-     * @param array $headers
-     * @param string $version
-     * @param int $statusCode
-     * @param string $reasonPhrase
-     */
     public function __construct(
         StreamInterface $stream,
         array $headers = [],
         string $version = '1.1',
-        int $statusCode = 200,
-        string $reasonPhrase = 'OK'
+        private int $statusCode = 200,
+        private string $reasonPhrase = 'OK'
     )
     {
         parent::__construct($version, $headers, $stream);
-        $this->statusCode = $statusCode;
-        $this->reasonPhrase = $reasonPhrase;
     }
 
-    /**
-     * @param string $name
-     * @param mixed $value
-     * @return ResponseInterface
-     */
     private function with(string $name, $value): ResponseInterface
     {
         $clone = clone $this;
@@ -62,11 +27,7 @@ class Response extends AbstractMessage implements ResponseInterface
         return $clone;
     }
 
-    /**
-     * @param int $code
-     * @throws InvalidArgumentException
-     */
-    private function setStatus(int $code)
+    private function setStatus(int $code): void
     {
         $const = 'self::STATUS_' . $code;
         if (!defined($const)) {
@@ -76,31 +37,20 @@ class Response extends AbstractMessage implements ResponseInterface
         $this->reasonPhrase = constant($const);
     }
 
-    /**
-     * {@inheritDoc}
-     * @see ResponseInterface::getStatusCode()
-     */
-    public function getStatusCode()
+
+    public final function getStatusCode(): int
     {
         return $this->statusCode;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see ResponseInterface::withStatus()
-     */
-    public function withStatus($code, $reasonPhrase = null): ResponseInterface
+    public final function withStatus($code, $reasonPhrase = null): ResponseInterface
     {
         $response = $this->with('statusCode', $code);
         $response->setStatus((int)$code);
         return $response;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see ResponseInterface::getReasonPhrase()
-     */
-    public function getReasonPhrase(): string
+    public final function getReasonPhrase(): string
     {
         return $this->reasonPhrase;
     }

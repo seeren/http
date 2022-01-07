@@ -14,7 +14,7 @@ class Stream implements StreamInterface
 
     public function __construct(string $target, string $mode = self::MODE_R, $context = null)
     {
-        if (!($this->stream = @fopen($target, $mode, false, $context))) {
+        if (!$target || !($this->stream = @fopen($target, $mode, false, $context))) {
             throw new InvalidArgumentException('Can\'t create Stream for target "' . $target . '"');
         }
         $this->meta = stream_get_meta_data($this->stream);

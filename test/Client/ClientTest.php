@@ -10,6 +10,7 @@ use Seeren\Http\Client\Exception\NetworkException;
 use Seeren\Http\Client\Exception\RequestException;
 use Seeren\Http\Request\AbstractRequest;
 use Seeren\Http\Stream\Stream;
+use Seeren\Http\Stream\StreamInterface;
 use Seeren\Http\Uri\Uri;
 
 class ClientTest extends TestCase
@@ -22,7 +23,7 @@ class ClientTest extends TestCase
      * @covers \Seeren\Http\Client\Exception\ClientException::__construct
      * @covers \Seeren\Http\Message\AbstractMessage::__construct
      * @covers \Seeren\Http\Message\AbstractMessage::getBody
-     * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+     * @covers \Seeren\Http\Message\MessageParserTrait::parseProtocol
      * @covers \Seeren\Http\Request\AbstractRequest::__construct
      * @covers \Seeren\Http\Request\AbstractRequest::getMethod
      * @covers \Seeren\Http\Request\AbstractRequest::getUri
@@ -37,11 +38,11 @@ class ClientTest extends TestCase
      * @covers \Seeren\Http\Uri\AbstractUri::getHost
      * @covers \Seeren\Http\Uri\AbstractUri::getScheme
      * @covers \Seeren\Http\Uri\Uri::__construct
-     * @covers \Seeren\Http\Uri\UriTrait::host
-     * @covers \Seeren\Http\Uri\UriTrait::path
-     * @covers \Seeren\Http\Uri\UriTrait::port
-     * @covers \Seeren\Http\Uri\UriTrait::query
-     * @covers \Seeren\Http\Uri\UriTrait::scheme
+     * @covers \Seeren\Http\Uri\UriParserTrait::host
+     * @covers \Seeren\Http\Uri\UriParserTrait::path
+     * @covers \Seeren\Http\Uri\UriParserTrait::port
+     * @covers \Seeren\Http\Uri\UriParserTrait::query
+     * @covers \Seeren\Http\Uri\UriParserTrait::scheme
      * @throws ClientExceptionInterface
      */
     public function testSendRequestRequestException()
@@ -56,7 +57,7 @@ class ClientTest extends TestCase
      * @covers \Seeren\Http\Client\Client::__construct
      * @covers \Seeren\Http\Client\Client::sendRequest
      * @covers \Seeren\Http\Client\ClientRequest::__construct
-     * @covers \Seeren\Http\Client\ClientTrait::parseHeader
+     * @covers \Seeren\Http\Client\ClientParserTrait::parseHeader
      * @covers \Seeren\Http\Client\Exception\ClientException::__construct
      * @covers \Seeren\Http\Message\AbstractMessage::__construct
      * @covers \Seeren\Http\Message\AbstractMessage::getBody
@@ -66,9 +67,9 @@ class ClientTest extends TestCase
      * @covers \Seeren\Http\Message\AbstractMessage::getProtocolVersion
      * @covers \Seeren\Http\Message\AbstractMessage::with
      * @covers \Seeren\Http\Message\AbstractMessage::withHeader
-     * @covers \Seeren\Http\Message\MessageTrait::parseHeaderName
-     * @covers \Seeren\Http\Message\MessageTrait::parseHeaderValue
-     * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+     * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderName
+     * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderValue
+     * @covers \Seeren\Http\Message\MessageParserTrait::parseProtocol
      * @covers \Seeren\Http\Request\AbstractRequest::__construct
      * @covers \Seeren\Http\Request\AbstractRequest::getMethod
      * @covers \Seeren\Http\Request\AbstractRequest::getUri
@@ -88,11 +89,11 @@ class ClientTest extends TestCase
      * @covers \Seeren\Http\Uri\AbstractUri::getHost
      * @covers \Seeren\Http\Uri\AbstractUri::getScheme
      * @covers \Seeren\Http\Uri\Uri::__construct
-     * @covers \Seeren\Http\Uri\UriTrait::host
-     * @covers \Seeren\Http\Uri\UriTrait::path
-     * @covers \Seeren\Http\Uri\UriTrait::port
-     * @covers \Seeren\Http\Uri\UriTrait::query
-     * @covers \Seeren\Http\Uri\UriTrait::scheme
+     * @covers \Seeren\Http\Uri\UriParserTrait::host
+     * @covers \Seeren\Http\Uri\UriParserTrait::path
+     * @covers \Seeren\Http\Uri\UriParserTrait::port
+     * @covers \Seeren\Http\Uri\UriParserTrait::query
+     * @covers \Seeren\Http\Uri\UriParserTrait::scheme
      * @throws ClientExceptionInterface
      */
     public function testSendRequestNetWorkException()
@@ -108,15 +109,15 @@ class ClientTest extends TestCase
      * @covers \Seeren\Http\Client\Client::__construct
      * @covers \Seeren\Http\Client\Client::sendRequest
      * @covers \Seeren\Http\Client\ClientRequest::__construct
-     * @covers \Seeren\Http\Client\ClientTrait::getResponse
-     * @covers \Seeren\Http\Client\ClientTrait::parseHeader
+     * @covers \Seeren\Http\Client\ResponseAwareTrait::getResponse
+     * @covers \Seeren\Http\Client\ClientParserTrait::parseHeader
      * @covers \Seeren\Http\Message\AbstractMessage::__construct
      * @covers \Seeren\Http\Message\AbstractMessage::getBody
      * @covers \Seeren\Http\Message\AbstractMessage::getHeaders
      * @covers \Seeren\Http\Message\AbstractMessage::getProtocolVersion
-     * @covers \Seeren\Http\Message\MessageTrait::parseHeaderName
-     * @covers \Seeren\Http\Message\MessageTrait::parseHeaderValue
-     * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+     * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderName
+     * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderValue
+     * @covers \Seeren\Http\Message\MessageParserTrait::parseProtocol
      * @covers \Seeren\Http\Request\AbstractRequest::__construct
      * @covers \Seeren\Http\Request\AbstractRequest::getMethod
      * @covers \Seeren\Http\Request\AbstractRequest::getUri
@@ -137,12 +138,11 @@ class ClientTest extends TestCase
      * @covers \Seeren\Http\Uri\AbstractUri::getHost
      * @covers \Seeren\Http\Uri\AbstractUri::getScheme
      * @covers \Seeren\Http\Uri\Uri::__construct
-     * @covers \Seeren\Http\Uri\UriTrait::host
-     * @covers \Seeren\Http\Uri\UriTrait::path
-     * @covers \Seeren\Http\Uri\UriTrait::port
-     * @covers \Seeren\Http\Uri\UriTrait::query
-     * @covers \Seeren\Http\Uri\UriTrait::scheme
-     * @throws ClientExceptionInterface
+     * @covers \Seeren\Http\Uri\UriParserTrait::host
+     * @covers \Seeren\Http\Uri\UriParserTrait::path
+     * @covers \Seeren\Http\Uri\UriParserTrait::port
+     * @covers \Seeren\Http\Uri\UriParserTrait::query
+     * @covers \Seeren\Http\Uri\UriParserTrait::scheme
      */
     public function testSendRequest()
     {
@@ -154,17 +154,17 @@ class ClientTest extends TestCase
      * @covers \Seeren\Http\Client\Exception\ClientException::__construct
      * @covers \Seeren\Http\Client\Exception\ClientException::getRequest
      * @covers \Seeren\Http\Message\AbstractMessage::__construct
-     * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+     * @covers \Seeren\Http\Message\MessageParserTrait::parseProtocol
      * @covers \Seeren\Http\Request\AbstractRequest::__construct
      * @covers \Seeren\Http\Request\RequestTrait::parseMethod
      * @covers \Seeren\Http\Stream\Stream::__construct
      * @covers \Seeren\Http\Uri\AbstractUri::__construct
      * @covers \Seeren\Http\Uri\Uri::__construct
-     * @covers \Seeren\Http\Uri\UriTrait::host
-     * @covers \Seeren\Http\Uri\UriTrait::path
-     * @covers \Seeren\Http\Uri\UriTrait::port
-     * @covers \Seeren\Http\Uri\UriTrait::query
-     * @covers \Seeren\Http\Uri\UriTrait::scheme
+     * @covers \Seeren\Http\Uri\UriParserTrait::host
+     * @covers \Seeren\Http\Uri\UriParserTrait::path
+     * @covers \Seeren\Http\Uri\UriParserTrait::port
+     * @covers \Seeren\Http\Uri\UriParserTrait::query
+     * @covers \Seeren\Http\Uri\UriParserTrait::scheme
      */
     public function testClientException()
     {
@@ -194,7 +194,7 @@ class RequestWithoutPrerequisite extends AbstractRequest
     public function __construct()
     {
         parent::__construct(
-            new Stream('php://temp', Stream::MODE_R_MORE),
+            new Stream('php://temp', StreamInterface::MODE_R_MORE),
             new Uri('http', 'host')
         );
     }

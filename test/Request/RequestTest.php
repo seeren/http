@@ -28,19 +28,19 @@ namespace Seeren\Http\Test\Request {
         /**
          * @covers \Seeren\Http\Message\AbstractMessage::__construct
          * @covers \Seeren\Http\Message\AbstractMessage::getHeader
-         * @covers \Seeren\Http\Message\MessageTrait::parseHeaderName
-         * @covers \Seeren\Http\Message\MessageTrait::parseHeaderValue
-         * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderName
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderValue
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseProtocol
          * @covers \Seeren\Http\Request\AbstractRequest::__construct
          * @covers \Seeren\Http\Request\Request::__construct
          * @covers \Seeren\Http\Request\Request::getServerParams
          * @covers \Seeren\Http\Request\RequestTrait::parseMethod
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseCookie
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseParsedBody
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseQueryParam
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeader
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseUploadedFiles
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeaderValue
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseCookie
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseParsedBody
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseQueryParam
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseRequestHeader
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseUploadedFiles
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseRequestHeaderValue
          * @covers \Seeren\Http\Stream\RequestStream::__construct
          * @covers \Seeren\Http\Stream\Stream::__construct
          * @covers \Seeren\Http\Stream\Stream::__toString
@@ -69,21 +69,21 @@ namespace Seeren\Http\Test\Request {
         /**
          * @covers \Seeren\Http\Message\AbstractMessage::__construct
          * @covers \Seeren\Http\Message\AbstractMessage::getHeader
-         * @covers \Seeren\Http\Message\MessageTrait::parseHeaderName
-         * @covers \Seeren\Http\Message\MessageTrait::parseHeaderValue
-         * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderName
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderValue
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseProtocol
          * @covers \Seeren\Http\Request\Request::__construct
          * @covers \Seeren\Http\Request\AbstractRequest::__construct
          * @covers \Seeren\Http\Request\Request::getCookieParams
          * @covers \Seeren\Http\Request\Request::with
          * @covers \Seeren\Http\Request\Request::withCookieParams
          * @covers \Seeren\Http\Request\RequestTrait::parseMethod
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseCookie
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseParsedBody
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseQueryParam
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeader
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseUploadedFiles
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeaderValue
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseCookie
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseParsedBody
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseQueryParam
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseRequestHeader
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseUploadedFiles
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseRequestHeaderValue
          * @covers \Seeren\Http\Stream\RequestStream::__construct
          * @covers \Seeren\Http\Stream\Stream::__construct
          * @covers \Seeren\Http\Stream\Stream::__toString
@@ -113,21 +113,21 @@ namespace Seeren\Http\Test\Request {
         /**
          * @covers \Seeren\Http\Message\AbstractMessage::__construct
          * @covers \Seeren\Http\Message\AbstractMessage::getHeader
-         * @covers \Seeren\Http\Message\MessageTrait::parseHeaderName
-         * @covers \Seeren\Http\Message\MessageTrait::parseHeaderValue
-         * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderName
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderValue
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseProtocol
          * @covers \Seeren\Http\Request\AbstractRequest::__construct
          * @covers \Seeren\Http\Request\Request::__construct
          * @covers \Seeren\Http\Request\Request::getQueryParams
          * @covers \Seeren\Http\Request\Request::with
          * @covers \Seeren\Http\Request\Request::withQueryParams
          * @covers \Seeren\Http\Request\RequestTrait::parseMethod
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseCookie
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseParsedBody
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseQueryParam
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeader
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseUploadedFiles
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeaderValue
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseCookie
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseParsedBody
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseQueryParam
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseRequestHeader
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseUploadedFiles
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseRequestHeaderValue
          * @covers \Seeren\Http\Stream\RequestStream::__construct
          * @covers \Seeren\Http\Stream\Stream::__construct
          * @covers \Seeren\Http\Stream\Stream::__toString
@@ -157,21 +157,21 @@ namespace Seeren\Http\Test\Request {
         /**
          * @covers \Seeren\Http\Message\AbstractMessage::__construct
          * @covers \Seeren\Http\Message\AbstractMessage::getHeader
-         * @covers \Seeren\Http\Message\MessageTrait::parseHeaderName
-         * @covers \Seeren\Http\Message\MessageTrait::parseHeaderValue
-         * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderName
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderValue
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseProtocol
          * @covers \Seeren\Http\Request\AbstractRequest::__construct
          * @covers \Seeren\Http\Request\Request::__construct
          * @covers \Seeren\Http\Request\Request::getUploadedFiles
          * @covers \Seeren\Http\Request\Request::with
          * @covers \Seeren\Http\Request\Request::withUploadedFiles
          * @covers \Seeren\Http\Request\RequestTrait::parseMethod
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseCookie
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseParsedBody
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseQueryParam
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeader
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseUploadedFiles
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeaderValue
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseCookie
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseParsedBody
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseQueryParam
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseRequestHeader
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseUploadedFiles
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseRequestHeaderValue
          * @covers \Seeren\Http\Stream\RequestStream::__construct
          * @covers \Seeren\Http\Stream\Stream::__construct
          * @covers \Seeren\Http\Stream\Stream::__toString
@@ -202,19 +202,19 @@ namespace Seeren\Http\Test\Request {
         /**
          * @covers \Seeren\Http\Message\AbstractMessage::__construct
          * @covers \Seeren\Http\Message\AbstractMessage::getHeader
-         * @covers \Seeren\Http\Message\MessageTrait::parseHeaderName
-         * @covers \Seeren\Http\Message\MessageTrait::parseHeaderValue
-         * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderName
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderValue
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseProtocol
          * @covers \Seeren\Http\Request\AbstractRequest::__construct
          * @covers \Seeren\Http\Request\Request::__construct
          * @covers \Seeren\Http\Request\Request::withUploadedFiles
          * @covers \Seeren\Http\Request\RequestTrait::parseMethod
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseCookie
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseParsedBody
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseQueryParam
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeader
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseUploadedFiles
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeaderValue
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseCookie
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseParsedBody
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseQueryParam
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseRequestHeader
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseUploadedFiles
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseRequestHeaderValue
          * @covers \Seeren\Http\Stream\RequestStream::__construct
          * @covers \Seeren\Http\Stream\Stream::__construct
          * @covers \Seeren\Http\Stream\Stream::__toString
@@ -245,21 +245,21 @@ namespace Seeren\Http\Test\Request {
         /**
          * @covers \Seeren\Http\Message\AbstractMessage::__construct
          * @covers \Seeren\Http\Message\AbstractMessage::getHeader
-         * @covers \Seeren\Http\Message\MessageTrait::parseHeaderName
-         * @covers \Seeren\Http\Message\MessageTrait::parseHeaderValue
-         * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderName
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderValue
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseProtocol
          * @covers \Seeren\Http\Request\AbstractRequest::__construct
          * @covers \Seeren\Http\Request\Request::__construct
          * @covers \Seeren\Http\Request\Request::getParsedBody
          * @covers \Seeren\Http\Request\Request::with
          * @covers \Seeren\Http\Request\Request::withParsedBody
          * @covers \Seeren\Http\Request\RequestTrait::parseMethod
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseCookie
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseParsedBody
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseQueryParam
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeader
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseUploadedFiles
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeaderValue
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseCookie
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseParsedBody
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseQueryParam
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseRequestHeader
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseUploadedFiles
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseRequestHeaderValue
          * @covers \Seeren\Http\Stream\RequestStream::__construct
          * @covers \Seeren\Http\Stream\Stream::__construct
          * @covers \Seeren\Http\Stream\Stream::__toString
@@ -290,19 +290,19 @@ namespace Seeren\Http\Test\Request {
         /**
          * @covers \Seeren\Http\Message\AbstractMessage::__construct
          * @covers \Seeren\Http\Message\AbstractMessage::getHeader
-         * @covers \Seeren\Http\Message\MessageTrait::parseHeaderName
-         * @covers \Seeren\Http\Message\MessageTrait::parseHeaderValue
-         * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderName
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderValue
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseProtocol
          * @covers \Seeren\Http\Request\AbstractRequest::__construct
          * @covers \Seeren\Http\Request\Request::__construct
          * @covers \Seeren\Http\Request\Request::withParsedBody
          * @covers \Seeren\Http\Request\RequestTrait::parseMethod
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseCookie
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseParsedBody
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseQueryParam
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeader
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseUploadedFiles
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeaderValue
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseCookie
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseParsedBody
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseQueryParam
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseRequestHeader
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseUploadedFiles
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseRequestHeaderValue
          * @covers \Seeren\Http\Stream\RequestStream::__construct
          * @covers \Seeren\Http\Stream\Stream::__construct
          * @covers \Seeren\Http\Stream\Stream::__toString
@@ -333,9 +333,9 @@ namespace Seeren\Http\Test\Request {
         /**
          * @covers \Seeren\Http\Message\AbstractMessage::__construct
          * @covers \Seeren\Http\Message\AbstractMessage::getHeader
-         * @covers \Seeren\Http\Message\MessageTrait::parseHeaderName
-         * @covers \Seeren\Http\Message\MessageTrait::parseHeaderValue
-         * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderName
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderValue
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseProtocol
          * @covers \Seeren\Http\Request\AbstractRequest::__construct
          * @covers \Seeren\Http\Request\Request::__construct
          * @covers \Seeren\Http\Request\Request::getAttribute
@@ -343,12 +343,12 @@ namespace Seeren\Http\Test\Request {
          * @covers \Seeren\Http\Request\Request::with
          * @covers \Seeren\Http\Request\Request::withAttribute
          * @covers \Seeren\Http\Request\RequestTrait::parseMethod
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseCookie
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseParsedBody
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseQueryParam
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeader
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseUploadedFiles
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeaderValue
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseCookie
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseParsedBody
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseQueryParam
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseRequestHeader
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseUploadedFiles
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseRequestHeaderValue
          * @covers \Seeren\Http\Stream\RequestStream::__construct
          * @covers \Seeren\Http\Stream\Stream::__construct
          * @covers \Seeren\Http\Stream\Stream::__toString
@@ -382,9 +382,9 @@ namespace Seeren\Http\Test\Request {
         /**
          * @covers \Seeren\Http\Message\AbstractMessage::__construct
          * @covers \Seeren\Http\Message\AbstractMessage::getHeader
-         * @covers \Seeren\Http\Message\MessageTrait::parseHeaderName
-         * @covers \Seeren\Http\Message\MessageTrait::parseHeaderValue
-         * @covers \Seeren\Http\Message\MessageTrait::parseProtocol
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderName
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseHeaderValue
+         * @covers \Seeren\Http\Message\MessageParserTrait::parseProtocol
          * @covers \Seeren\Http\Request\AbstractRequest::__construct
          * @covers \Seeren\Http\Request\Request::__construct
          * @covers \Seeren\Http\Request\Request::getAttribute
@@ -393,12 +393,12 @@ namespace Seeren\Http\Test\Request {
          * @covers \Seeren\Http\Request\Request::withAttribute
          * @covers \Seeren\Http\Request\Request::withoutAttribute
          * @covers \Seeren\Http\Request\RequestTrait::parseMethod
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseCookie
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseParsedBody
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseQueryParam
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeader
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseUploadedFiles
-         * @covers \Seeren\Http\Request\ServerRequestTrait::parseRequestHeaderValue
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseCookie
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseParsedBody
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseQueryParam
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseRequestHeader
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseUploadedFiles
+         * @covers \Seeren\Http\Request\ServerRequestParserTrait::parseRequestHeaderValue
          * @covers \Seeren\Http\Stream\RequestStream::__construct
          * @covers \Seeren\Http\Stream\Stream::__construct
          * @covers \Seeren\Http\Stream\Stream::__toString

@@ -2,24 +2,9 @@
 
 namespace Seeren\Http\Request;
 
-/**
- * Trait to help request
- *
- *     __
- *    / /__ __ __ __ __ __
- *   / // // // // // // /
- *  /_// // // // // // /
- *    /_//_//_//_//_//_/
- *
- * @package Seeren\Http\Request
- */
-trait RequestTrait
+trait RequestParserTrait
 {
 
-    /**
-     * @param string $method
-     * @return string
-     */
     private function parseMethod(string $method): string
     {
         return RequestInterface::GET === $method

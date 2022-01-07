@@ -7,56 +7,23 @@ use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UploadedFileInterface;
 use InvalidArgumentException;
 
-/**
- * Class to represent a request
- *
- *     __
- *    / /__ __ __ __ __ __
- *   / // // // // // // /
- *  /_// // // // // // /
- *    /_//_//_//_//_//_/
- *
- * @package Seeren\Http\Request
- */
 class Request extends AbstractRequest implements ServerRequestInterface
 {
 
-    use ServerRequestTrait;
+    use ServerRequestParserTrait;
 
-    /**
-     * @var array
-     */
     private array $server;
 
-    /**
-     * @var array
-     */
     private array $cookie;
 
-    /**
-     * @var array
-     */
     private array $queryParam;
 
-    /**
-     * @var array
-     */
     private array $uploadedFiles;
 
-    /**
-     * @var array
-     */
     private array $parsedBody;
 
-    /**
-     * @var array
-     */
     private array $attributes = [];
 
-    /**
-     * @param StreamInterface $stream
-     * @param UriInterface $uri
-     */
     public function __construct(StreamInterface $stream, UriInterface $uri)
     {
         parent::__construct(
@@ -73,11 +40,6 @@ class Request extends AbstractRequest implements ServerRequestInterface
         $this->parsedBody = $this->parseParsedBody((string)$this->body);
     }
 
-    /**
-     * @param string $name
-     * @param mixed $value
-     * @return ServerRequestInterface
-     */
     private function with(string $name, $value): ServerRequestInterface
     {
         $clone = clone $this;
@@ -85,65 +47,38 @@ class Request extends AbstractRequest implements ServerRequestInterface
         return $clone;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see ServerRequestInterface::getServerParams()
-     */
     public function getServerParams(): array
     {
         return $this->server;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see ServerRequestInterface::getCookieParams()
-     */
-    public function getCookieParams(): array
+    public final function getCookieParams(): array
     {
         return $this->cookie;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see ServerRequestInterface::withCookieParams()
-     */
-    public function withCookieParams(array $cookies): ServerRequestInterface
+    public final function withCookieParams(array $cookies): ServerRequestInterface
     {
         return $this->with('cookie', $cookies);
     }
 
-    /**
-     * {@inheritDoc}
-     * @see ServerRequestInterface::getQueryParams()
-     */
-    public function getQueryParams(): array
+    public final function getQueryParams(): array
     {
         return $this->queryParam;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see ServerRequestInterface::withQueryParams()
-     */
-    public function withQueryParams(array $query): ServerRequestInterface
+    public final function withQueryParams(array $query): ServerRequestInterface
     {
         return $this->with('queryParam', $query);
     }
 
-    /**
-     * {@inheritDoc}
-     * @see ServerRequestInterface::getUploadedFiles()
-     */
-    public function getUploadedFiles(): array
+    public final function getUploadedFiles(): array
     {
         return $this->uploadedFiles;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see ServerRequestInterface::withUploadedFiles()
-     */
-    public function withUploadedFiles(array $uploadedFiles): ServerRequestInterface
+
+    public final function withUploadedFiles(array $uploadedFiles): ServerRequestInterface
     {
         foreach ($uploadedFiles as $value) {
             if (!is_object($value) || !($value instanceof UploadedFileInterface)) {
@@ -153,20 +88,12 @@ class Request extends AbstractRequest implements ServerRequestInterface
         return $this->with('uploadedFiles', $uploadedFiles);
     }
 
-    /**
-     * {@inheritDoc}
-     * @see ServerRequestInterface::getParsedBody()
-     */
-    public function getParsedBody(): array
+    public final function getParsedBody(): array
     {
         return $this->parsedBody;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see ServerRequestInterface::withParsedBody()
-     */
-    public function withParsedBody($data): ServerRequestInterface
+    public final function withParsedBody($data): ServerRequestInterface
     {
         $parsedBody = [];
         if (is_object($data)) {
@@ -177,40 +104,24 @@ class Request extends AbstractRequest implements ServerRequestInterface
         return $this->with('parsedBody', $parsedBody);
     }
 
-    /**
-     * {@inheritDoc}
-     * @see ServerRequestInterface::getAttributes()
-     */
-    public function getAttributes(): array
+    public final function getAttributes(): array
     {
         return $this->attributes;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see ServerRequestInterface::getAttribute()
-     */
-    public function getAttribute($name, $default = null)
+    public final function getAttribute($name, $default = null)
     {
         return $this->attributes[$name] ?? $default;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see ServerRequestInterface::withAttribute()
-     */
-    public function withAttribute($name, $value): ServerRequestInterface
+    public final function withAttribute($name, $value): ServerRequestInterface
     {
         $attributes = $this->attributes;
         $attributes[$name] = $value;
         return $this->with("attributes", $attributes);
     }
 
-    /**
-     * {@inheritDoc}
-     * @see ServerRequestInterface::withoutAttribute()
-     */
-    public function withoutAttribute($name): ServerRequestInterface
+    public final function withoutAttribute($name): ServerRequestInterface
     {
         $attributes = $this->attributes;
         if (array_key_exists($name, $attributes)) {

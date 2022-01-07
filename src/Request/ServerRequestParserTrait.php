@@ -3,24 +3,11 @@
 namespace Seeren\Http\Request;
 
 use Seeren\Http\Upload\UploadedFile;
+use Seeren\Http\Upload\UploadedFileInterface;
 
-/**
- * Trait to help server request
- *
- *     __
- *    / /__ __ __ __ __ __
- *   / // // // // // // /
- *  /_// // // // // // /
- *    /_//_//_//_//_//_/
- *
- * @package Seeren\Http\Request
- */
-trait ServerRequestTrait
+trait ServerRequestParserTrait
 {
 
-    /**
-     * @return array
-     */
     private function parseRequestHeader(): array
     {
         $headers = [];
@@ -30,7 +17,7 @@ trait ServerRequestTrait
             }
         }
         foreach (filter_input_array(INPUT_SERVER) as $key => $value) {
-            if (0 === strpos($key, 'HTTP_')) {
+            if (str_starts_with($key, 'HTTP_')) {
                 $key = str_replace(
                     ' ',
                     '-',
@@ -44,19 +31,11 @@ trait ServerRequestTrait
         return $headers;
     }
 
-    /**
-     * @param string $key
-     * @param string $value
-     * @return string[]
-     */
     private function parseRequestHeaderValue(string $key, string $value): array
     {
-        return "User-Agent" === $key ? [$value] : $this->parseHeaderValue($value);
+        return 'User-Agent' === $key ? [$value] : $this->parseHeaderValue($value);
     }
 
-    /**
-     * @return array
-     */
     private function parseCookie(): array
     {
         $cookies = [];
@@ -72,10 +51,6 @@ trait ServerRequestTrait
         return $cookies;
     }
 
-    /**
-     * @param string $queryString
-     * @return array
-     */
     private function parseQueryParam(string $queryString): array
     {
         $queryParams = [];
@@ -85,22 +60,19 @@ trait ServerRequestTrait
         return $queryParams;
     }
 
-    /**
-     * @return array
-     */
     private function parseUploadedFiles(): array
     {
         $uploadedFiles = [];
         foreach ($_FILES as $key => $file) {
             if (is_array(current($file))) {
                 $uploadedFiles[$key] = [];
-                foreach (array_keys($file[UploadedFile::NAME]) as $subkey) {
+                foreach (array_keys($file[UploadedFileInterface::NAME]) as $subkey) {
                     $uploadedFiles[$key][$subkey] = new UploadedFile([
-                        UploadedFile::NAME => $file[UploadedFile::NAME][$subkey],
-                        UploadedFile::TYPE => $file[UploadedFile::TYPE][$subkey],
-                        UploadedFile::TMP => $file[UploadedFile::TMP][$subkey],
-                        UploadedFile::ERROR => $file[UploadedFile::ERROR][$subkey],
-                        UploadedFile::SIZE => $file[UploadedFile::SIZE][$subkey]
+                        UploadedFileInterface::NAME => $file[UploadedFileInterface::NAME][$subkey],
+                        UploadedFileInterface::TYPE => $file[UploadedFileInterface::TYPE][$subkey],
+                        UploadedFileInterface::TMP => $file[UploadedFileInterface::TMP][$subkey],
+                        UploadedFileInterface::ERROR => $file[UploadedFileInterface::ERROR][$subkey],
+                        UploadedFileInterface::SIZE => $file[UploadedFileInterface::SIZE][$subkey]
                     ]);
                 }
                 continue;
@@ -110,10 +82,6 @@ trait ServerRequestTrait
         return $uploadedFiles;
     }
 
-    /**
-     * @param string $body
-     * @return array
-     */
     private function parseParsedBody(string $body): array
     {
         if (!$parsedBody = json_decode($body, true)) {

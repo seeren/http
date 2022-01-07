@@ -10,9 +10,6 @@ use Seeren\Http\Stream\Stream;
 class RequestStreamTest extends TestCase
 {
 
-    /**
-     * @return object
-     */
     public function getMock(): object
     {
         return (new ReflectionClass(RequestStream::class))->newInstance();

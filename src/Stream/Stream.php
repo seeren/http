@@ -5,38 +5,14 @@ namespace Seeren\Http\Stream;
 use InvalidArgumentException;
 use RuntimeException;
 
-/**
- * Class to represent a stream
- *
- *     __
- *    / /__ __ __ __ __ __
- *   / // // // // // // /
- *  /_// // // // // // /
- *    /_//_//_//_//_//_/
- *
- * @package Seeren\Http\Stream
- */
 class Stream implements StreamInterface
 {
 
-    /**
-     * @var resource
-     */
     protected $stream;
 
-    /**
-     * @var array
-     */
     protected array $meta;
 
-    /**
-     * @param string $target
-     * @param string $mode
-     * @param resource|null $context
-     *
-     * @throws InvalidArgumentException
-     */
-    public function __construct(string $target, string $mode = Stream::MODE_R, $context = null)
+    public function __construct(string $target, string $mode = self::MODE_R, $context = null)
     {
         if (!($this->stream = @fopen($target, $mode, false, $context))) {
             throw new InvalidArgumentException('Can\'t create Stream for target "' . $target . '"');
@@ -62,11 +38,7 @@ class Stream implements StreamInterface
         $this->meta['size'] = ($stat = fstat($this->stream)) && array_key_exists('size', $stat) ? $stat['size'] : null;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see StreamInterface::__toString()
-     */
-    public function __toString(): string
+    public final function __toString(): string
     {
         try {
             return $this->getContents();
@@ -75,11 +47,7 @@ class Stream implements StreamInterface
         }
     }
 
-    /**
-     * {@inheritDoc}
-     * @see StreamInterface::close()
-     */
-    public function close(): void
+    public final function close(): void
     {
         fclose($this->stream);
         $this->meta = [
@@ -89,35 +57,21 @@ class Stream implements StreamInterface
         ];
     }
 
-    /**
-     * {@inheritDoc}
-     * @see StreamInterface::detach()
-     */
-    public function detach()
+    public final function detach()
     {
-        $stream = null;
         if ($this->stream) {
             $this->close();
-            $stream = $this->stream;
             $this->stream = null;
         }
-        return $stream;
+        return $this->stream;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see StreamInterface::getSize()
-     */
-    public function getSize(): ?int
+    public final function getSize(): ?int
     {
         return $this->getMetadata('size');
     }
 
-    /**
-     * {@inheritDoc}
-     * @see StreamInterface::tell()
-     */
-    public function tell(): int
+    public final function tell(): int
     {
         if (!$this->isSeekable()) {
             throw new RuntimeException('Can\'t tell because stream is not seekable');
@@ -125,40 +79,24 @@ class Stream implements StreamInterface
         return ftell($this->stream);
     }
 
-    /**
-     * {@inheritDoc}
-     * @see StreamInterface::eof()
-     */
-    public function eof(): bool
+    public final function eof(): bool
     {
         return $this->meta['eof'];
     }
 
-    /**
-     * {@inheritDoc}
-     * @see StreamInterface::isSeekable()
-     */
-    public function isSeekable(): bool
+    public final function isSeekable(): bool
     {
         return (bool)$this->getMetadata('seekable');
     }
 
-    /**
-     * {@inheritDoc}
-     * @see StreamInterface::seek()
-     */
-    public function seek($offset, $whence = SEEK_SET): void
+    public final function seek($offset, $whence = SEEK_SET): void
     {
         if (-1 === fseek($this->stream, (int)$offset, (int)$whence)) {
             throw new RuntimeException('Can\'t seek at offset "' . $offset . '"');
         }
     }
 
-    /**
-     * {@inheritDoc}
-     * @see StreamInterface::rewind()
-     */
-    public function rewind()
+    public final function rewind()
     {
         if (!$this->isReadable() || !$this->isSeekable()) {
             throw new RuntimeException('Can\'t rewind because stream is not readable or seekable');
@@ -167,29 +105,17 @@ class Stream implements StreamInterface
         $this->meta['eof'] = false;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see StreamInterface::isWritable()
-     */
-    public function isWritable(): bool
+    public final function isWritable(): bool
     {
         return $this->getMetadata('writable');
     }
 
-    /**
-     * {@inheritDoc}
-     * @see StreamInterface::isReadable()
-     */
-    public function isReadable(): bool
+    public final function isReadable(): bool
     {
         return $this->getMetadata('readable');
     }
 
-    /**
-     * {@inheritDoc}
-     * @see StreamInterface::write()
-     */
-    public function write($string): int
+    public final function write($string): int
     {
         if (!$this->isWritable()) {
             throw new RuntimeException('Can\'t write because stream is not writable');
@@ -201,11 +127,7 @@ class Stream implements StreamInterface
         return $size;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see StreamInterface::read()
-     */
-    public function read($length): string
+    public final function read($length): string
     {
         if (!$this->isReadable()) {
             throw new RuntimeException('Can\'t read because stream is not readable');
@@ -215,11 +137,7 @@ class Stream implements StreamInterface
         return $read;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see StreamInterface::getContents()
-     */
-    public function getContents(): string
+    public final function getContents(): string
     {
         if (!$this->isReadable()) {
             throw new RuntimeException('Can\'t getContents because stream is not readable');
@@ -228,11 +146,7 @@ class Stream implements StreamInterface
         return (string)stream_get_contents($this->stream);
     }
 
-    /**
-     * {@inheritDoc}
-     * @see StreamInterface::getMetadata()
-     */
-    public function getMetadata($key = null)
+    public final function getMetadata($key = null)
     {
         if (null !== $key) {
             return $this->meta[$key] ?? null;

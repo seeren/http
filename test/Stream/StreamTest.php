@@ -6,45 +6,32 @@ use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use RuntimeException;
 use Seeren\Http\Stream\Stream;
+use Seeren\Http\Stream\StreamInterface;
 
 class StreamTest extends TestCase
 {
 
-    /**
-     * @return string[][]
-     */
     public function writeModes(): array
     {
         return [
-            [Stream::MODE_W],
-            [Stream::MODE_A],
-            [Stream::MODE_C],
-            [Stream::MODE_X],
-            [Stream::MODE_W],
+            [StreamInterface::MODE_W],
+            [StreamInterface::MODE_A],
+            [StreamInterface::MODE_C],
+            [StreamInterface::MODE_X],
+            [StreamInterface::MODE_W],
         ];
     }
 
-    /**
-     * @return string[][]
-     */
     public function composerPath(): array
     {
         return [[__DIR__ . '/../../composer.json']];
     }
 
-    /**
-     * @return string[][]
-     */
     public function fooPath(): array
     {
         return [[__DIR__ . '/foo']];
     }
 
-    /**
-     * @param string $path
-     * @param string $mode
-     * @return object
-     */
     public function getMock(string $path, string $mode = Stream::MODE_R): object
     {
         return (new ReflectionClass(Stream::class))->newInstanceArgs([$path, $mode]);
@@ -54,27 +41,27 @@ class StreamTest extends TestCase
      * @dataProvider writeModes
      * @covers       \Seeren\Http\Stream\Stream::__construct
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $mode
      */
     public function testModeWrite(string $mode): void
     {
         $path = $this->fooPath()[0][0];
         $mock = $this->getMock($path, $mode);
         unlink($path);
-        $this->assertTrue(true === $mock->getMetadata('writable') && false === $mock->getMetadata('readable'));
+        $this->assertTrue(true === $mock->getMetadata('writable')
+            && false === $mock->getMetadata('readable'));
     }
 
     /**
      * @dataProvider fooPath
      * @covers       \Seeren\Http\Stream\Stream::__construct
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $path
      */
     public function testModeMore(string $path): void
     {
-        $mock = $this->getMock($path, Stream::MODE_X_MORE);
+        $mock = $this->getMock($path, StreamInterface::MODE_X_MORE);
         unlink($path);
-        $this->assertTrue(true === $mock->getMetadata('writable') && true === $mock->getMetadata('readable'));
+        $this->assertTrue(true === $mock->getMetadata('writable')
+            && true === $mock->getMetadata('readable'));
     }
 
     /**
@@ -84,7 +71,6 @@ class StreamTest extends TestCase
      * @covers       \Seeren\Http\Stream\Stream::getContents
      * @covers       \Seeren\Http\Stream\Stream::isReadable
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testToString(string $composerPath): void
     {
@@ -101,7 +87,7 @@ class StreamTest extends TestCase
      */
     public function testToStringNotFound(string $path): void
     {
-        $mock = $this->getMock($path, Stream::MODE_W);
+        $mock = $this->getMock($path, StreamInterface::MODE_W);
         $content = (string)$mock;
         unlink($path);
         $this->assertTrue('' === $content);
@@ -115,7 +101,6 @@ class StreamTest extends TestCase
      * @covers       \Seeren\Http\Stream\Stream::getContents
      * @covers       \Seeren\Http\Stream\Stream::isReadable
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testClose(string $composerPath): void
     {
@@ -133,7 +118,6 @@ class StreamTest extends TestCase
      * @covers       \Seeren\Http\Stream\Stream::getContents
      * @covers       \Seeren\Http\Stream\Stream::isReadable
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testDetach(string $composerPath): void
     {
@@ -147,7 +131,6 @@ class StreamTest extends TestCase
      * @covers       \Seeren\Http\Stream\Stream::__construct
      * @covers       \Seeren\Http\Stream\Stream::getSize
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testGetSize(string $composerPath): void
     {
@@ -160,7 +143,6 @@ class StreamTest extends TestCase
      * @covers       \Seeren\Http\Stream\Stream::tell
      * @covers       \Seeren\Http\Stream\Stream::isSeekable
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testTell(string $composerPath): void
     {
@@ -174,7 +156,6 @@ class StreamTest extends TestCase
      * @covers       \Seeren\Http\Stream\Stream::tell
      * @covers       \Seeren\Http\Stream\Stream::isSeekable
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testTellException(string $composerPath): void
     {
@@ -188,7 +169,6 @@ class StreamTest extends TestCase
      * @dataProvider composerPath
      * @covers       \Seeren\Http\Stream\Stream::__construct
      * @covers       \Seeren\Http\Stream\Stream::eof
-     * @param string $composerPath
      */
     public function testEof(string $composerPath): void
     {
@@ -200,7 +180,6 @@ class StreamTest extends TestCase
      * @covers       \Seeren\Http\Stream\Stream::__construct
      * @covers       \Seeren\Http\Stream\Stream::isSeekable
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testIsSeekable(string $composerPath): void
     {
@@ -213,7 +192,6 @@ class StreamTest extends TestCase
      * @covers       \Seeren\Http\Stream\Stream::seek
      * @covers       \Seeren\Http\Stream\Stream::isSeekable
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testSeek(string $composerPath): void
     {
@@ -226,7 +204,6 @@ class StreamTest extends TestCase
      * @covers       \Seeren\Http\Stream\Stream::seek
      * @covers       \Seeren\Http\Stream\Stream::isSeekable
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testSeekException(string $composerPath): void
     {
@@ -243,7 +220,6 @@ class StreamTest extends TestCase
      * @covers       \Seeren\Http\Stream\Stream::isReadable
      * @covers       \Seeren\Http\Stream\Stream::isSeekable
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testRewind(string $composerPath): void
     {
@@ -263,7 +239,6 @@ class StreamTest extends TestCase
      * @covers       \Seeren\Http\Stream\Stream::isReadable
      * @covers       \Seeren\Http\Stream\Stream::isSeekable
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testRewindException(string $composerPath): void
     {
@@ -278,7 +253,6 @@ class StreamTest extends TestCase
      * @covers       \Seeren\Http\Stream\Stream::__construct
      * @covers       \Seeren\Http\Stream\Stream::isWritable
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testIsWritable(string $composerPath): void
     {
@@ -290,7 +264,6 @@ class StreamTest extends TestCase
      * @covers       \Seeren\Http\Stream\Stream::__construct
      * @covers       \Seeren\Http\Stream\Stream::isReadable
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testIsReadable(string $composerPath): void
     {
@@ -306,7 +279,7 @@ class StreamTest extends TestCase
     public function testWrite(): void
     {
         $path = __DIR__ . '/tmp';
-        $mock = $this->getMock($path, Stream::MODE_W_MORE);
+        $mock = $this->getMock($path, StreamInterface::MODE_W_MORE);
         $size = $mock->write('foo');
         unlink($path);
         $this->assertIsInt($size);
@@ -319,7 +292,6 @@ class StreamTest extends TestCase
      * @covers       \Seeren\Http\Stream\Stream::write
      * @covers       \Seeren\Http\Stream\Stream::isWritable
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testWriteException(string $composerPath): void
     {
@@ -333,7 +305,6 @@ class StreamTest extends TestCase
      * @covers       \Seeren\Http\Stream\Stream::read
      * @covers       \Seeren\Http\Stream\Stream::isReadable
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testRead(string $composerPath): void
     {
@@ -347,7 +318,6 @@ class StreamTest extends TestCase
      * @covers       \Seeren\Http\Stream\Stream::read
      * @covers       \Seeren\Http\Stream\Stream::isReadable
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testReadException(string $composerPath): void
     {
@@ -363,7 +333,6 @@ class StreamTest extends TestCase
      * @covers       \Seeren\Http\Stream\Stream::getContents
      * @covers       \Seeren\Http\Stream\Stream::isReadable
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testGetContents(string $composerPath): void
     {
@@ -377,7 +346,6 @@ class StreamTest extends TestCase
      * @covers       \Seeren\Http\Stream\Stream::getContents
      * @covers       \Seeren\Http\Stream\Stream::isReadable
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testGetContentsException(string $composerPath): void
     {
@@ -391,7 +359,6 @@ class StreamTest extends TestCase
      * @dataProvider composerPath
      * @covers       \Seeren\Http\Stream\Stream::__construct
      * @covers       \Seeren\Http\Stream\Stream::getMetadata
-     * @param string $composerPath
      */
     public function testGetMetadata(string $composerPath): void
     {

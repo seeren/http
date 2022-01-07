@@ -8,25 +8,22 @@ use ReflectionClass;
 use RuntimeException;
 use Seeren\Http\Stream\StreamInterface;
 use Seeren\Http\Upload\UploadedFile;
+use Seeren\Http\Upload\UploadedFileInterface;
 
 class UploadedFileTest extends TestCase
 {
 
-    /**
-     * @param array|null $file
-     * @return object
-     */
     public function getMock(array $file = null): object
     {
-        $filename = __DIR__ . DIRECTORY_SEPARATOR . "file-mock";
-        file_put_contents($filename, "Mock");
+        $filename = __DIR__ . DIRECTORY_SEPARATOR . 'file-mock';
+        file_put_contents($filename, 'Mock');
         return (new ReflectionClass(UploadedFile::class))->newInstance(null !== $file
             ? $file
             : [
-                UploadedFile::ERROR => 0,
-                UploadedFile::NAME => 'dummy',
-                UploadedFile::SIZE => null,
-                UploadedFile::TMP => $filename,
+                UploadedFileInterface::ERROR => 0,
+                UploadedFileInterface::NAME => 'dummy',
+                UploadedFileInterface::SIZE => null,
+                UploadedFileInterface::TMP => $filename,
             ]);
     }
 
@@ -39,7 +36,7 @@ class UploadedFileTest extends TestCase
      */
     public function testStreamNotFound(): void
     {
-        $mock = $this->getMock([UploadedFile::TMP => 'not/found']);
+        $mock = $this->getMock([UploadedFileInterface::TMP => 'not/found']);
         $this->assertEquals(4, $mock->getError());
     }
 

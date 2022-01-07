@@ -7,13 +7,11 @@ use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use Seeren\Http\Message\AbstractMessage;
 use Seeren\Http\Stream\Stream;
+use Seeren\Http\Stream\StreamInterface;
 
 class AbstractMessageTest extends TestCase
 {
 
-    /**
-     * @return array
-     */
     public function protocolProvider(): array
     {
         return [
@@ -23,11 +21,6 @@ class AbstractMessageTest extends TestCase
         ];
     }
 
-    /**
-     * @param string $protocol
-     * @param array $headers
-     * @return object
-     */
     public function getMock(string $protocol = '1.1', array $headers = []): object
     {
         return (new ReflectionClass(DummyMessage::class))->newInstance($protocol, $headers);
@@ -39,11 +32,12 @@ class AbstractMessageTest extends TestCase
      * @covers       \Seeren\Http\Message\AbstractMessage::getProtocolVersion
      * @covers       \Seeren\Http\Message\AbstractMessage::parseProtocol
      * @covers       \Seeren\Http\Stream\Stream::__construct
-     * @param string $protocol
      */
     public function testGetProtocolVersion(string $protocol): void
     {
-        $this->assertEquals($protocol, $this->getMock($protocol)->getProtocolVersion());
+        $this->assertEquals($protocol, $this
+            ->getMock($protocol)
+            ->getProtocolVersion());
     }
 
     /**
@@ -56,7 +50,10 @@ class AbstractMessageTest extends TestCase
      */
     public function testWithProtocolVersion(): void
     {
-        $this->assertEquals('1.1', $this->getMock()->withProtocolVersion('1.1')->getProtocolVersion());
+        $this->assertEquals('1.1', $this
+            ->getMock()
+            ->withProtocolVersion('1.1')
+            ->getProtocolVersion());
     }
 
     /**
@@ -69,7 +66,8 @@ class AbstractMessageTest extends TestCase
      */
     public function testGetHeaders(): void
     {
-        $this->assertCount(1, $this->getMock('1.1', ['Content-Type' => 'application/json'])
+        $this->assertCount(1, $this
+            ->getMock('1.1', ['Content-Type' => 'application/json'])
             ->getHeaders());
     }
 
@@ -83,7 +81,8 @@ class AbstractMessageTest extends TestCase
      */
     public function testHasHeaders(): void
     {
-        $this->assertTrue($this->getMock('1.1', ['Content-Type' => 'application/json'])
+        $this->assertTrue($this
+            ->getMock('1.1', ['Content-Type' => 'application/json'])
             ->hasHeader('Content-Type'));
     }
 
@@ -115,10 +114,9 @@ class AbstractMessageTest extends TestCase
      */
     public function testGetHeaderLine(): void
     {
-        $this->assertEquals(
-            'application/json',
-            $this->getMock('1.1', ['Content-Type' => 'application/json'])
-                ->getHeaderLine('Content-Type')
+        $this->assertEquals('application/json', $this
+            ->getMock('1.1', ['Content-Type' => 'application/json'])
+            ->getHeaderLine('Content-Type')
         );
     }
 
@@ -228,7 +226,7 @@ class AbstractMessageTest extends TestCase
     public function testWithBody(): void
     {
         $mock = $this->getMock();
-        $clone = $mock->withBody(new Stream('php://temp', Stream::MODE_W));
+        $clone = $mock->withBody(new Stream('php://temp', StreamInterface::MODE_W));
         $this->assertTrue($mock->getBody() !== $clone->getBody());
     }
 
@@ -250,7 +248,7 @@ class AbstractMessageTest extends TestCase
     public function testWithBodyException(): void
     {
         $mock = $this->getMock();
-        $body = new Stream('php://temp', Stream::MODE_W);
+        $body = new Stream('php://temp', StreamInterface::MODE_W);
         $body->detach();
         $this->expectException(InvalidArgumentException::class);
         $mock->withBody($body);
@@ -261,13 +259,9 @@ class AbstractMessageTest extends TestCase
 class DummyMessage extends AbstractMessage
 {
 
-    /**
-     * @param string $protocol
-     * @param array $headers
-     */
     public function __construct(string $protocol = '1.1', array $headers = [])
     {
-        parent::__construct($protocol, $headers, new Stream('php://temp', Stream::MODE_W));
+        parent::__construct($protocol, $headers, new Stream('php://temp', StreamInterface::MODE_W));
     }
 
 }
